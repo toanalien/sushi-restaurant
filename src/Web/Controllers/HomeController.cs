@@ -20,14 +20,14 @@ namespace Web.Controllers
             _userService = userService;
         }
 
-        public JsonResult Index()
+        public ActionResult Index()
         {
             var db = new Entities();
             Mapper.Initialize(cfg=>cfg.CreateMap<AspNetUser, AspNetUserViewModel>());
 
 
             var data = db.AspNetUsers.ProjectTo<AspNetUserViewModel>().ToList() ;
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return View();
         }
 
         public ActionResult About()

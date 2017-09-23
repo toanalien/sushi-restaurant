@@ -226,6 +226,7 @@
     <Compile Include="Service\CustomerServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\DishService.cs" />
     <Compile Include="Service\DishServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
@@ -277,6 +278,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Model\Entities\Model.edmx.sql" />
     <Content Include="Model\Entities\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
