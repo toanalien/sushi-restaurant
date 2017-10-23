@@ -237,6 +237,9 @@
     <Content Include="Content\img\bg-4.jpg" />
     <Content Include="Content\img\bg-5.jpg" />
     <Content Include="Content\img\bg-6.jpg" />
+    <Content Include="Content\img\linh.jpg" />
+    <Content Include="Content\img\team-2.jpg" />
+    <Content Include="Content\img\team-3.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\startbootstrap-agency-gh-pages\.gitignore" />
     <Content Include="Content\startbootstrap-agency-gh-pages\css\agency.css" />
