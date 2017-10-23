@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/startbootstrap-agency-gh-pages/vendor/bootstrap/css/bootstrap.min.css")
+    @Styles.Render("~/Content/startbootstrap-agency-gh-pages/vendor/font-awesome/css/font-awesome.min.css")
+    @Styles.Render("~/Content/startbootstrap-agency-gh-pages/css/agency.css")
     @Scripts.Render("~/bundles/modernizr")
 
     <script type = 'text/javascript' >
@@ -20,7 +22,40 @@
         appInsights.trackPageView();
     </script>
 </head>
-<body>
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/Home/Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        @Html.Partial("_LoginPartial")
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+
+    <!--
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -41,7 +76,8 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    -->
+    <div class="">
         @RenderBody()
         <hr />
         <footer>
@@ -49,8 +85,17 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Content/startbootstrap-agency-gh-pages/vendor/jquery/jquery.min.js")
+    @Scripts.Render("https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.min.js")
+    @Scripts.Render("~/Content/startbootstrap-agency-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js")
+    @Scripts.Render("~/Content/startbootstrap-agency-gh-pages/vendor/bootstrap/js/bootstrap.js")
+    <!-- Plugin JavaScript -->
+    @Scripts.Render("~/Content/startbootstrap-agency-gh-pages/vendor/jquery-easing/jquery.easing.min.js")
+    <!-- Contact form JavaScript -->
+    @Scripts.Render("~/Content/startbootstrap-agency-gh-pages/js/jqBootstrapValidation.js")
+    @Scripts.Render("~/Content/startbootstrap-agency-gh-pages/js/contact_me.js")
+    <!-- Custom scripts for this template -->
+    @Scripts.Render("~/Content/startbootstrap-agency-gh-pages/js/agency.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
