@@ -210,6 +210,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DishesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -231,6 +232,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\home.css" />
     <Content Include="Content\css\login.css" />
+    <Content Include="Content\css\site.css" />
     <Content Include="Content\img\bg-1.jpg" />
     <Content Include="Content\img\bg-2.jpg" />
     <Content Include="Content\img\bg-3.jpg" />
@@ -574,6 +576,9 @@
     <Content Include="Views\Dishes\Edit.cshtml" />
     <Content Include="Views\Dishes\Index.cshtml" />
     <Content Include="Views\Dishes\ListDishes.cshtml" />
+    <Content Include="Views\Home\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
