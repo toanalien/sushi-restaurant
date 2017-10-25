@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Data.Model.Entities;
 using Web.Models;
 using Data.Service;
+using System.IO;
 
 namespace Web.Controllers
 {
@@ -73,10 +74,21 @@ namespace Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,IsDelete,Image,Price,OrderTimes,SubCategoryID")] Dish dish)
+        public ActionResult Create([Bind(Include = "ID,Name,Description,IsDelete,Image,Price,OrderTimes,SubCategoryID")] Dish dish,
+            HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+
+                if (file != null)
+                {
+                    var ext = Path.GetExtension(file.FileName);
+                    var filename = Guid.NewGuid() + ext;
+                    file.SaveAs(HttpContext.Server.MapPath("~/Content/uploads/")
+                                                  + filename);
+                    dish.Image = filename;
+
+                }
                 db.Dishes.Add(dish);
                 db.SaveChanges();
                 return RedirectToAction("Index");
