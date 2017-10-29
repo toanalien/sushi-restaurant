@@ -10,6 +10,7 @@ using Data.Model.Entities;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         private Entities db = new Entities();
