@@ -281,8 +281,8 @@ GO
 
 -- Creating table 'AspNetUserRoles'
 CREATE TABLE [dbo].[AspNetUserRoles] (
-    [AspNetRoles_Id] nvarchar(128)  NOT NULL,
-    [AspNetUsers_Id] nvarchar(128)  NOT NULL
+    [RoleId] nvarchar(128)  NOT NULL,
+    [UserId] nvarchar(128)  NOT NULL
 );
 GO
 
@@ -374,10 +374,10 @@ ADD CONSTRAINT [PK_Tables]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [AspNetRoles_Id], [AspNetUsers_Id] in table 'AspNetUserRoles'
+-- Creating primary key on [RoleId], [UserId] in table 'AspNetUserRoles'
 ALTER TABLE [dbo].[AspNetUserRoles]
 ADD CONSTRAINT [PK_AspNetUserRoles]
-    PRIMARY KEY CLUSTERED ([AspNetRoles_Id], [AspNetUsers_Id] ASC);
+    PRIMARY KEY CLUSTERED ([RoleId], [UserId] ASC);
 GO
 
 -- --------------------------------------------------
@@ -414,19 +414,19 @@ ON [dbo].[AspNetUserLogins]
     ([UserId]);
 GO
 
--- Creating foreign key on [AspNetRoles_Id] in table 'AspNetUserRoles'
+-- Creating foreign key on [RoleId] in table 'AspNetUserRoles'
 ALTER TABLE [dbo].[AspNetUserRoles]
 ADD CONSTRAINT [FK_AspNetUserRoles_AspNetRole]
-    FOREIGN KEY ([AspNetRoles_Id])
+    FOREIGN KEY ([RoleId])
     REFERENCES [dbo].[AspNetRoles]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [AspNetUsers_Id] in table 'AspNetUserRoles'
+-- Creating foreign key on [UserId] in table 'AspNetUserRoles'
 ALTER TABLE [dbo].[AspNetUserRoles]
 ADD CONSTRAINT [FK_AspNetUserRoles_AspNetUser]
-    FOREIGN KEY ([AspNetUsers_Id])
+    FOREIGN KEY ([UserId])
     REFERENCES [dbo].[AspNetUsers]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -435,7 +435,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_AspNetUserRoles_AspNetUser'
 CREATE INDEX [IX_FK_AspNetUserRoles_AspNetUser]
 ON [dbo].[AspNetUserRoles]
-    ([AspNetUsers_Id]);
+    ([UserId]);
 GO
 
 -- Creating foreign key on [UserId] in table 'Employees'
