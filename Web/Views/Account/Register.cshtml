@@ -16,7 +16,7 @@
             <div class="frm-title">Register</div>
 
             @Html.ValidationSummary("", new { @class = "text-danger" }) 
-            
+
             <div class="frm-input">
                 @Html.TextBoxFor(m => m.Email, new { @class = "frm-inp", id = "username", placeholder = "Your Email" })
                 <i class="fa fa-user frm-ico"></i>
@@ -38,9 +38,11 @@
             <button type="submit" class="frm-submit">Registy<i class="fa fa-arrow-circle-right"></i></button>
             <div class="pull-right">
                 <div class="button">
-                    @Html.ActionLink("Have a Account Yet ? Login Here", "Login")
+                    <i class="fa fa-sign-in"></i>@Html.ActionLink("Already have account? Login", "Login")
                 </div>
             </div>
+
+            <div class="frm-footer"> Levia © 2017</div>
         </div>
     }
 </div>
