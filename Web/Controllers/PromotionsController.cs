@@ -10,6 +10,7 @@ using Data.Model.Entities;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class PromotionsController : Controller
     {
         private Entities db = new Entities();

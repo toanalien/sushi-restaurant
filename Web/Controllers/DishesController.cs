@@ -13,6 +13,7 @@ using System.IO;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class DishesController : Controller
     {
         private Entities db = new Entities();

@@ -1,43 +1,43 @@
 ﻿@using Web.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutAuthenticate.cshtml";
 }
-@Styles.Render("~/Content/css/login.css")
+<div id="single-wrapper">
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "frm-single", role = "form" }))
+    {
+        <div class="inside">
+            @Html.AntiForgeryToken()
+            <div class="title"><strong>Admin UI</strong></div>
 
+            <div class="frm-title">Login</div>
 
-<div class="row">
-    <div class="col-12">
-        <section id="content">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h1>Login Form</h1>
-                <div>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "username", placeholder = "Username" })
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            <div class="frm-input">
+                @Html.TextBoxFor(m => m.Email, new { @class = "frm-inp", id = "username", placeholder = "Your Email" })
+                <i class="fa fa-user frm-ico"></i>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="frm-input">
+                @Html.PasswordFor(m => m.Password, new { @class = "frm-inp", id = "password", placeholder = "Your Password" })
+                <i class="fa fa-lock frm-ico"></i>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger"})
+            </div>
+
+            <div class="clearfix margin-bottom-20">
+            <div class="pull-left">
+                <div class="checkbox primary"><input type="checkbox" id="rememberme"><label for="rememberme">Remember me</label></div>
+            </div>
+            <div class="pull-right"><a href="page-recoverpw.html" class="a-link"><i class="fa fa-unlock-alt"></i>Forgot password?</a></div>
+            </div>
+            <button type="submit" class="frm-submit">Login<i class="fa fa-arrow-circle-right"></i></button>
+            <div class="pull-right">
+                <div class="button">
+                    <i class="fa fa-key"></i>@Html.ActionLink("Register as a new user", "Register")
                 </div>
-                <div>
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger", id = "password", placeholder = "Password" })
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-
-                
-
-            }
-            <div class="button">
-                @Html.ActionLink("Register as a new user", "Register")
-            </div><!-- button -->
-        </section>
-    </div>
+            </div>
+            <div class="frm-footer"> Levia © 2017</div>
+        </div>
+    }
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

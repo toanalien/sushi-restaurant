@@ -1,144 +1,223 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
-    <!-- Bootstrap Core CSS -->
-    @Styles.Render("~/Content/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/css/bootstrap.min.css")
 
-    <!-- MetisMenu CSS -->
-    @Styles.Render("~/Content/startbootstrap-sb-admin-2-gh-pages/vendor/metisMenu/metisMenu.min.css")
+    <title>Admin UI</title>
 
-    <!-- Custom CSS -->
-    @Styles.Render("~/Content/startbootstrap-sb-admin-2-gh-pages/dist/css/sb-admin-2.css")
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="/Assets/styles/style.min.css">
 
-    <!-- Custom Fonts -->
-    @Styles.Render("~/Content/startbootstrap-sb-admin-2-gh-pages/vendor/font-awesome/css/font-awesome.min.css")
+    <!-- mCustomScrollbar -->
+    <link rel="stylesheet" href="/Assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- Waves Effect -->
+    <link rel="stylesheet" href="/Assets/plugin/waves/waves.min.css">
+
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" href="/Assets/plugin/sweet-alert/sweetalert.css">
+    
+    <!-- Percent Circle -->
+    <link rel="stylesheet" href="/Assets/plugin/percircle/css/percircle.css">
+
+    <!-- Chartist Chart -->
+    <link rel="stylesheet" href="/Assets/plugin/chart/chartist/chartist.min.css">
+
+    <!-- FullCalendar -->
+    <link rel="stylesheet" href="/Assets/plugin/fullcalendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="/Assets/plugin/fullcalendar/fullcalendar.print.css" media='print'>
+
+    <!-- Color Picker -->
+    <link rel="stylesheet" href="/Assets/color-switcher/color-switcher.min.css">
 </head>
+
 <body>
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Sushi Restaurant</a>
-            </div>
-            <!-- /.navbar-header -->
-            <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <!--Dashboard-->
-                        <li>
-                            <a href="~/Admin"><i class="fa fa-dashboard fa-fw"></i> Tổng quan</a>
-                        </li>
-                        <!--Report-->
-                        <li>
-                            <a href="~/"><i class="fa fa-bar-chart-o fa-fw"></i> Báo cáo</a>
-                        </li>
-                        <!--Dish manager-->
-                        <li>
-                            <a href="#"><i class="fa fa-cutlery fa-fw"></i> Quản lí món ăn<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="~/Categories">Nhóm món ăn</a>
-                                </li>
-                                <li>
-                                    <a href="~/SubCategories">Nhóm con</a>
-                                </li>
-                                <li>
-                                    <a href="~/Dishes">Món ăn</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <!--Table manage-->
-                        <li>
-                            <a href="~/Tables"><i class="fa fa-cubes fa-fw"></i> Quản lí bàn</a>
-                        </li>
-                        <!--Order-->
-                        <li>
-                            <a href="~/"><i class="fa fa-pencil-square-o fa-fw"></i> Quản lí đặt món</a>
-                        </li>
-                        <!--Customer-->
-                        <li>
-                            <a href="~/Customers"><i class="fa fa-users fa-fw"></i> Quản lí khách hàng</a>
-                        </li>
-                        <!--Employee-->
-                        <li>
-                            <a href="~/"><i class="fa fa-user fa-fw"></i> Quản lí nhân viên</a>
-                        </li>
-                        <!--Promotion-->
-                        <li>
-                            <a href="~/Promotions"><i class="fa fa-usd fa-fw"></i> Khuyến mãi</a>
-                        </li>
-                        <!--Hóa đơn-->
-                        <li>
-                            <a href="~/"><i class="fa fa-table fa-fw"></i> Quản lí hóa đơn</a>
-                        </li>
-                    </ul>
+<div class="main-menu">
+    <header class="header">
+        <a href="index.html" class="logo">Shusi Restaurent</a>
+        <button type="button" class="button-close fa fa-times js__menu_close"></button>
+        <div class="user">
+            <a href="#" class="avatar"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlNQ2yyZICBI_pcqc_KxT55FYvlpE8TtOKTlVuNuVyjbr1BSwLhw" alt=""><span class="status online"></span></a>
+            <h5 class="name"><a href="profile.html">@User.Identity.GetUserName() </a></h5>
+            <h5 class="position">Administrator</h5>
+            <!-- /.name -->
+            <div class="control-wrap js__drop_down">
+                <i class="fa fa-caret-down js__drop_down_button"></i>
+                <div class="control-list">
+                    <div class="control-item">
+                        <a href="profile.html">
+                        <i class="fa fa-user"></i> Profile</a>
+                    </div>
+                    <div class="control-item">
+                        <a href="#">
+                        <i class="fa fa-gear"></i> Settings</a>
+                    </div>
+                    <div class="control-item">
+                        <a href="javascript:document.getElementById('logoutForm').submit()">
+                        <i class="fa fa-sign-out"></i>Log off</a>
+                    </div>
                 </div>
-                <!-- /.sidebar-collapse -->
+                <!-- /.control-list -->
             </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-        <div id="page-wrapper">
-            <div class="row">
-                @RenderBody()
-            </div>
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+            {
+                @Html.AntiForgeryToken()
+            }
+            <!-- /.control-wrap -->
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /.user -->
+    </header>
+    <!-- /.header -->
+    <div class="content">
+
+        <div class="navigation">
+            <ul class="menu js__accordion">
+                <li class="current">
+                    <a class="waves-effect" href="~/Admin"><i class="menu-icon fa fa-home"></i><span>Tổng quan</span></a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="~/Admin"><i class="menu-icon fa fa-bar-chart-o"></i><span>Báo cáo</span></a>
+                </li>
+                <li>
+                    <a class="waves-effect parent-item js__control" href="~/Admin"><i class="menu-icon fa fa-cutlery"></i><span>Quản lí món ăn</span><span class="menu-arrow fa fa-angle-down"></span></a>
+                    <ul class="sub-menu js__content">
+                        <li>
+                            <a href="~/Categories">Nhóm món ăn</a>
+                        </li>
+                        <li>
+                            <a href="~/SubCategories">Nhóm con</a>
+                        </li>
+                        <li>
+                            <a href="~/Dishes">Món ăn</a>
+                        </li>
+                    </ul>
+                    <!-- /.sub-menu js__content -->
+                </li>
+                <li>
+                    <a class="waves-effect" href="~/Tables"><i class="menu-icon fa fa-cubes fa-fw"></i> Quản lí bàn</a>
+                </li>
+                <!--Order-->
+                <li>
+                    <a class="waves-effect" href="~/Admin"><i class="menu-icon fa fa-pencil-square-o fa-fw"></i> Quản lí đặt món</a>
+                </li>
+                <!--Customer-->
+                <li>
+                    <a class="waves-effect" href="~/Customers"><i class="menu-icon fa fa-users fa-fw"></i> Quản lí khách hàng</a>
+                </li>
+                <!--Employee-->
+                <li>
+                    <a class="waves-effect" href="~/Admin"><i class="menu-icon fa fa-user fa-fw"></i> Quản lí nhân viên</a>
+                </li>
+                <!--Promotion-->
+                <li>
+                    <a class="waves-effect" href="~/Promotions"><i class="menu-icon fa fa-usd fa-fw"></i> Khuyến mãi</a>
+                </li>
+                <!--Hóa đơn-->
+                <li>
+                    <a class="waves-effect" href="~/Admin"><i class="menu-icon fa fa-table fa-fw"></i> Quản lí hóa đơn</a>
+                </li>
+            </ul>
+            <!-- /.menu js__accordion -->
+        </div>
+        <!-- /.navigation -->
     </div>
-    <!-- /#wrapper -->
-    <!-- jQuery -->
-    @Scripts.Render("~/Content/startbootstrap-sb-admin-2-gh-pages/vendor/jquery/jquery.min.js")
+    <!-- /.content -->
+</div>
+<!-- /.main-menu -->
 
-    <!-- Bootstrap Core JavaScript -->
-    @Scripts.Render("~/Content/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/js/bootstrap.min.js")
+<div class="fixed-navbar">
+    <div class="pull-left">
+        <button type="button" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
+        <h1 class="page-title">@ViewBag.Title</h1>
+        <!-- /.page-title -->
+    </div>
+    <!-- /.pull-left -->
+    <div class="pull-right">
+        <a href="#" class="ico-item fa fa-power-off js__logout"></a>
+    </div>
+    <!-- /.pull-right -->
+</div>
+<!-- /.fixed-navbar -->
 
-    <!-- Metis Menu Plugin JavaScript -->
-    @Scripts.Render("~/Content/startbootstrap-sb-admin-2-gh-pages/vendor/metisMenu/metisMenu.min.js")
+<div id="color-switcher">
+    <div id="color-switcher-button" class="btn-switcher">
+        <div class="inside waves-effect waves-circle waves-light">
+            <i class="ico fa fa-gear"></i>
+        </div>
+        <!-- .inside waves-effect waves-circle -->
+    </div>
+    <!-- .btn-switcher -->
+    <div id="color-switcher-content" class="content">
+        <a href="#" data-color="red" class="item js__change_color"><span class="color" style="background-color: #f44336;"></span><span class="text">Red</span></a>
+        <a href="#" data-color="violet" class="item js__change_color"><span class="color" style="background-color: #673ab7;"></span><span class="text">Violet</span></a>
+        <a href="#" data-color="dark-blue" class="item js__change_color"><span class="color" style="background-color: #3f51b5;"></span><span class="text">Dark Blue</span></a>
+        <a href="#" data-color="blue" class="item js__change_color active"><span class="color" style="background-color: #304ffe;"></span><span class="text">Blue</span></a>
+        <a href="#" data-color="light-blue" class="item js__change_color"><span class="color" style="background-color: #2196f3;"></span><span class="text">Light Blue</span></a>
+        <a href="#" data-color="green" class="item js__change_color"><span class="color" style="background-color: #4caf50;"></span><span class="text">Green</span></a>
+        <a href="#" data-color="yellow" class="item js__change_color"><span class="color" style="background-color: #ffc107;"></span><span class="text">Yellow</span></a>
+        <a href="#" data-color="orange" class="item js__change_color"><span class="color" style="background-color: #ff5722;"></span><span class="text">Orange</span></a>
+        <a href="#" data-color="chocolate" class="item js__change_color"><span class="color" style="background-color: #795548;"></span><span class="text">Chocolate</span></a>
+        <a href="#" data-color="dark-green" class="item js__change_color"><span class="color" style="background-color: #263238;"></span><span class="text">Dark Green</span></a>
+        <span id="color-reset" class="btn-restore-default js__restore_default">Reset</span>
+    </div>
+    <!-- /.content -->
+</div>
+<!-- #color-switcher -->
 
-    <!-- Custom Theme JavaScript -->
-    @Scripts.Render("~/Content/startbootstrap-sb-admin-2-gh-pages/dist/js/sb-admin-2.js")
-    @RenderSection("scripts", required: false)
+<div id="wrapper">
+    <div class="main-content">
+        @RenderBody();
+        <!-- /.row -->      
+        <footer class="footer">
+            <ul class="list-inline">
+                <li>2017 © Levia.</li>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </footer>
+    </div>
+    <!-- /.main-content -->
+</div><!--/#wrapper -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="/Assets/script/html5shiv.min.js"></script>
+        <script src="/Assets/script/respond.min.js"></script>
+    <![endif]-->
+    <!-- 
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/Assets/scripts/jquery.min.js"></script>
+    <script src="/Assets/scripts/modernizr.min.js"></script>
+    <script src="/Assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/Assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/Assets/plugin/nprogress/nprogress.js"></script>
+    <script src="/Assets/plugin/sweet-alert/sweetalert.min.js"></script>
+    <script src="/Assets/plugin/waves/waves.min.js"></script>
+    <!-- Full Screen Plugin -->
+    <script src="/Assets/plugin/fullscreen/jquery.fullscreen-min.js"></script>
 
+    <!-- Percent Circle -->
+    <script src="/Assets/plugin/percircle/js/percircle.js"></script>
+
+    <!-- Google Chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- Chartist Chart -->
+    <script src="/Assets/plugin/chart/chartist/chartist.min.js"></script>
+    <script src="/Assets/scripts/chart.chartist.init.min.js"></script>
+
+    <!-- FullCalendar -->
+    <script src="/Assets/plugin/moment/moment.js"></script>
+    <script src="/Assets/plugin/fullcalendar/fullcalendar.min.js"></script>
+    <script src="/Assets/scripts/fullcalendar.init.js"></script>
+
+    <script src="/Assets/scripts/main.min.js"></script>
+    <script src="/Assets/color-switcher/color-switcher.min.js"></script>
 </body>
 </html>

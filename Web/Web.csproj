@@ -609,9 +609,19 @@
     <Content Include="Views\Promotions\Details.cshtml" />
     <Content Include="Views\Promotions\Edit.cshtml" />
     <Content Include="Views\Promotions\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAuthenticate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\color-switcher\" />
+    <Folder Include="Assets\fonts\" />
+    <Folder Include="Assets\images\" />
+    <Folder Include="Assets\less\" />
+    <Folder Include="Assets\plugin\" />
+    <Folder Include="Assets\scripts\" />
+    <Folder Include="Assets\styles\" />
+    <Folder Include="Content\admin\color-switcher\" />
+    <Folder Include="Content\admin\styles\" />
     <Folder Include="Content\uploads\" />
   </ItemGroup>
   <ItemGroup>
