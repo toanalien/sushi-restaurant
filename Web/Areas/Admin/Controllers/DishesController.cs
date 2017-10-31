@@ -11,7 +11,7 @@ using Web.Models;
 using Data.Service;
 using System.IO;
 
-namespace Web.Controllers
+namespace Web.Areas.Admin.Controllers
 {
     [Authorize]
     public class DishesController : Controller

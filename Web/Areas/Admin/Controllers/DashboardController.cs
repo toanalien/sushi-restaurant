@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Web.Controllers
+namespace Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class AdminController : Controller
+    public class DashboardController : Controller
     {
         // GET: Admin
         public ActionResult Index()
