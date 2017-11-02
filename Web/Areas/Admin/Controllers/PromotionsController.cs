@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Data.Model.Entities;
 
-namespace Web.Controllers
+namespace Web.Areas.Admin.Controllers
 {
     [Authorize]
     public class PromotionsController : Controller

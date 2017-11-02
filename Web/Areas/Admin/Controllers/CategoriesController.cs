@@ -8,115 +8,110 @@ using System.Web;
 using System.Web.Mvc;
 using Data.Model.Entities;
 
-namespace Web.Controllers
+namespace Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class TablesController : Controller
+    public class CategoriesController : Controller
     {
         private Entities db = new Entities();
 
-        // GET: Tables
+        // GET: Categories
         public ActionResult Index()
         {
-            var tables = db.Tables.Include(t => t.GroupTable);
-            return View(tables.ToList());
+            return View(db.Categories.ToList());
         }
 
-        // GET: Tables/Details/5
+        // GET: Categories/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table table = db.Tables.Find(id);
-            if (table == null)
+            Category category = db.Categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(table);
+            return View(category);
         }
 
-        // GET: Tables/Create
+        // GET: Categories/Create
         public ActionResult Create()
         {
-            ViewBag.GroupTableID = new SelectList(db.GroupTables, "Id", "Name");
             return View();
         }
 
-        // POST: Tables/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Code,Description,Status,GroupTableID")] Table table)
+        public ActionResult Create([Bind(Include = "ID,Name,Description")] Category category)
         {
             if (ModelState.IsValid)
             {
-                db.Tables.Add(table);
+                db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GroupTableID = new SelectList(db.GroupTables, "Id", "Name", table.GroupTableID);
-            return View(table);
+            return View(category);
         }
 
-        // GET: Tables/Edit/5
+        // GET: Categories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table table = db.Tables.Find(id);
-            if (table == null)
+            Category category = db.Categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.GroupTableID = new SelectList(db.GroupTables, "Id", "Name", table.GroupTableID);
-            return View(table);
+            return View(category);
         }
 
-        // POST: Tables/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Code,Description,Status,GroupTableID")] Table table)
+        public ActionResult Edit([Bind(Include = "ID,Name,Description")] Category category)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(table).State = EntityState.Modified;
+                db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GroupTableID = new SelectList(db.GroupTables, "Id", "Name", table.GroupTableID);
-            return View(table);
+            return View(category);
         }
 
-        // GET: Tables/Delete/5
+        // GET: Categories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table table = db.Tables.Find(id);
-            if (table == null)
+            Category category = db.Categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(table);
+            return View(category);
         }
 
-        // POST: Tables/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Table table = db.Tables.Find(id);
-            db.Tables.Remove(table);
+            Category category = db.Categories.Find(id);
+            db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
