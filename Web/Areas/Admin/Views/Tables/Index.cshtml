@@ -13,14 +13,43 @@
 
     @foreach (var item in Model)
     {
-        <a href='@Url.Action("Details", "Tables", new { id = item.Id })'>
-            <div class="table-list-details col-sm-2" data-toggle="tooltip" data-placement="top" title="@Html.DisplayFor(modelItem => item.Description)">
-                <div class="w-table" style="background-color:gray;width:100px;height:100px">
-                    <p class="table-index" style="font-size:30px;text-align:center;color:white">@Html.DisplayFor(modelItem => item.Id)</p>
-                    <p class="start-time" style="font-size:15px; text-align:center;color:white">@Html.DisplayFor(modelItem => item.Status)</p>
-                </div>
+        if (item.Status == 0)
+        {
+            <div class="col-md-2">
+                <a href='@Url.Action("Details", "Tables", new { id = item.Id })'>
+                    <div class="table-list-details col-sm-2" data-toggle="tooltip" data-placement="top" title="@Html.DisplayFor(modelItem => item.Description)">
+                        <div class="w-table" style="background-color:gray;width:100px;height:100px">
+                            <p class="table-index" style="font-size:30px;text-align:center;color:white">@Html.DisplayFor(modelItem => item.Id)</p>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </a>
+        }
+        else if(item.Status ==1)
+        {
+            <div class="col-md-2">
+                <a href='@Url.Action("Details", "Tables", new { id = item.Id })'>
+                    <div class="table-list-details col-sm-2" data-toggle="tooltip" data-placement="top" title="@Html.DisplayFor(modelItem => item.Description)">
+                        <div class="w-table" style="background-color:blue;width:100px;height:100px">
+                            <p class="table-index" style="font-size:30px;text-align:center;color:white">@Html.DisplayFor(modelItem => item.Id)</p>
+                            <p style="font-size:15px; text-align:center;color:white">@Html.DisplayFor(modelItem => item.Status)</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-2">
+                <a href='@Url.Action("Details", "Tables", new { id = item.Id })'>
+                    <div class="table-list-details col-sm-2" data-toggle="tooltip" data-placement="top" title="@Html.DisplayFor(modelItem => item.Description)">
+                        <div class="w-table" style="background-color:green;width:100px;height:100px">
+                            <p class="table-index" style="font-size:30px;text-align:center;color:white">@Html.DisplayFor(modelItem => item.Id)</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
     }
 
 </div>
