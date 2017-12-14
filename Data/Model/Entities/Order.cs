@@ -22,7 +22,6 @@ namespace Data.Model.Entities
     
         public int Id { get; set; }
         public System.DateTime CreateAt { get; set; }
-        public bool IsDelete { get; set; }
         public long SubTotal { get; set; }
         public Nullable<long> PromotionDiscount { get; set; }
         public Nullable<long> ClassDiscount { get; set; }
@@ -31,6 +30,7 @@ namespace Data.Model.Entities
         public Nullable<int> CustomerID { get; set; }
         public int EmployeeID { get; set; }
         public int TableID { get; set; }
+        public string Note { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
