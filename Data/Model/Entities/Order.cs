@@ -31,6 +31,7 @@ namespace Data.Model.Entities
         public Nullable<int> CustomerID { get; set; }
         public int EmployeeID { get; set; }
         public int TableID { get; set; }
+        public string Note { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
