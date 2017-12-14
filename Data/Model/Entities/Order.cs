@@ -22,7 +22,6 @@ namespace Data.Model.Entities
     
         public int Id { get; set; }
         public System.DateTime CreateAt { get; set; }
-        public bool IsDelete { get; set; }
         public long SubTotal { get; set; }
         public Nullable<long> PromotionDiscount { get; set; }
         public Nullable<long> ClassDiscount { get; set; }

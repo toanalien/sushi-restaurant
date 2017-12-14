@@ -44,7 +44,7 @@ namespace Web.Areas.Admin.Controllers
             }
             Dish dish = db.Dishes.Find(id);
             dish.Image = Const.UPLOAD_LOCATION + dish.Image;
-            var orders = dish.OrderDishes.Where(p => p.IsDelete==false);
+            var orders = dish.OrderDishes;
             ViewBag.Orders = orders;
             if (dish == null)
             {
@@ -59,7 +59,6 @@ namespace Web.Areas.Admin.Controllers
             var query = from d in db.Dishes
                         join od in db.OrderDishes
                         on d.ID equals od.OrderID
-                        where od.IsDelete == false
                         select new { Dish1 = d, Orders = od};
             List<DishInOrder> dishes = null;
             

@@ -122,7 +122,6 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateAt" Type="date" Nullable="false" />
-          <Property Name="IsDelete" Type="bit" Nullable="false" />
           <Property Name="SubTotal" Type="bigint" Nullable="false" />
           <Property Name="PromotionDiscount" Type="bigint" />
           <Property Name="ClassDiscount" Type="bigint" />
@@ -652,7 +651,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CreateAt" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
           <Property Name="SubTotal" Type="Int64" Nullable="false" />
           <Property Name="PromotionDiscount" Type="Int64" />
           <Property Name="ClassDiscount" Type="Int64" />
@@ -972,7 +970,6 @@
                 <ScalarProperty Name="ClassDiscount" ColumnName="ClassDiscount" />
                 <ScalarProperty Name="PromotionDiscount" ColumnName="PromotionDiscount" />
                 <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

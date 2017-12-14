@@ -72,10 +72,7 @@ namespace Web.Areas.Admin.Controllers
 
             ViewBag.DishID = new SelectList(db.Dishes, "ID", "Name", promotion.DishID);
             return View(promotion);
-
-
-            ViewBag.DishID = new SelectList(db.Dishes, "ID", "Name", promotion.DishID);
-            return View(promotion);
+            
         }
 
         // GET: Promotions/Edit/5
