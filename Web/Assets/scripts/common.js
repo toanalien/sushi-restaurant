@@ -1,5 +1,6 @@
 SubCategories = []
 Dishes = []
+CategoriesID = []
 SubCategoriesID = []
 
 $(document).ready(function() {
@@ -12,23 +13,29 @@ $(document).ready(function() {
 });
 
 function GetSubCategories(id) {
-  $('.dishes').html('<h2>No data</h2>')
+  if (CategoriesID.includes(id)) {
+    renderSubCategory(id)
+  } else {
+    $('.dishes').html('<h2>No data</h2>')
 
-  category = $(`.btn-category#${id}`)
-  $.ajax({
-    type: 'GET',
-    url: category.attr('link'),
-    success: function (data) {
-      SubCategories = data
-      renderSubCategory()
-    }
-  });
+    category = $(`.btn-category#${id}`)
+    $.ajax({
+      type: 'GET',
+      url: category.attr('link'),
+      success: function (data) {
+        SubCategories = [ ...SubCategories, ...data ]
+        CategoriesID.push(id)
+        renderSubCategory(id)
+      }
+    });
+  }
 }
 
-function renderSubCategory() {
+function renderSubCategory(id) {
+  subCategoriesFiltered = SubCategories.filter( SubCategory => SubCategory.CategoryID == id)
   list_item = ''
-  if (SubCategories.length) {
-    SubCategories.map(function(item) {
+  if (subCategoriesFiltered.length) {
+    subCategoriesFiltered.map(function(item) {
       list_item += `<button
                       class='btn btn-primary btn-sub-category'
                       onclick="GetDishes(${item.ID})"
