@@ -4,10 +4,38 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<div class="col-sm-8 col-md-8  page-left ">
+    <div class="row box-content">
+        @foreach(var category in ViewBag.Categories)
+        {
+            <button
+                class="btn btn-primary btn-category"
+                type="button"
+                id="@category.ID"
+                link="/Categories/GetSubCategories/@category.ID"
+                onclick="GetSubCategories(@category.ID)">
+                @category.Name
+            </button>
+        }
 
-@using (Html.BeginForm())
-{
+    </div>
+
+    <div class="">
+        <div class="row box-content">
+            <input type="search" name="" id="input" class="form-control" value="" required="required" title="">
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 col-md-3 sub-categories box-content">
+            </div>
+            <div class="col-sm-9 col-md-9 dishes box-content">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-4 col-md-4 box-content page-right">
+   @using (Html.BeginForm())
+    {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -92,7 +120,9 @@
             </div>
         </div>
     </div>
-}
+    }
+</div>
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")
