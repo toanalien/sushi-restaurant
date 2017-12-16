@@ -21,3 +21,7 @@
     text-align:center;
     color:white;
 }
+
+i.glyphicon.glyphicon-search.form-control-feedback {
+    top: 5px;
+}
