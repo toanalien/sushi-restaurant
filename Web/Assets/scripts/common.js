@@ -2,8 +2,13 @@ SubCategories = []
 Dishes = []
 CategoriesID = []
 SubCategoriesID = []
+searchedDishes = []
 
 $(document).ready(function() {
+  $(".search-dishes").keyup(function(){
+    searchDishes($(this).val())
+  });
+
   $('.btn-category').first().click()
 
   // wait load ajax first and then click
@@ -75,7 +80,10 @@ function renderDishes(id, isSearch = false) {
   list_item = ''
 
   if (isSearch) {
-
+    searchedDishes.map(function(item) {
+      // list_item += <p>hello</p>
+      list_item += `<p>${item.Name}</p>`
+    });
   } else {
     dishesFiltered = Dishes.filter( dish => dish.SubCategoryID == id)
     if (dishesFiltered.length) {
@@ -93,4 +101,18 @@ function renderDishes(id, isSearch = false) {
 
 function renderDish(dish) {
 
+}
+
+function searchDishes(searchText) {
+  if (searchText.length) {
+    url = `/Dishes/SearchDishes?Name=${searchText}`;
+    $.ajax({
+      type: 'GET',
+      url: url,
+      success: function (data) {
+        searchedDishes = data;
+        renderDishes(1, true);
+      }
+    });
+  }
 }

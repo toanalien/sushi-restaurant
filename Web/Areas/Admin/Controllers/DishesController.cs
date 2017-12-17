@@ -184,6 +184,14 @@ namespace Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET
+        public JsonResult SearchDishes(string Name)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var Dishes = db.Dishes.Where(d => d.Name.Contains(Name));
+            return Json( Dishes, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
