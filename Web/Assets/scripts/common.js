@@ -215,6 +215,7 @@ function renderOrderItems() {
   newOrderItems.map( item => content += renderItem(item))
 
   $('.orderItems').html(content)
+  renderSubSum()
 }
 
 function renderItem(item) {
@@ -268,4 +269,16 @@ function RemoveOrderItem(DishID) {
 function RemoveDuplicate(arr) {
   uniq = new Set(arr.map(e => JSON.stringify(e)));
   return res = Array.from(uniq).map(e => JSON.parse(e));
+}
+
+function getSubSum() {
+  subSub = 0
+  newOrderItems.map(e => subSub += (e.UnitPrice - e.Discount) * e.Quantity)
+  return subSub;
+}
+
+function renderSubSum() {
+  subSum = getSubSum()
+  content = `<h2>Tổng tiền : ${subSub.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} vnđ</h2>`
+  $('.sub-sum').html(content);
 }
