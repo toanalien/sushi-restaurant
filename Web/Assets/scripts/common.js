@@ -4,6 +4,8 @@ CategoriesID = []
 SubCategoriesID = []
 searchedDishes = []
 newOrderItems = []
+Customers = []
+CustomerID = 0
 
 Order = {
   Id: null,
@@ -27,13 +29,41 @@ $(document).ready(function() {
 
   $('.btn-category').first().click()
 
+  getCustomers()
   // wait load ajax first and then click
   setTimeout(function(){
     $('.btn-sub-category').first().click()
   }, 1000);
 
+  CustomerID = $('#CustomerID').val();
+
+  $('.save').click(function() {
+    Save()
+  });
+
+  $('.thanh-toan').click(function() {
+    console.log('THANH TOAN')
+  });
+
   renderOrderItems()
+  renderSubSum()
+  renderChietKhau()
+  renderSum()
 });
+
+function Save() {
+  getDataForm()
+}
+
+function getCustomers() {
+  $.ajax({
+    type: 'GET',
+    url: '/Customers/GetCustomers',
+    success: function (data) {
+      Customers = data
+    }
+  });
+}
 
 function GetSubCategories(id) {
   if (CategoriesID.includes(id)) {
@@ -90,7 +120,6 @@ function GetDishes(id) {
       }
     });
   }
-
 }
 
 // render danh sach Dish thuoc Subcategory id = id
@@ -172,7 +201,14 @@ function AddOrderItem(dishDiv) {
 }
 
 function getDataForm() {
+  Order.SubTotal = getSubSum()
+  Order.PromotionDiscount = 0
+  Order.ClassDiscount = getChietKhau();
+  Order.Total = getSum();
+  Order.Status = 0;
+  Order.CustomerID = $('#CustomerID').val()
   Order.TableID = $('#TableID').val()
+  Order.Note = $('#Note').val()
 }
 
 function AddNewItem(dish) {
@@ -212,10 +248,19 @@ function renderOrderItems() {
                   <p>Action</p>
                 </div>
               </div>`
+  // merge voi old order items
   newOrderItems.map( item => content += renderItem(item))
 
   $('.orderItems').html(content)
   renderSubSum()
+  renderChietKhau()
+  renderSum()
+
+  $('#CustomerID').change(function() {
+    CustomerID = $(this).val()
+    renderChietKhau();
+    renderSum()
+  });
 }
 
 function renderItem(item) {
@@ -279,6 +324,44 @@ function getSubSum() {
 
 function renderSubSum() {
   subSum = getSubSum()
-  content = `<h2>Tổng tiền : ${subSub.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} vnđ</h2>`
+  content = `<h3>Tổng tiền : ${subSub.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} vnđ</h3>`
   $('.sub-sum').html(content);
+}
+
+function getChietKhau() {
+  customer = Customers.find(e => e.ID == CustomerID)
+  chietKhau = 0
+  switch(customer.Class) {
+    case 1:
+      chietKhau = 5
+      break;
+    case 2:
+      chietKhau = 10
+      break;
+    case 3:
+      chietKhau = 15
+      break;
+    default:
+      chietKhau = 0
+  }
+  return chietKhau;
+}
+
+function renderChietKhau() {
+  chietKhau = getChietKhau()
+  content = `<h3>Chiết khấu: ${chietKhau}%</h3>`
+  $('.chiet-khau').html(content);
+}
+
+function getSum() {
+  subSum = getSubSum()
+  chietKhau = getChietKhau()
+  sum = subSum * ( 100 - chietKhau) / 100
+  return sum = ~~sum
+}
+
+function renderSum(){
+  sum = getSum()
+  content = `<h3>Thanh toán : ${sum.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} vnđ</h3>`
+  $('.sum').html(content);
 }
