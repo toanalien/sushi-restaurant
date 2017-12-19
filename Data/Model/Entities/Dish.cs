@@ -17,8 +17,8 @@ namespace Data.Model.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Dish()
         {
-            this.Promotions = new HashSet<Promotion>();
             this.OrderDishes = new HashSet<OrderDish>();
+            this.Promotions = new HashSet<Promotion>();
         }
     
         public int ID { get; set; }
@@ -32,8 +32,8 @@ namespace Data.Model.Entities
     
         public virtual SubCategory SubCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Promotion> Promotions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDish> OrderDishes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Promotion> Promotions { get; set; }
     }
 }

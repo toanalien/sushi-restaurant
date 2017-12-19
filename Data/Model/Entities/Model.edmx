@@ -153,7 +153,14 @@
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
           <Property Name="CreateAt" Type="date" Nullable="false" />
           <Property Name="ExpireAt" Type="date" Nullable="false" />
-          <Property Name="DishID" Type="int" />
+        </EntityType>
+        <EntityType Name="PromotionDish">
+          <Key>
+            <PropertyRef Name="PromotionId" />
+            <PropertyRef Name="DishId" />
+          </Key>
+          <Property Name="PromotionId" Type="int" Nullable="false" />
+          <Property Name="DishId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SubCategory">
           <Key>
@@ -303,7 +310,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderDish_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="OrderDish" Type="Self.OrderDish" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
@@ -314,15 +323,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Promotion_Dish">
-          <End Role="Dish" Type="Self.Dish" Multiplicity="0..1" />
-          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+        <Association Name="FK_PromotionDish_Dish">
+          <End Role="Dish" Type="Self.Dish" Multiplicity="1" />
+          <End Role="PromotionDish" Type="Self.PromotionDish" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Dish">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Promotion">
-              <PropertyRef Name="DishID" />
+            <Dependent Role="PromotionDish">
+              <PropertyRef Name="DishId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionDish_Promotion">
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PromotionDish" Type="Self.PromotionDish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromotionDish">
+              <PropertyRef Name="PromotionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -364,6 +387,7 @@
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDish" EntityType="Self.OrderDish" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Promotion" EntityType="Self.Promotion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionDish" EntityType="Self.PromotionDish" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -410,9 +434,13 @@
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderDish" EntitySet="OrderDish" />
           </AssociationSet>
-          <AssociationSet Name="FK_Promotion_Dish" Association="Self.FK_Promotion_Dish">
+          <AssociationSet Name="FK_PromotionDish_Dish" Association="Self.FK_PromotionDish_Dish">
             <End Role="Dish" EntitySet="Dish" />
+            <End Role="PromotionDish" EntitySet="PromotionDish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionDish_Promotion" Association="Self.FK_PromotionDish_Promotion">
             <End Role="Promotion" EntitySet="Promotion" />
+            <End Role="PromotionDish" EntitySet="PromotionDish" />
           </AssociationSet>
           <AssociationSet Name="FK_SubCategory_Category" Association="Self.FK_SubCategory_Category">
             <End Role="Category" EntitySet="Category" />
@@ -469,10 +497,6 @@
             <End Role="SubCategory" EntitySet="SubCategories" />
             <End Role="Dish" EntitySet="Dishes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Promotion_Dish" Association="Models.FK_Promotion_Dish">
-            <End Role="Dish" EntitySet="Dishes" />
-            <End Role="Promotion" EntitySet="Promotions" />
-          </AssociationSet>
           <AssociationSet Name="FK_Order_Employee" Association="Models.FK_Order_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Order" EntitySet="Orders" />
@@ -493,6 +517,10 @@
           <AssociationSet Name="FK_OrderDish_Order" Association="Models.FK_OrderDish_Order">
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderDish" EntitySet="OrderDishes" />
+          </AssociationSet>
+          <AssociationSet Name="PromotionDish" Association="Models.PromotionDish">
+            <End Role="Dish" EntitySet="Dishes" />
+            <End Role="Promotion" EntitySet="Promotions" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRole">
@@ -614,8 +642,8 @@
           <Property Name="OrderTimes" Type="Int32" Nullable="false" />
           <Property Name="SubCategoryID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SubCategory" Relationship="Models.FK_Dish_SubCategory" FromRole="Dish" ToRole="SubCategory" />
-          <NavigationProperty Name="Promotions" Relationship="Models.FK_Promotion_Dish" FromRole="Dish" ToRole="Promotion" />
           <NavigationProperty Name="OrderDishes" Relationship="Models.FK_OrderDish_Dish" FromRole="Dish" ToRole="OrderDish" />
+          <NavigationProperty Name="Promotions" Relationship="Models.PromotionDish" FromRole="Dish" ToRole="Promotion" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -675,8 +703,7 @@
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CreateAt" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ExpireAt" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DishID" Type="Int32" />
-          <NavigationProperty Name="Dish" Relationship="Models.FK_Promotion_Dish" FromRole="Promotion" ToRole="Dish" />
+          <NavigationProperty Name="Dishes" Relationship="Models.PromotionDish" FromRole="Promotion" ToRole="Dish" />
         </EntityType>
         <EntityType Name="SubCategory">
           <Key>
@@ -746,18 +773,6 @@
             </Principal>
             <Dependent Role="Dish">
               <PropertyRef Name="SubCategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Promotion_Dish">
-          <End Type="Models.Dish" Role="Dish" Multiplicity="0..1" />
-          <End Type="Models.Promotion" Role="Promotion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Dish">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Promotion">
-              <PropertyRef Name="DishID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -833,6 +848,10 @@
               <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="PromotionDish">
+          <End Type="Models.Dish" Role="Dish" Multiplicity="*" />
+          <End Type="Models.Promotion" Role="Promotion" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -978,7 +997,6 @@
           <EntitySetMapping Name="Promotions">
             <EntityTypeMapping TypeName="Models.Promotion">
               <MappingFragment StoreEntitySet="Promotion">
-                <ScalarProperty Name="DishID" ColumnName="DishID" />
                 <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
                 <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1021,6 +1039,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="PromotionDish" TypeName="Models.PromotionDish" StoreEntitySet="PromotionDish">
+            <EndProperty Name="Promotion">
+              <ScalarProperty Name="Id" ColumnName="PromotionId" />
+            </EndProperty>
+            <EndProperty Name="Dish">
+              <ScalarProperty Name="ID" ColumnName="DishId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
