@@ -35,9 +35,9 @@ namespace Data.Model.Entities
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<GroupTable> GroupTables { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderDish> OrderDishes { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<SubCategory> SubCategories { get; set; }
         public virtual DbSet<Table> Tables { get; set; }
+        public virtual DbSet<OrderDish> OrderDishes { get; set; }
     }
 }

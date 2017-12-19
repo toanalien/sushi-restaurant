@@ -15,17 +15,13 @@ namespace Data.Model.Entities
     public partial class OrderDish
     {
         public int Id { get; set; }
-        public string Description { get; set; }
-        public int Number { get; set; }
+        public int Quantity { get; set; }
         public long UnitPrice { get; set; }
-        public bool IsDelete { get; set; }
         public Nullable<long> Discount { get; set; }
-        public Nullable<int> PromotionID { get; set; }
         public int DishID { get; set; }
         public int OrderID { get; set; }
     
         public virtual Dish Dish { get; set; }
         public virtual Order Order { get; set; }
-        public virtual Promotion Promotion { get; set; }
     }
 }

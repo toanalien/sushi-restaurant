@@ -53,13 +53,26 @@ namespace Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Promotions.Add(promotion);
-                db.SaveChanges();
+                Promotion tp = new Promotion();
+                tp = db.Promotions.Where(x => x.Id == promotion.Id).FirstOrDefault();
+                //
+                if (tp == null)
+                {
+                    db.Promotions.Add(promotion);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    tp.CreateAt = promotion.CreateAt;
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
 
             ViewBag.DishID = new SelectList(db.Dishes, "ID", "Name", promotion.DishID);
             return View(promotion);
+            
         }
 
         // GET: Promotions/Edit/5

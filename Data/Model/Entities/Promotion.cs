@@ -14,12 +14,6 @@ namespace Data.Model.Entities
     
     public partial class Promotion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Promotion()
-        {
-            this.OrderDishes = new HashSet<OrderDish>();
-        }
-    
         public int Id { get; set; }
         public double DiscountPercent { get; set; }
         public string Name { get; set; }
@@ -29,7 +23,5 @@ namespace Data.Model.Entities
         public Nullable<int> DishID { get; set; }
     
         public virtual Dish Dish { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDish> OrderDishes { get; set; }
     }
 }
