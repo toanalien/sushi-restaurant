@@ -18,7 +18,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: Promotions
         public ActionResult Index()
         {
-            var promotions = db.Promotions.Include(p => p.Dish);
+            var promotions = db.Promotions;
             return View(promotions.ToList());
         }
 
@@ -49,7 +49,7 @@ namespace Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,DiscountPercent,Name,Description,CreateAt,ExpireAt,DishID")] Promotion promotion)
+        public ActionResult Create([Bind(Include = "Id,DiscountPercent,Name,Description,CreateAt,ExpireAt")] Promotion promotion)
         {
             if (ModelState.IsValid)
             {
@@ -67,12 +67,30 @@ namespace Web.Areas.Admin.Controllers
                     db.SaveChanges();
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("AddDish", promotion.Id);
             }
 
-            ViewBag.DishID = new SelectList(db.Dishes, "ID", "Name", promotion.DishID);
             return View(promotion);
             
+        }
+
+        // GET: Promotions/AddDish/5
+        public ActionResult AddDish(int? promotionId)
+        {
+            ViewBag.Categories = db.Categories.ToList();
+            ViewBag.PromotionId = promotionId;
+            return View();
+        }
+
+        // POST: Promotions/AddDish/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddDish()
+        {
+            var paramValues = HttpContext.Request.Params.GetValues("dishId");
+            return RedirectToAction("Index");
         }
 
         // GET: Promotions/Edit/5
@@ -87,7 +105,6 @@ namespace Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DishID = new SelectList(db.Dishes, "ID", "Name", promotion.DishID);
             return View(promotion);
         }
 
@@ -96,7 +113,7 @@ namespace Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DiscountPercent,Name,Description,CreateAt,ExpireAt,DishID")] Promotion promotion)
+        public ActionResult Edit([Bind(Include = "Id,DiscountPercent,Name,Description,CreateAt,ExpireAt")] Promotion promotion)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +121,6 @@ namespace Web.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DishID = new SelectList(db.Dishes, "ID", "Name", promotion.DishID);
             return View(promotion);
         }
 

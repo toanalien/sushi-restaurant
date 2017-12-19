@@ -6,8 +6,11 @@ GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_SubCategory_Category]') AND parent_object_id = OBJECT_ID(N'[dbo].[SubCategory]'))
 ALTER TABLE [dbo].[SubCategory] DROP CONSTRAINT [FK_SubCategory_Category]
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Promotion_Dish]') AND parent_object_id = OBJECT_ID(N'[dbo].[Promotion]'))
-ALTER TABLE [dbo].[Promotion] DROP CONSTRAINT [FK_Promotion_Dish]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PromotionDish_Promotion]') AND parent_object_id = OBJECT_ID(N'[dbo].[PromotionDish]'))
+ALTER TABLE [dbo].[PromotionDish] DROP CONSTRAINT [FK_PromotionDish_Promotion]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PromotionDish_Dish]') AND parent_object_id = OBJECT_ID(N'[dbo].[PromotionDish]'))
+ALTER TABLE [dbo].[PromotionDish] DROP CONSTRAINT [FK_PromotionDish_Dish]
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_OrderDish_Order]') AND parent_object_id = OBJECT_ID(N'[dbo].[OrderDish]'))
 ALTER TABLE [dbo].[OrderDish] DROP CONSTRAINT [FK_OrderDish_Order]
@@ -42,67 +45,71 @@ GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_dbo.AspNetUserClaims_dbo.AspNetUsers_UserId]') AND parent_object_id = OBJECT_ID(N'[dbo].[AspNetUserClaims]'))
 ALTER TABLE [dbo].[AspNetUserClaims] DROP CONSTRAINT [FK_dbo.AspNetUserClaims_dbo.AspNetUsers_UserId]
 GO
-/****** Object:  Table [dbo].[Table]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Table]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Table]') AND type in (N'U'))
 DROP TABLE [dbo].[Table]
 GO
-/****** Object:  Table [dbo].[SubCategory]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[SubCategory]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SubCategory]') AND type in (N'U'))
 DROP TABLE [dbo].[SubCategory]
 GO
-/****** Object:  Table [dbo].[Promotion]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[PromotionDish]    Script Date: 12/19/2017 10:18:29 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PromotionDish]') AND type in (N'U'))
+DROP TABLE [dbo].[PromotionDish]
+GO
+/****** Object:  Table [dbo].[Promotion]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Promotion]') AND type in (N'U'))
 DROP TABLE [dbo].[Promotion]
 GO
-/****** Object:  Table [dbo].[OrderDish]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[OrderDish]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderDish]') AND type in (N'U'))
 DROP TABLE [dbo].[OrderDish]
 GO
-/****** Object:  Table [dbo].[Order]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Order]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Order]') AND type in (N'U'))
 DROP TABLE [dbo].[Order]
 GO
-/****** Object:  Table [dbo].[GroupTable]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[GroupTable]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GroupTable]') AND type in (N'U'))
 DROP TABLE [dbo].[GroupTable]
 GO
-/****** Object:  Table [dbo].[Employee]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Employee]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Employee]') AND type in (N'U'))
 DROP TABLE [dbo].[Employee]
 GO
-/****** Object:  Table [dbo].[Dish]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Dish]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dish]') AND type in (N'U'))
 DROP TABLE [dbo].[Dish]
 GO
-/****** Object:  Table [dbo].[Customer]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Customer]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Customer]') AND type in (N'U'))
 DROP TABLE [dbo].[Customer]
 GO
-/****** Object:  Table [dbo].[Category]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Category]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Category]') AND type in (N'U'))
 DROP TABLE [dbo].[Category]
 GO
-/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUsers]') AND type in (N'U'))
 DROP TABLE [dbo].[AspNetUsers]
 GO
-/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUserRoles]') AND type in (N'U'))
 DROP TABLE [dbo].[AspNetUserRoles]
 GO
-/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUserLogins]') AND type in (N'U'))
 DROP TABLE [dbo].[AspNetUserLogins]
 GO
-/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUserClaims]') AND type in (N'U'))
 DROP TABLE [dbo].[AspNetUserClaims]
 GO
-/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 12/19/2017 10:18:29 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetRoles]') AND type in (N'U'))
 DROP TABLE [dbo].[AspNetRoles]
 GO
-/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 12/19/2017 10:18:29 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -110,8 +117,8 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetRoles]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[AspNetRoles](
-	[Id] [nvarchar](128) NOT NULL,
-	[Name] [nvarchar](256) NOT NULL,
+	[Id] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Name] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
  CONSTRAINT [PK_dbo.AspNetRoles] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -119,7 +126,7 @@ CREATE TABLE [dbo].[AspNetRoles](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -128,9 +135,9 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[As
 BEGIN
 CREATE TABLE [dbo].[AspNetUserClaims](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[UserId] [nvarchar](128) NOT NULL,
-	[ClaimType] [nvarchar](max) NULL,
-	[ClaimValue] [nvarchar](max) NULL,
+	[UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[ClaimType] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[ClaimValue] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
  CONSTRAINT [PK_dbo.AspNetUserClaims] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -138,7 +145,7 @@ CREATE TABLE [dbo].[AspNetUserClaims](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -146,9 +153,9 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUserLogins]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[AspNetUserLogins](
-	[LoginProvider] [nvarchar](128) NOT NULL,
-	[ProviderKey] [nvarchar](128) NOT NULL,
-	[UserId] [nvarchar](128) NOT NULL,
+	[LoginProvider] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[ProviderKey] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
  CONSTRAINT [PK_dbo.AspNetUserLogins] PRIMARY KEY CLUSTERED 
 (
 	[LoginProvider] ASC,
@@ -158,7 +165,7 @@ CREATE TABLE [dbo].[AspNetUserLogins](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -166,8 +173,8 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUserRoles]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[AspNetUserRoles](
-	[UserId] [nvarchar](128) NOT NULL,
-	[RoleId] [nvarchar](128) NOT NULL,
+	[UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[RoleId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
  CONSTRAINT [PK_dbo.AspNetUserRoles] PRIMARY KEY CLUSTERED 
 (
 	[UserId] ASC,
@@ -176,7 +183,7 @@ CREATE TABLE [dbo].[AspNetUserRoles](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -184,18 +191,18 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUsers]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[AspNetUsers](
-	[Id] [nvarchar](128) NOT NULL,
-	[Email] [nvarchar](256) NULL,
+	[Id] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Email] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[EmailConfirmed] [bit] NOT NULL,
-	[PasswordHash] [nvarchar](max) NULL,
-	[SecurityStamp] [nvarchar](max) NULL,
-	[PhoneNumber] [nvarchar](max) NULL,
+	[PasswordHash] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[SecurityStamp] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[PhoneNumber] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[PhoneNumberConfirmed] [bit] NOT NULL,
 	[TwoFactorEnabled] [bit] NOT NULL,
 	[LockoutEndDateUtc] [datetime] NULL,
 	[LockoutEnabled] [bit] NOT NULL,
 	[AccessFailedCount] [int] NOT NULL,
-	[UserName] [nvarchar](256) NOT NULL,
+	[UserName] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
  CONSTRAINT [PK_dbo.AspNetUsers] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -203,7 +210,7 @@ CREATE TABLE [dbo].[AspNetUsers](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Category]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Category]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -212,8 +219,8 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ca
 BEGIN
 CREATE TABLE [dbo].[Category](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](255) NOT NULL,
-	[Description] [nvarchar](255) NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
  CONSTRAINT [PK_Category] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -221,7 +228,7 @@ CREATE TABLE [dbo].[Category](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Customer]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Customer]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -230,11 +237,11 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Cu
 BEGIN
 CREATE TABLE [dbo].[Customer](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](255) NOT NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	[Sex] [int] NULL,
 	[Birthday] [date] NULL,
-	[Phone] [nvarchar](255) NOT NULL,
-	[Address] [nvarchar](255) NULL,
+	[Phone] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Address] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Class] [int] NOT NULL,
 	[CreateAt] [date] NULL,
 	[IsDelete] [bit] NULL,
@@ -245,7 +252,7 @@ CREATE TABLE [dbo].[Customer](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Dish]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Dish]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -254,10 +261,10 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Di
 BEGIN
 CREATE TABLE [dbo].[Dish](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](255) NOT NULL,
-	[Description] [nvarchar](255) NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[IsDelete] [bit] NOT NULL CONSTRAINT [DF_Dish_IsDelete]  DEFAULT ((0)),
-	[Image] [nvarchar](255) NULL,
+	[Image] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Price] [bigint] NOT NULL,
 	[OrderTimes] [int] NOT NULL CONSTRAINT [DF_Dish_OrderTimes]  DEFAULT ((0)),
 	[SubCategoryID] [int] NOT NULL,
@@ -268,7 +275,7 @@ CREATE TABLE [dbo].[Dish](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Employee]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Employee]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -277,17 +284,17 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Em
 BEGIN
 CREATE TABLE [dbo].[Employee](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](255) NOT NULL,
-	[Department] [nvarchar](255) NULL,
-	[Position] [nvarchar](255) NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Department] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Position] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Sex] [int] NOT NULL,
 	[Birthday] [date] NULL,
-	[Phone] [nvarchar](255) NULL,
-	[Address] [nvarchar](255) NULL,
+	[Phone] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Address] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[CreatedAt] [date] NULL,
 	[IsDelete] [bit] NULL,
-	[Avatar] [nvarchar](255) NULL,
-	[UserId] [nvarchar](128) NULL,
+	[Avatar] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
  CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -299,7 +306,7 @@ CREATE TABLE [dbo].[Employee](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[GroupTable]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[GroupTable]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -308,8 +315,8 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Gr
 BEGIN
 CREATE TABLE [dbo].[GroupTable](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](255) NULL,
-	[Description] [nvarchar](255) NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
  CONSTRAINT [PK_GroupTable] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -317,7 +324,7 @@ CREATE TABLE [dbo].[GroupTable](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Order]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Order]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -334,7 +341,7 @@ CREATE TABLE [dbo].[Order](
 	[Status] [int] NULL,
 	[CustomerID] [int] NULL,
 	[EmployeeID] [int] NOT NULL,
-	[Note] [nvarchar](255) NULL,
+	[Note] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[TableID] [int] NOT NULL,
  CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
 (
@@ -343,7 +350,7 @@ CREATE TABLE [dbo].[Order](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[OrderDish]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[OrderDish]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -364,7 +371,7 @@ CREATE TABLE [dbo].[OrderDish](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Promotion]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Promotion]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -374,11 +381,10 @@ BEGIN
 CREATE TABLE [dbo].[Promotion](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[DiscountPercent] [float] NOT NULL,
-	[Name] [nvarchar](255) NOT NULL,
-	[Description] [nvarchar](255) NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[CreateAt] [date] NOT NULL,
 	[ExpireAt] [date] NOT NULL,
-	[DishID] [int] NULL,
  CONSTRAINT [PK_Discount] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -386,7 +392,25 @@ CREATE TABLE [dbo].[Promotion](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[SubCategory]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[PromotionDish]    Script Date: 12/19/2017 10:18:30 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PromotionDish]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[PromotionDish](
+	[PromotionId] [int] NOT NULL,
+	[DishId] [int] NOT NULL,
+ CONSTRAINT [PK_PromotionDish] PRIMARY KEY CLUSTERED 
+(
+	[PromotionId] ASC,
+	[DishId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[SubCategory]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -395,8 +419,8 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Su
 BEGIN
 CREATE TABLE [dbo].[SubCategory](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](255) NOT NULL,
-	[Description] [nvarchar](255) NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[CategoryID] [int] NOT NULL,
  CONSTRAINT [PK_SubCategory] PRIMARY KEY CLUSTERED 
 (
@@ -405,7 +429,7 @@ CREATE TABLE [dbo].[SubCategory](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[Table]    Script Date: 12/14/2017 9:08:44 PM ******/
+/****** Object:  Table [dbo].[Table]    Script Date: 12/19/2017 10:18:30 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -414,8 +438,8 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ta
 BEGIN
 CREATE TABLE [dbo].[Table](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Code] [nvarchar](50) NOT NULL,
-	[Description] [nvarchar](255) NULL,
+	[Code] [nvarchar](50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Status] [int] NOT NULL,
 	[GroupTableID] [int] NULL,
  CONSTRAINT [PK_Table] PRIMARY KEY CLUSTERED 
@@ -502,16 +526,25 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_OrderDish_Order]') AND parent_object_id = OBJECT_ID(N'[dbo].[OrderDish]'))
 ALTER TABLE [dbo].[OrderDish]  WITH CHECK ADD  CONSTRAINT [FK_OrderDish_Order] FOREIGN KEY([OrderID])
 REFERENCES [dbo].[Order] ([Id])
+ON DELETE CASCADE
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_OrderDish_Order]') AND parent_object_id = OBJECT_ID(N'[dbo].[OrderDish]'))
 ALTER TABLE [dbo].[OrderDish] CHECK CONSTRAINT [FK_OrderDish_Order]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Promotion_Dish]') AND parent_object_id = OBJECT_ID(N'[dbo].[Promotion]'))
-ALTER TABLE [dbo].[Promotion]  WITH CHECK ADD  CONSTRAINT [FK_Promotion_Dish] FOREIGN KEY([DishID])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PromotionDish_Dish]') AND parent_object_id = OBJECT_ID(N'[dbo].[PromotionDish]'))
+ALTER TABLE [dbo].[PromotionDish]  WITH CHECK ADD  CONSTRAINT [FK_PromotionDish_Dish] FOREIGN KEY([DishId])
 REFERENCES [dbo].[Dish] ([ID])
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Promotion_Dish]') AND parent_object_id = OBJECT_ID(N'[dbo].[Promotion]'))
-ALTER TABLE [dbo].[Promotion] CHECK CONSTRAINT [FK_Promotion_Dish]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PromotionDish_Dish]') AND parent_object_id = OBJECT_ID(N'[dbo].[PromotionDish]'))
+ALTER TABLE [dbo].[PromotionDish] CHECK CONSTRAINT [FK_PromotionDish_Dish]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PromotionDish_Promotion]') AND parent_object_id = OBJECT_ID(N'[dbo].[PromotionDish]'))
+ALTER TABLE [dbo].[PromotionDish]  WITH CHECK ADD  CONSTRAINT [FK_PromotionDish_Promotion] FOREIGN KEY([PromotionId])
+REFERENCES [dbo].[Promotion] ([Id])
+ON DELETE CASCADE
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PromotionDish_Promotion]') AND parent_object_id = OBJECT_ID(N'[dbo].[PromotionDish]'))
+ALTER TABLE [dbo].[PromotionDish] CHECK CONSTRAINT [FK_PromotionDish_Promotion]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_SubCategory_Category]') AND parent_object_id = OBJECT_ID(N'[dbo].[SubCategory]'))
 ALTER TABLE [dbo].[SubCategory]  WITH CHECK ADD  CONSTRAINT [FK_SubCategory_Category] FOREIGN KEY([CategoryID])

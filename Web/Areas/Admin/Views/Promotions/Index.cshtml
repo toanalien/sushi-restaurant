@@ -26,9 +26,6 @@
         <th>
             @Html.DisplayNameFor(model => model.ExpireAt)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Dish.Name)
-        </th>
         <th></th>
     </tr>
 
@@ -48,9 +45,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ExpireAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dish.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
