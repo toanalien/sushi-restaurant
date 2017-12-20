@@ -51,7 +51,6 @@ namespace Web.Areas.Admin.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public JsonResult Create(string strOrder)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
