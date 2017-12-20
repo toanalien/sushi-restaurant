@@ -53,21 +53,25 @@ $(document).ready(function() {
 
 function Save() {
   getDataForm()
-  $.ajax({
-    type: 'POST',
-    url: '/Admin/Orders/Create',
-    dataType:"JSON",
-    data : {
-      strOrder : JSON.stringify(Order)
-    },
-    success : function (result){
-      if (result.status) {
-        alert('Save success')
-      } else {
-        alert(result.message)
+  if (Order.Total > 0) {
+    $.ajax({
+      type: 'POST',
+      url: '/Admin/Orders/Create',
+      dataType:"JSON",
+      data : {
+        strOrder : JSON.stringify(Order)
+      },
+      success : function (result){
+        if (result.status) {
+          alert('Save success')
+        } else {
+          alert(result.message)
+        }
       }
-    }
-  });
+    });
+  } else {
+    alert('Chưa có món ăn')
+  }
 }
 
 function getCustomers() {
