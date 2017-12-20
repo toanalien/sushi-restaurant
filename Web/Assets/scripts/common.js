@@ -8,15 +8,15 @@ Customers = []
 CustomerID = 0
 
 Order = {
-  Id: null,
+  Id: 0,
   SubTotal: null,
   PromotionDiscount: null,
   ClassDiscount: null,
   Total: null,
   Status: null,
   CustomerID: null,
-  EmployeeID: null,
-  TableID: null,
+  EmployeeID: 0,
+  TableID: 0,
   Note: null
 }
 
@@ -53,6 +53,21 @@ $(document).ready(function() {
 
 function Save() {
   getDataForm()
+  $.ajax({
+    type: 'POST',
+    url: '/Admin/Orders/Create',
+    dataType:"JSON",
+    data : {
+      strOrder : JSON.stringify(Order)
+    },
+    success : function (result){
+      if (result.status) {
+        alert('Save success')
+      } else {
+        alert(result.message)
+      }
+    }
+  });
 }
 
 function getCustomers() {
