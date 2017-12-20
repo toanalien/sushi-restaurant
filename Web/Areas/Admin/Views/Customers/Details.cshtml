@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Họ và tên
         </dt>
 
         <dd>
@@ -19,23 +19,25 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Sex)
+            Giới tính
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Sex)
+            @(Model.Sex == 0 ? "Không xác định" : "" )
+            @(Model.Sex == 1 ? "Nam" : "" )
+            @(Model.Sex == 2 ? "Nữ" : "" )
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Birthday)
+            Ngày sinh
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Birthday)
+            @string.Format("{0:dd-MM-yyyy}", Model.Birthday)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Phone)
+            Số điện thoại
         </dt>
 
         <dd>
@@ -43,7 +45,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Address)
+            Địa chỉ
         </dt>
 
         <dd>
@@ -51,27 +53,21 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Class)
+            Hạng thành viên
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Class)
+            @(Model.Class == 0 ? "Bạc" : "" )
+            @(Model.Class == 1 ? "Vàng" : "" )
+            @(Model.Class == 2 ? "Kim Cương" : "" )
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CreateAt)
+            Ngày tạo
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CreateAt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDelete)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDelete)
+            @string.Format("{0:dd-MM-yyyy}", Model.CreateAt)
         </dd>
 
     </dl>
