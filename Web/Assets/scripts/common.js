@@ -58,7 +58,7 @@ function Save() {
   if (Order.Total > 0) {
     $.ajax({
       type: 'POST',
-      url: '/Admin/Orders/Create',
+      url: '/Admin/Orders/CreateOrUpdate',
       dataType:"JSON",
       data : {
         strOrder : JSON.stringify(Order)

@@ -51,7 +51,7 @@ namespace Web.Areas.Admin.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public JsonResult Create(string strOrder)
+        public JsonResult CreateOrUpdate(string strOrder)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             Order order = serializer.Deserialize<Order>(strOrder);
@@ -59,9 +59,9 @@ namespace Web.Areas.Admin.Controllers
             string message = String.Empty;
             if (order.Id == 0)
             {
+                // tao moi
                 // nhap ai vao di fail me roi
                 order.EmployeeID = 1;
-
                 order.CreateAt = DateTime.Now;
                 db.Orders.Add(order);
                 try
@@ -75,6 +75,23 @@ namespace Web.Areas.Admin.Controllers
                     message = ex.Message;
                 }
 
+            }
+            else
+            {
+                // cap nhat
+                order.EmployeeID = 1;
+                order.CreateAt = DateTime.Now;
+                try
+                {
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                    status = true;
+                }
+                catch (Exception ex)
+                {
+                    status = false;
+                    message = ex.Message;
+                }
             }
 
             return Json(new
