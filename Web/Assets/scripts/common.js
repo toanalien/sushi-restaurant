@@ -351,13 +351,13 @@ function getChietKhau() {
   customer = Customers.find(e => e.ID == CustomerID)
   chietKhau = 0
   switch(customer.Class) {
-    case 1:
+    case 0:
       chietKhau = 5
       break;
-    case 2:
+    case 1:
       chietKhau = 10
       break;
-    case 3:
+    case 2:
       chietKhau = 15
       break;
     default:
