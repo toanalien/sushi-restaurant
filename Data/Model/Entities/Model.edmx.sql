@@ -56,10 +56,6 @@ GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SubCategory]') AND type in (N'U'))
 DROP TABLE [dbo].[SubCategory]
 GO
-/****** Object:  Table [dbo].[PromotionDish]    Script Date: 12/21/2017 7:31:33 PM ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PromotionDish]') AND type in (N'U'))
-DROP TABLE [dbo].[PromotionDish]
-GO
 /****** Object:  Table [dbo].[Promotion]    Script Date: 12/21/2017 7:31:33 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Promotion]') AND type in (N'U'))
 DROP TABLE [dbo].[Promotion]
