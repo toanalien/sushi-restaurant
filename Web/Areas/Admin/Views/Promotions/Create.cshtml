@@ -54,6 +54,45 @@
                 @Html.ValidationMessageFor(model => model.ExpireAt, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <div class="form-group">
+            <label for="Categories" class="control-label col-md-2">Danh sách món ăn</label>
+            <div class="col-md-10">
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <div class="category">
+                        <label>
+                            <input type="checkbox" name="category" value="@category.ID" onchange="update(this)" />
+                            @category.Name
+                        </label>
+                    </div>
+                    <div class="sub-container col-md-offset-1">
+                        @foreach (var subCategory in category.SubCategories)
+                        {
+                            <div class="sub-category">
+                                <label>
+                                    <input type="checkbox" name="subcategory" value="@subCategory.ID" class="sub-@category.ID" onchange="update(this)"/>
+                                    @subCategory.Name
+                                </label>
+                            </div>
+                            <div class="sub-container col-md-offset-1">
+                                @foreach (var dishes in subCategory.Dishes)
+                                {
+                                    <div class="sub-category">
+                                        <label>
+                                            <input type="checkbox" name="dishes" value="@dishes.ID" class="@subCategory.ID"/>
+                                            @dishes.Name
+                                        </label>
+                                    </div>
+
+                                }
+                            </div>
+
+                        }
+                    </div>
+                }
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -66,3 +105,5 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script src="~/Assets/app/promotion.js"></script>

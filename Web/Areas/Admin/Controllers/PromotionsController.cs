@@ -18,7 +18,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: Promotions
         public ActionResult Index()
         {
-            var promotions = db.Promotions;
+            var promotions = db.Promotions.OrderByDescending(p => p.Id);
             return View(promotions.ToList());
         }
 
@@ -40,7 +40,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: Promotions/Create
         public ActionResult Create()
         {
-            ViewBag.DishID = new SelectList(db.Dishes, "ID", "Name");
+            ViewBag.Categories = db.Categories.ToList();
             return View();
         }
 
@@ -49,7 +49,8 @@ namespace Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,DiscountPercent,Name,Description,CreateAt,ExpireAt")] Promotion promotion)
+        public ActionResult Create([Bind(Include = "Id,DiscountPercent,Name,Description,CreateAt,ExpireAt")] Promotion promotion,
+            List<int> dishes)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +59,16 @@ namespace Web.Areas.Admin.Controllers
                 //
                 if (tp == null)
                 {
+                    foreach (var dishId in dishes)
+                    {
+                        var dish = db.Dishes.Find(dishId);
+                        if (dish != null)
+                        {
+                            dish.Promotion = promotion;
+                            db.Entry(dish).State = EntityState.Modified;
+                        }
+                        
+                    }
                     db.Promotions.Add(promotion);
                     db.SaveChanges();
                 }
@@ -67,30 +78,11 @@ namespace Web.Areas.Admin.Controllers
                     db.SaveChanges();
                 }
 
-                return RedirectToAction("AddDish", promotion.Id);
+                return RedirectToAction("Index");
             }
 
             return View(promotion);
             
-        }
-
-        // GET: Promotions/AddDish/5
-        public ActionResult AddDish(int? promotionId)
-        {
-            ViewBag.Categories = db.Categories.ToList();
-            ViewBag.PromotionId = promotionId;
-            return View();
-        }
-
-        // POST: Promotions/AddDish/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddDish()
-        {
-            var paramValues = HttpContext.Request.Params.GetValues("dishId");
-            return RedirectToAction("Index");
         }
 
         // GET: Promotions/Edit/5
@@ -105,6 +97,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Categories = db.Categories.ToList();
             return View(promotion);
         }
 
@@ -113,10 +106,27 @@ namespace Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DiscountPercent,Name,Description,CreateAt,ExpireAt")] Promotion promotion)
+        public ActionResult Edit([Bind(Include = "Id,DiscountPercent,Name,Description,CreateAt,ExpireAt")] Promotion promotion,
+            List<int> dishes)
         {
             if (ModelState.IsValid)
             {
+                foreach (var dish in db.Dishes.Where(d => d.PromotionID == promotion.Id))
+                {
+                    dish.Promotion = null;
+                    dish.PromotionID = null;
+                    db.Entry(dish).State = EntityState.Modified;
+                }
+                foreach (var dishId in dishes)
+                {
+                    var dish = db.Dishes.Find(dishId);
+                    if (dish != null)
+                    {
+                        dish.Promotion = promotion;
+                        db.Entry(dish).State = EntityState.Modified;
+                    }
+
+                }
                 db.Entry(promotion).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
