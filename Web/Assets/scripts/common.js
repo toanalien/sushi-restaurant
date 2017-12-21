@@ -26,12 +26,12 @@ $(document).ready(function() {
   $('.btn-category').first().click()
 
   getDataOrder()
+  getCustomers()
+
   $(".search-dishes").keyup(function(){
     searchDishes($(this).val())
   });
 
-
-  getCustomers()
   // wait load ajax first and then click
   setTimeout(function(){
     $('.btn-sub-category').first().click()
@@ -278,6 +278,7 @@ function renderOrderItems() {
   renderSum()
 
   $('#CustomerID').change(function() {
+    console.log(11)
     CustomerID = $(this).val()
     renderChietKhau();
     renderSum()
@@ -350,8 +351,10 @@ function renderSubSum() {
 }
 
 function getChietKhau() {
-  chietKhau = 0
-  if (CustomerID !== 0) {
+  if (CustomerID == '') {
+    return 0
+  } else {
+    chietKhau = 0
     customer = Customers.find(e => e.ID == CustomerID)
     switch(customer.Class) {
       case 0:
@@ -366,9 +369,8 @@ function getChietKhau() {
       default:
         chietKhau = 0
     }
+    return chietKhau
   }
-
-  return chietKhau;
 }
 
 function renderChietKhau() {
@@ -388,4 +390,8 @@ function renderSum(){
   sum = getSum()
   content = `<h3>Thanh toán : ${sum.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} vnđ</h3>`
   $('.sum').html(content);
+}
+
+function getDataOrder() {
+
 }
