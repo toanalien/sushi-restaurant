@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cf4866aa364d45d68482b0fe3ccb81b2" Name="Diagram1" ZoomLevel="70" >
+      <Diagram DiagramId="cf4866aa364d45d68482b0fe3ccb81b2" Name="Diagram1" ZoomLevel="92" >
         <EntityTypeShape EntityType="Models.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" />
         <EntityTypeShape EntityType="Models.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" />
         <EntityTypeShape EntityType="Models.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" />
@@ -31,7 +31,7 @@
         <EntityTypeShape EntityType="Models.OrderDish" Width="1.5" PointX="9.75" PointY="12.875" />
         <AssociationConnector Association="Models.FK_OrderDish_Dish" />
         <AssociationConnector Association="Models.FK_OrderDish_Order" />
-        <AssociationConnector Association="Models.PromotionDish" />
+        <AssociationConnector Association="Models.FK_Dish_Promotion" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
