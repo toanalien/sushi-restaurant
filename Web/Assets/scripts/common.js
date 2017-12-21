@@ -23,11 +23,13 @@ Order = {
 OrderItem = []
 
 $(document).ready(function() {
+  $('.btn-category').first().click()
+
+  getDataOrder()
   $(".search-dishes").keyup(function(){
     searchDishes($(this).val())
   });
 
-  $('.btn-category').first().click()
 
   getCustomers()
   // wait load ajax first and then click
@@ -348,21 +350,24 @@ function renderSubSum() {
 }
 
 function getChietKhau() {
-  customer = Customers.find(e => e.ID == CustomerID)
   chietKhau = 0
-  switch(customer.Class) {
-    case 0:
-      chietKhau = 5
-      break;
-    case 1:
-      chietKhau = 10
-      break;
-    case 2:
-      chietKhau = 15
-      break;
-    default:
-      chietKhau = 0
+  if (CustomerID !== 0) {
+    customer = Customers.find(e => e.ID == CustomerID)
+    switch(customer.Class) {
+      case 0:
+        chietKhau = 5
+        break;
+      case 1:
+        chietKhau = 10
+        break;
+      case 2:
+        chietKhau = 15
+        break;
+      default:
+        chietKhau = 0
+    }
   }
+
   return chietKhau;
 }
 

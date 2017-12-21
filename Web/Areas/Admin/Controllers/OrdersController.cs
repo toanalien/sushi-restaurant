@@ -60,7 +60,8 @@ namespace Web.Areas.Admin.Controllers
             if (order.Id == 0)
             {
                 // nhap ai vao di fail me roi
-                order.EmployeeID = 0;
+                order.EmployeeID = 1;
+
                 order.CreateAt = DateTime.Now;
                 db.Orders.Add(order);
                 try
