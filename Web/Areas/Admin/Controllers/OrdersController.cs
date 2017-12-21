@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Data.Model.Entities;
+using System.Web.Script.Serialization;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -42,27 +43,44 @@ namespace Web.Areas.Admin.Controllers
             ViewBag.CustomerID = new SelectList(db.Customers, "ID", "Name");
             ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name");
             ViewBag.TableID = new SelectList(db.Tables, "Id", "Code");
+            ViewBag.Categories = db.Categories.ToList();
             return View();
         }
 
         // POST: Admin/Orders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreateAt,IsDelete,SubTotal,PromotionDiscount,ClassDiscount,Total,Status,CustomerID,EmployeeID,TableID")] Order order)
+        public JsonResult Create(string strOrder)
         {
-            if (ModelState.IsValid)
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Order order = serializer.Deserialize<Order>(strOrder);
+            Boolean status = false;
+            string message = String.Empty;
+            if (order.Id == 0)
             {
+                // nhap ai vao di fail me roi
+                order.EmployeeID = 0;
+                order.CreateAt = DateTime.Now;
                 db.Orders.Add(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.SaveChanges();
+                    status = true;
+                }
+                catch (Exception ex)
+                {
+                    status = false;
+                    message = ex.Message;
+                }
+
             }
 
-            ViewBag.CustomerID = new SelectList(db.Customers, "ID", "Name", order.CustomerID);
-            ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name", order.EmployeeID);
-            ViewBag.TableID = new SelectList(db.Tables, "Id", "Code", order.TableID);
-            return View(order);
+            return Json(new
+            {
+                status = status,
+                message = message
+            });
         }
 
         // GET: Admin/Orders/Edit/5
@@ -84,7 +102,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: Admin/Orders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
