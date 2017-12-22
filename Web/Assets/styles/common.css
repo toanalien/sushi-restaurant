@@ -21,3 +21,17 @@
     text-align:center;
     color:white;
 }
+
+i.glyphicon.glyphicon-search.form-control-feedback {
+    top: 5px;
+}
+
+.orderItems {
+    font-size: 12px;
+}
+
+.row.border-bottom {
+    border-bottom: 1px solid red;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}

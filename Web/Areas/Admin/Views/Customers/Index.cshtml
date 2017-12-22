@@ -12,28 +12,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Họ và tên
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sex)
+            Giới tính
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Birthday)
+            Ngày sinh
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            Số điện thoại
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            Địa chỉ
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Class)
+            Hạng thành viên
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreateAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsDelete)
+            Ngày tạo
         </th>
         <th></th>
     </tr>
@@ -44,10 +41,12 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Sex)
+            @(item.Sex == 0 ? "Không xác định" : "" )
+            @(item.Sex == 1 ? "Nam" : "" )
+            @(item.Sex == 2 ? "Nữ" : "" )
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Birthday)
+            @string.Format("{0:dd-MM-yyyy}", item.Birthday)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Phone)
@@ -56,18 +55,17 @@
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Class)
+            @(item.Class == 0 ? "Bạc" : "" )
+            @(item.Class == 1 ? "Vàng" : "" )
+            @(item.Class == 2 ? "Kim Cương" : "" )
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreateAt)
+            @string.Format("{0:dd-MM-yyyy}", item.CreateAt)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsDelete)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

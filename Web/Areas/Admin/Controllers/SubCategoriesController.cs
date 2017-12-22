@@ -121,6 +121,13 @@ namespace Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET
+        public JsonResult GetDishes(int ID)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(db.Dishes.Where(x => x.SubCategoryID == ID ), JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

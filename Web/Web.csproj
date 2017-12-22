@@ -568,8 +568,8 @@
     <Content Include="Areas\Admin\Views\Tables\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Tables\Index.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-
     <Content Include="Areas\Admin\Views\Reservations\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Promotions\AddDish.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -627,13 +627,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\color-switcher\" />
-    <Folder Include="Assets\fonts\" />
-    <Folder Include="Assets\images\" />
-    <Folder Include="Assets\less\" />
-    <Folder Include="Assets\plugin\" />
-    <Folder Include="Assets\scripts\" />
-    <Folder Include="Assets\styles\" />
     <Folder Include="Content\admin\color-switcher\" />
     <Folder Include="Content\admin\styles\" />
     <Folder Include="Content\uploads\" />

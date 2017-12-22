@@ -10,8 +10,16 @@
     <h4>Promotion</h4>
     <hr />
     <dl class="dl-horizontal">
+       
         <dt>
-            @Html.DisplayNameFor(model => model.DiscountPercent)
+            Tên khuyến mãi
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Giảm giá (%)
         </dt>
 
         <dd>
@@ -19,15 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            Nội dung
         </dt>
 
         <dd>
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CreateAt)
+            Ngày tạo
         </dt>
 
         <dd>
@@ -43,7 +43,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ExpireAt)
+            Ngày hết hạn
         </dt>
 
         <dd>
@@ -51,11 +51,13 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Dish.Name)
+            Các món áp dụng
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Dish.Name)
+            @foreach (var dish in Model.Dishes) {
+                <p>@dish.Name</p>
+            }
         </dd>
 
     </dl>

@@ -12,7 +12,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.DiscountPercent)
+            Tên khuyến mãi
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Giảm giá (%)
         </dt>
 
         <dd>
@@ -20,15 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            Nội dung
         </dt>
 
         <dd>
@@ -36,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CreateAt)
+            Ngày hiệu lực
         </dt>
 
         <dd>
@@ -44,19 +43,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ExpireAt)
+            Ngày hết hạn
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ExpireAt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Dish.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dish.Name)
         </dd>
 
     </dl>
