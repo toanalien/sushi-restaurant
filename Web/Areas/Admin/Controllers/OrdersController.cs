@@ -8,11 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using Data.Model.Entities;
 using System.Web.Script.Serialization;
+using AutoMapper;
+using Data.Model.ViewModels;
+using AutoMapper.QueryableExtensions;
 
 namespace Web.Areas.Admin.Controllers
 {
     public class OrdersController : Controller
     {
+
+        public OrdersController()
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Order, OrderViewModel>();
+                cfg.CreateMap<OrderDish, OrderDishViewModel>();
+            });
+        }
         private Entities db = new Entities();
 
         // GET: Admin/Orders
@@ -70,6 +82,14 @@ namespace Web.Areas.Admin.Controllers
                     db.SaveChanges();
                     status = true;
                     message = "Hóa đơn đã được lưu thành công";
+
+                    foreach (var OrderDish in newOrderItem)
+                    {
+                        OrderDish.OrderID = order.Id;
+                        db.OrderDishes.Add(OrderDish);
+                        db.SaveChanges();
+                    }
+
                     // xu li orderdish
                 }
                 catch (Exception ex)
@@ -167,6 +187,35 @@ namespace Web.Areas.Admin.Controllers
             db.Orders.Remove(order);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public JsonResult GetOrder(int ID)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            //return Json(db.Orders.Single(x => x.Id == ID), JsonRequestBehavior.AllowGet);
+            //var data = db.Orders.ProjectTo<OrderViewModel>().ToList();
+            //return Json(data, JsonRequestBehavior.AllowGet);
+
+
+            var order = db.Orders.Single(x => x.Id == ID);
+            var ordervm = Mapper.Map<OrderViewModel>(order);
+        
+            var orderdish = db.OrderDishes.Where(x => x.OrderID == ID);
+            var orderDishVm = Mapper.Map<List<OrderDishViewModel>>(orderdish).ToList();
+
+            //var orderdish =
+            //    from od in db.OrderDishes
+            //    where od.OrderID == ID
+            //    select od;
+            //var orderdish = db.OrderDishes.Where(x => x.OrderID == order.Id);
+            //var orderdish = db.OrderDishes.Where(x => x.OrderID == ID);
+            //var orderdish = db.OrderDishes.Where(od => od.OrderID == ID);
+            var data = Json(new
+            {
+                order = ordervm,
+                orderdish = orderDishVm
+            }, JsonRequestBehavior.AllowGet);
+            return data;
         }
 
         protected override void Dispose(bool disposing)
