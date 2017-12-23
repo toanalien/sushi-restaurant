@@ -6,27 +6,13 @@ searchedDishes = []
 newOrderItems = []
 Customers = []
 CustomerID = 0
-oldOrderItems = []
 
-Order = {
-  Id: 0,
-  SubTotal: null,
-  PromotionDiscount: null,
-  ClassDiscount: null,
-  Total: null,
-  Status: null,
-  CustomerID: null,
-  EmployeeID: 0,
-  TableID: 0,
-  Note: null
-}
 
-OrderItem = []
+
 
 $(document).ready(function() {
   $('.btn-category').first().click()
 
-  getDataOrder()
   getCustomers()
 
   $(".search-dishes").keyup(function(){
@@ -409,7 +395,6 @@ function getDataOrder() {
       type: 'GET',
       url: `/Admin/Orders/GetOrder/${id}`,
       success: function (data) {
-        console.log(data)
         Order = data.order
         oldOrderItems = data.orderdish
       }

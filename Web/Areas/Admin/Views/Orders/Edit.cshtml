@@ -81,4 +81,10 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+
+<script>
+    var Order = @Html.Raw(Json.Encode(ViewBag.Order));
+    var oldOrderItems = @Html.Raw(Json.Encode(ViewBag.oldOrderItems));
+</script>
+
 <script src="/Assets/scripts/common.js"></script>

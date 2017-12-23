@@ -146,6 +146,10 @@ namespace Web.Areas.Admin.Controllers
             ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name", order.EmployeeID);
             ViewBag.TableID = new SelectList(db.Tables, "Id", "Code", order.TableID);
             ViewBag.Categories = db.Categories.ToList();
+            ViewBag.Order = Mapper.Map<OrderViewModel>(order);
+
+            var orderdish = db.OrderDishes.Where(x => x.OrderID == id);
+            ViewBag.oldOrderItems = Mapper.Map<List<OrderDishViewModel>>(orderdish).ToList();
             return View(order);
         }
 
