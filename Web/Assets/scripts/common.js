@@ -264,6 +264,9 @@ function renderOrderItems() {
                 </div>
               </div>`
   // merge voi old order items
+  if (oldOrderItems) {
+    oldOrderItems.map( item => content += renderItem(item))
+  }
   newOrderItems.map( item => content += renderItem(item))
 
   $('.orderItems').html(content)
