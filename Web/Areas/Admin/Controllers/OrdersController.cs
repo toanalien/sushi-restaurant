@@ -245,6 +245,22 @@ namespace Web.Areas.Admin.Controllers
             return data;
         }
 
+        public JsonResult changeState(int ID)
+        {
+            var order = db.Orders.Find(ID);
+            order.Status = 1;
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            string message = String.Empty;
+            message = "Hóa đơn được thanh toán thành công";
+            var data = Json(new
+            {
+                status = true,
+                message = message
+            }, JsonRequestBehavior.AllowGet);
+            return data;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

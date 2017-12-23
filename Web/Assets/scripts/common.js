@@ -35,10 +35,26 @@ $(document).ready(function() {
   });
 
   $('.thanh-toan').click(function() {
-    console.log('THANH TOAN')
+    ThanhToan()
   });
   renderBodyRight()
 });
+
+function ThanhToan() {
+  $.ajax({
+    type: 'POST',
+    url: `/Admin/Orders/changeState/${Order.Id}`,
+    dataType:"JSON",
+    success : function (result){
+      console.log(result)
+      if (result.status) {
+        swalSuccess(result.message)
+      } else {
+        swalError(result.message)
+      }
+    }
+  });
+}
 
 function renderBodyRight() {
   renderOrderItems()
