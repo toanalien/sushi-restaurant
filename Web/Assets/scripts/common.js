@@ -6,6 +6,7 @@ searchedDishes = []
 newOrderItems = []
 Customers = []
 CustomerID = 0
+oldOrderItems = []
 
 Order = {
   Id: 0,
@@ -67,6 +68,7 @@ function Save() {
       success : function (result){
         if (result.status) {
           swalSuccess(result.message)
+          window.location.replace("/Admin/Orders");
         } else {
           swalError(result.message)
         }
@@ -401,7 +403,18 @@ function renderSum(){
 }
 
 function getDataOrder() {
-
+  id = $('.OrderId').val()
+  if (id) {
+    $.ajax({
+      type: 'GET',
+      url: `/Admin/Orders/GetOrder/${id}`,
+      success: function (data) {
+        console.log(data)
+        Order = data.order
+        oldOrderItems = data.orderdish
+      }
+    });
+  }
 }
 
 function tinhDiscountPromotionDish() {

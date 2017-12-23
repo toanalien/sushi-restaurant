@@ -119,10 +119,14 @@ namespace Web.Areas.Admin.Controllers
                 }
             }
 
+
+            var ordervm = Mapper.Map<OrderViewModel>(order);
+
             return Json(new
             {
                 status = status,
-                message = message
+                message = message,
+                order = ordervm
             });
         }
 
@@ -141,6 +145,7 @@ namespace Web.Areas.Admin.Controllers
             ViewBag.CustomerID = new SelectList(db.Customers, "ID", "Name", order.CustomerID);
             ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name", order.EmployeeID);
             ViewBag.TableID = new SelectList(db.Tables, "Id", "Code", order.TableID);
+            ViewBag.Categories = db.Categories.ToList();
             return View(order);
         }
 
