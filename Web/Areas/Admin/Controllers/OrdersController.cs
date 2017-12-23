@@ -192,24 +192,14 @@ namespace Web.Areas.Admin.Controllers
         public JsonResult GetOrder(int ID)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            //return Json(db.Orders.Single(x => x.Id == ID), JsonRequestBehavior.AllowGet);
-            //var data = db.Orders.ProjectTo<OrderViewModel>().ToList();
-            //return Json(data, JsonRequestBehavior.AllowGet);
 
 
             var order = db.Orders.Single(x => x.Id == ID);
             var ordervm = Mapper.Map<OrderViewModel>(order);
-        
+
             var orderdish = db.OrderDishes.Where(x => x.OrderID == ID);
             var orderDishVm = Mapper.Map<List<OrderDishViewModel>>(orderdish).ToList();
 
-            //var orderdish =
-            //    from od in db.OrderDishes
-            //    where od.OrderID == ID
-            //    select od;
-            //var orderdish = db.OrderDishes.Where(x => x.OrderID == order.Id);
-            //var orderdish = db.OrderDishes.Where(x => x.OrderID == ID);
-            //var orderdish = db.OrderDishes.Where(od => od.OrderID == ID);
             var data = Json(new
             {
                 order = ordervm,
