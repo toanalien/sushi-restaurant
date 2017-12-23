@@ -52,7 +52,7 @@ function Save() {
       success : function (result){
         if (result.status) {
           swalSuccess(result.message)
-          window.location.replace("/Admin/Orders");
+          // window.location.replace("/Admin/Orders");
         } else {
           swalError(result.message)
         }
@@ -264,10 +264,8 @@ function renderOrderItems() {
                 </div>
               </div>`
   // merge voi old order items
-  if (oldOrderItems.length) {
-    oldOrderItems.map( item => content += renderItem(item))
-  }
-  newOrderItems.map( item => content += renderItem(item))
+  mixOrderItem = MixOrderItem(oldOrderItems, newOrderItems)
+  mixOrderItem.map( item => content += renderItem(item))
 
   $('.orderItems').html(content)
   renderSubSum()
@@ -275,7 +273,6 @@ function renderOrderItems() {
   renderSum()
 
   $('#CustomerID').change(function() {
-    console.log(11)
     CustomerID = $(this).val()
     renderChietKhau();
     renderSum()
@@ -337,6 +334,7 @@ function RemoveDuplicate(arr) {
 
 function getSubSum() {
   subSub = 0
+  oldOrderItems.map(e => subSub += (e.UnitPrice - e.Discount) * e.Quantity)
   newOrderItems.map(e => subSub += (e.UnitPrice - e.Discount) * e.Quantity)
   return subSub;
 }
@@ -389,20 +387,6 @@ function renderSum(){
   $('.sum').html(content);
 }
 
-function getDataOrder() {
-  id = $('.OrderId').val()
-  if (id) {
-    $.ajax({
-      type: 'GET',
-      url: `/Admin/Orders/GetOrder/${id}`,
-      success: function (data) {
-        Order = data.order
-        oldOrderItems = data.orderdish
-      }
-    });
-  }
-}
-
 function tinhDiscountPromotionDish() {
    Dishes.map(function(dish) {
     dish.Discount = 0
@@ -413,4 +397,22 @@ function tinhDiscountPromotionDish() {
     }
     return dish
   });
+}
+
+function MixOrderItem( oldArr, newArr){
+  let cloneOldArr = $.extend(true,[], oldArr);
+  let cloneNewArr = $.extend(true,[], newArr);
+  let dupArr = [ ...cloneOldArr, ...cloneNewArr ]
+  let mix = []
+
+  dupArr.map( e => {
+    let item = mix.find( t => t.DishID == e.DishID)
+    if (item !== undefined) {
+      mix
+      item.Quantity += e.Quantity
+    } else {
+      mix.push(e)
+    }
+  })
+  return mix
 }
