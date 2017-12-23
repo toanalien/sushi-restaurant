@@ -61,7 +61,8 @@ function Save() {
       url: '/Admin/Orders/CreateOrUpdate',
       dataType:"JSON",
       data : {
-        strOrder : JSON.stringify(Order)
+        strOrder : JSON.stringify(Order),
+        strnewOrderItems : JSON.stringify(newOrderItems)
       },
       success : function (result){
         if (result.status) {

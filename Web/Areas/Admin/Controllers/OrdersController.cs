@@ -51,10 +51,11 @@ namespace Web.Areas.Admin.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public JsonResult CreateOrUpdate(string strOrder)
+        public JsonResult CreateOrUpdate(string strOrder, string strnewOrderItems)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             Order order = serializer.Deserialize<Order>(strOrder);
+            List<OrderDish> newOrderItem = serializer.Deserialize<List<OrderDish>>(strnewOrderItems);
             Boolean status = false;
             string message = String.Empty;
             if (order.Id == 0)
@@ -69,6 +70,7 @@ namespace Web.Areas.Admin.Controllers
                     db.SaveChanges();
                     status = true;
                     message = "Hóa đơn đã được lưu thành công";
+                    // xu li orderdish
                 }
                 catch (Exception ex)
                 {
@@ -87,6 +89,8 @@ namespace Web.Areas.Admin.Controllers
                     db.Entry(order).State = EntityState.Modified;
                     db.SaveChanges();
                     status = true;
+                    // xu li delete old orderdish
+                    // xu lí new order dish
                 }
                 catch (Exception ex)
                 {
