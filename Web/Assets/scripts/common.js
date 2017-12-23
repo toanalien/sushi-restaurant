@@ -264,7 +264,7 @@ function renderOrderItems() {
                 </div>
               </div>`
   // merge voi old order items
-  if (oldOrderItems) {
+  if (oldOrderItems.length) {
     oldOrderItems.map( item => content += renderItem(item))
   }
   newOrderItems.map( item => content += renderItem(item))
