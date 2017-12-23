@@ -64,11 +64,10 @@ namespace Web.Areas.Admin.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public JsonResult CreateOrUpdate(string strOrder, string strnewOrderItems)
+        public JsonResult CreateOrUpdate(string strOrder, string strnewOrderItems, string strDeleteItems, string strMixOrderItem)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             Order order = serializer.Deserialize<Order>(strOrder);
-            List<OrderDish> newOrderItem = serializer.Deserialize<List<OrderDish>>(strnewOrderItems);
             Boolean status = false;
             string message = String.Empty;
             if (order.Id == 0)
@@ -83,6 +82,7 @@ namespace Web.Areas.Admin.Controllers
                     db.SaveChanges();
                     status = true;
                     message = "Hóa đơn đã được lưu thành công";
+                    List<OrderDish> newOrderItem = serializer.Deserialize<List<OrderDish>>(strnewOrderItems);
 
                     foreach (var OrderDish in newOrderItem)
                     {
@@ -111,7 +111,29 @@ namespace Web.Areas.Admin.Controllers
                     db.SaveChanges();
                     status = true;
                     // xu li delete old orderdish
+                    int[] DeleteItems = serializer.Deserialize<int[]>(strDeleteItems);
+                    foreach (int id in DeleteItems )
+                    {
+                        OrderDish od = db.OrderDishes.Find(id);
+                        db.OrderDishes.Remove(od);
+                        db.SaveChanges();
+                    }
                     // xu lí new order dish
+                    List<OrderDish> mixOrderItem = serializer.Deserialize<List<OrderDish>>(strMixOrderItem);
+                    foreach (var od in mixOrderItem)
+                    {
+                        if (od.Id != 0)
+                        {
+                            db.Entry(od).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            od.OrderID = order.Id;
+                            db.OrderDishes.Add(od);
+                            db.SaveChanges();
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {

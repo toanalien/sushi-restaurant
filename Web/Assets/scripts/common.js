@@ -8,6 +8,12 @@ CustomerID = 0
 
 Dishes = RemoveDuplicate(Dishes)
 
+// if (Order.Id !== 0) {
+//   renderSubSum()
+//   renderChietKhau()
+//   renderSum()
+// }
+
 $(document).ready(function() {
   $('.btn-category').first().click()
 
@@ -31,24 +37,35 @@ $(document).ready(function() {
   $('.thanh-toan').click(function() {
     console.log('THANH TOAN')
   });
+  renderBodyRight()
+});
 
+function renderBodyRight() {
   renderOrderItems()
   renderSubSum()
   renderChietKhau()
   renderSum()
-});
+}
 
 function Save() {
   getDataForm()
   if (Order.Total > 0) {
+    delete Order.CreateAt
+    data = {
+      strOrder : JSON.stringify(Order),
+      strnewOrderItems : JSON.stringify(newOrderItems)
+    }
+
+    if (Order.Id !== 0) {
+      data.strDeleteItems = JSON.stringify(DeleteItems)
+      delete data.strnewOrderItems
+      data.strMixOrderItem = JSON.stringify(MixOrderItem(oldOrderItems, newOrderItems))
+    }
     $.ajax({
       type: 'POST',
       url: '/Admin/Orders/CreateOrUpdate',
       dataType:"JSON",
-      data : {
-        strOrder : JSON.stringify(Order),
-        strnewOrderItems : JSON.stringify(newOrderItems)
-      },
+      data : data,
       success : function (result){
         if (result.status) {
           swalSuccess(result.message)
@@ -223,6 +240,7 @@ function getDataForm() {
 
 function getPromotionDiscount(){
   PromotionDiscount = 0
+  oldOrderItems.map(e => PromotionDiscount += e.Discount * e.Quantity)
   newOrderItems.map(e => PromotionDiscount += e.Discount * e.Quantity)
   return PromotionDiscount;
 }
@@ -274,6 +292,8 @@ function renderOrderItems() {
 
   $('#CustomerID').change(function() {
     CustomerID = $(this).val()
+    renderBodyRight()
+
     renderChietKhau();
     renderSum()
   });
@@ -321,6 +341,14 @@ function dereaseOrderItem(DishID){
 }
 
 function RemoveOrderItem(DishID) {
+  // xoa item cu
+  if (Order.Id !== 0) {
+    item = oldOrderItems.find( e => e.DishID == DishID)
+    oldOrderItems = remove(oldOrderItems, item)
+    DeleteItems.push(item.Id)
+    $.unique(DeleteItems);
+  }
+  // xoa item moi
   item = newOrderItems.find( e => e.DishID == DishID)
   newOrderItems = remove(newOrderItems, item)
   renderOrderItems()
