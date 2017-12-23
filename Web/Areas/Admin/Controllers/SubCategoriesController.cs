@@ -125,7 +125,17 @@ namespace Web.Areas.Admin.Controllers
         public JsonResult GetDishes(int ID)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return Json(db.Dishes.Where(x => x.SubCategoryID == ID ), JsonRequestBehavior.AllowGet);
+            var dishes = from dish in db.Dishes.Where(x => x.SubCategoryID == ID)
+                         select new
+                         {
+                            ID = dish.ID,
+                            Name = dish.Name,
+                            Image = dish.Image,
+                            SubCategoryID = dish.SubCategoryID,
+                            Price = dish.Price,
+                            Promotion = dish.Promotion
+                         };
+            return Json( dishes , JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
