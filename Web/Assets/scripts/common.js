@@ -136,6 +136,7 @@ function GetDishes(id) {
       url: `/SubCategories/GetDishes/${id}`,
       success: function (data) {
         Dishes = [ ...Dishes, ...data ]
+        tinhDiscountPromotionDish()
         SubCategoriesID.push(id)
         renderDishes(id)
       }
@@ -186,7 +187,7 @@ function renderDish(dish) {
                     ${dish.Name}
                   </h4>
                   <h5>${dish.Price} vnd</h5>
-                  <h5>${dish.Price - 50000} vnd</h5>
+                  <h5>${dish.Price - dish.Discount} vnd</h5>
                 </div>
               </div>
             </div>`
@@ -203,6 +204,7 @@ function searchDishes(searchText) {
         searchedDishes = data;
         Dishes = [...Dishes, ...data]
         Dishes = RemoveDuplicate(Dishes)
+        tinhDiscountPromotionDish()
         renderDishes(1, true);
       }
     });
@@ -223,7 +225,7 @@ function AddOrderItem(dishDiv) {
 
 function getDataForm() {
   Order.SubTotal = getSubSum()
-  Order.PromotionDiscount = 0
+  Order.PromotionDiscount = getPromotionDiscount()
   Order.ClassDiscount = getChietKhau();
   Order.Total = getSum();
   Order.Status = 0;
@@ -232,12 +234,17 @@ function getDataForm() {
   Order.Note = $('#Note').val()
 }
 
+function getPromotionDiscount(){
+  PromotionDiscount = 0
+  newOrderItems.map(e => PromotionDiscount += e.Discount * e.Quantity)
+  return PromotionDiscount;
+}
 function AddNewItem(dish) {
   newItem = {
     DishID: dish.ID,
     Quantity: 1,
     UnitPrice: dish.Price,
-    Discount: 50000,
+    Discount: dish.Discount,
   }
   newOrderItems.push(newItem)
 }
@@ -394,4 +401,16 @@ function renderSum(){
 
 function getDataOrder() {
 
+}
+
+function tinhDiscountPromotionDish() {
+   Dishes.map(function(dish) {
+    dish.Discount = 0
+    if (dish.Promotion) {
+      dish.Discount = dish.Price * dish.Promotion.DiscountPercent / 100
+    } else {
+      dish
+    }
+    return dish
+  });
 }
