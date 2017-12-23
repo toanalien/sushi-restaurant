@@ -23,6 +23,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 cfg.CreateMap<Order, OrderViewModel>();
                 cfg.CreateMap<OrderDish, OrderDishViewModel>();
+                cfg.CreateMap<Dish, DishViewModel>();
             });
         }
         private Entities db = new Entities();
@@ -150,6 +151,11 @@ namespace Web.Areas.Admin.Controllers
 
             var orderdish = db.OrderDishes.Where(x => x.OrderID == id);
             ViewBag.oldOrderItems = Mapper.Map<List<OrderDishViewModel>>(orderdish).ToList();
+
+            var dishes = from d in db.Dishes
+                         where d.OrderDishes.Any( od => od.OrderID == id)
+                         select d;
+            ViewBag.Dishes = Mapper.Map<List<DishViewModel>>(dishes).ToList();
             return View(order);
         }
 

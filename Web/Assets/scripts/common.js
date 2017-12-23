@@ -1,5 +1,4 @@
 SubCategories = []
-Dishes = []
 CategoriesID = []
 SubCategoriesID = []
 searchedDishes = []
@@ -7,8 +6,7 @@ newOrderItems = []
 Customers = []
 CustomerID = 0
 
-
-
+Dishes = RemoveDuplicate(Dishes)
 
 $(document).ready(function() {
   $('.btn-category').first().click()
