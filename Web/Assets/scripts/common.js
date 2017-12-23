@@ -65,14 +65,14 @@ function Save() {
       },
       success : function (result){
         if (result.status) {
-          alert('Save success')
+          swalSuccess(result.message)
         } else {
-          alert(result.message)
+          swalError(result.message)
         }
       }
     });
   } else {
-    alert('Chưa có món ăn')
+    swalError('Chưa có món ăn')
   }
 }
 

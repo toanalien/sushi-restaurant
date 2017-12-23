@@ -68,6 +68,7 @@ namespace Web.Areas.Admin.Controllers
                 {
                     db.SaveChanges();
                     status = true;
+                    message = "Hóa đơn đã được lưu thành công";
                 }
                 catch (Exception ex)
                 {
