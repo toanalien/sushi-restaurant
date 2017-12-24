@@ -75,7 +75,7 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="255" />
           <Property Name="Class" Type="int" Nullable="false" />
-          <Property Name="CreateAt" Type="date" />
+          <Property Name="CreateAt" Type="datetime" />
           <Property Name="IsDelete" Type="bit" />
         </EntityType>
         <EntityType Name="Dish">
@@ -122,14 +122,14 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CreateAt" Type="date" Nullable="false" />
+          <Property Name="CreateAt" Type="datetime" Nullable="false" />
           <Property Name="SubTotal" Type="bigint" Nullable="false" />
           <Property Name="PromotionDiscount" Type="bigint" />
           <Property Name="ClassDiscount" Type="bigint" />
           <Property Name="Total" Type="bigint" />
           <Property Name="Status" Type="int" />
           <Property Name="CustomerID" Type="int" />
-          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
           <Property Name="Note" Type="nvarchar" MaxLength="255" />
           <Property Name="TableID" Type="int" Nullable="false" />
         </EntityType>
@@ -266,6 +266,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -275,18 +287,6 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="EmployeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -396,12 +396,12 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
-            <End Role="Customer" EntitySet="Customer" />
+          <AssociationSet Name="FK_Order_AspNetUsers" Association="Self.FK_Order_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
-            <End Role="Employee" EntitySet="Employee" />
+          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customer" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Table" Association="Self.FK_Order_Table">
@@ -434,6 +434,16 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Models.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Models.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Models.AspNetUser" />
+          <EntitySet Name="Categories" EntityType="Models.Category" />
+          <EntitySet Name="Customers" EntityType="Models.Customer" />
+          <EntitySet Name="Dishes" EntityType="Models.Dish" />
+          <EntitySet Name="Employees" EntityType="Models.Employee" />
+          <EntitySet Name="GroupTables" EntityType="Models.GroupTable" />
+          <EntitySet Name="Orders" EntityType="Models.Order" />
+          <EntitySet Name="OrderDishes" EntityType="Models.OrderDish" />
+          <EntitySet Name="Promotions" EntityType="Models.Promotion" />
+          <EntitySet Name="SubCategories" EntityType="Models.SubCategory" />
+          <EntitySet Name="Tables" EntityType="Models.Table" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -442,22 +452,13 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="Models.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="Categories" EntityType="Models.Category" />
-          <EntitySet Name="Customers" EntityType="Models.Customer" />
-          <EntitySet Name="Dishes" EntityType="Models.Dish" />
-          <EntitySet Name="Employees" EntityType="Models.Employee" />
-          <EntitySet Name="GroupTables" EntityType="Models.GroupTable" />
-          <EntitySet Name="Orders" EntityType="Models.Order" />
-          <EntitySet Name="Promotions" EntityType="Models.Promotion" />
-          <EntitySet Name="SubCategories" EntityType="Models.SubCategory" />
-          <EntitySet Name="Tables" EntityType="Models.Table" />
           <AssociationSet Name="FK_Employee_AspNetUsers" Association="Models.FK_Employee_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_AspNetUsers" Association="Models.FK_Order_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_SubCategory_Category" Association="Models.FK_SubCategory_Category">
             <End Role="Category" EntitySet="Categories" />
@@ -467,13 +468,17 @@
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK_Dish_Promotion" Association="Models.FK_Dish_Promotion">
+            <End Role="Promotion" EntitySet="Promotions" />
+            <End Role="Dish" EntitySet="Dishes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Dish_SubCategory" Association="Models.FK_Dish_SubCategory">
             <End Role="SubCategory" EntitySet="SubCategories" />
             <End Role="Dish" EntitySet="Dishes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Order_Employee" Association="Models.FK_Order_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="Order" EntitySet="Orders" />
+          <AssociationSet Name="FK_OrderDish_Dish" Association="Models.FK_OrderDish_Dish">
+            <End Role="Dish" EntitySet="Dishes" />
+            <End Role="OrderDish" EntitySet="OrderDishes" />
           </AssociationSet>
           <AssociationSet Name="FK_Table_GroupTable" Association="Models.FK_Table_GroupTable">
             <End Role="GroupTable" EntitySet="GroupTables" />
@@ -483,20 +488,15 @@
             <End Role="Table" EntitySet="Tables" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <EntitySet Name="OrderDishes" EntityType="Models.OrderDish" />
-          <AssociationSet Name="FK_OrderDish_Dish" Association="Models.FK_OrderDish_Dish">
-            <End Role="Dish" EntitySet="Dishes" />
-            <End Role="OrderDish" EntitySet="OrderDishes" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrderDish_Order" Association="Models.FK_OrderDish_Order">
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderDish" EntitySet="OrderDishes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Dish_Promotion" Association="Models.FK_Dish_Promotion">
-            <End Role="Promotion" EntitySet="Promotions" />
-            <End Role="Dish" EntitySet="Dishes" />
+          <AssociationSet Name="AspNetUserRoles" Association="Models.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -544,41 +544,10 @@
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-          <NavigationProperty Name="AspNetRoles" Relationship="Models.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <NavigationProperty Name="Employees" Relationship="Models.FK_Employee_AspNetUsers" FromRole="AspNetUser" ToRole="Employee" />
+          <NavigationProperty Name="Orders" Relationship="Models.FK_Order_AspNetUsers" FromRole="AspNetUser" ToRole="Order" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Models.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Models.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserClaim">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Models.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserLogin">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="Models.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-        </Association>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID" />
@@ -599,7 +568,7 @@
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Class" Type="Int32" Nullable="false" />
-          <Property Name="CreateAt" Type="DateTime" Precision="0" />
+          <Property Name="CreateAt" Type="DateTime" Precision="3" />
           <Property Name="IsDelete" Type="Boolean" />
           <NavigationProperty Name="Orders" Relationship="Models.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
         </EntityType>
@@ -614,11 +583,11 @@
           <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Int64" Nullable="false" />
           <Property Name="OrderTimes" Type="Int32" Nullable="false" />
+          <Property Name="PromotionID" Type="Int32" />
           <Property Name="SubCategoryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Promotion" Relationship="Models.FK_Dish_Promotion" FromRole="Dish" ToRole="Promotion" />
           <NavigationProperty Name="SubCategory" Relationship="Models.FK_Dish_SubCategory" FromRole="Dish" ToRole="SubCategory" />
           <NavigationProperty Name="OrderDishes" Relationship="Models.FK_OrderDish_Dish" FromRole="Dish" ToRole="OrderDish" />
-          <Property Name="PromotionID" Type="Int32" />
-          <NavigationProperty Name="Promotion" Relationship="Models.FK_Dish_Promotion" FromRole="Dish" ToRole="Promotion" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -637,7 +606,6 @@
           <Property Name="Avatar" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="Models.FK_Employee_AspNetUsers" FromRole="Employee" ToRole="AspNetUser" />
-          <NavigationProperty Name="Orders" Relationship="Models.FK_Order_Employee" FromRole="Employee" ToRole="Order" />
         </EntityType>
         <EntityType Name="GroupTable">
           <Key>
@@ -653,20 +621,33 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CreateAt" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SubTotal" Type="Int64" Nullable="false" />
           <Property Name="PromotionDiscount" Type="Int64" />
           <Property Name="ClassDiscount" Type="Int64" />
           <Property Name="Total" Type="Int64" />
           <Property Name="Status" Type="Int32" />
           <Property Name="CustomerID" Type="Int32" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="TableID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Models.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
-          <NavigationProperty Name="Employee" Relationship="Models.FK_Order_Employee" FromRole="Order" ToRole="Employee" />
-          <NavigationProperty Name="Table" Relationship="Models.FK_Order_Table" FromRole="Order" ToRole="Table" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TableID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Models.FK_Order_AspNetUsers" FromRole="Order" ToRole="AspNetUser" />
+          <NavigationProperty Name="Customer" Relationship="Models.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Table" Relationship="Models.FK_Order_Table" FromRole="Order" ToRole="Table" />
           <NavigationProperty Name="OrderDishes" Relationship="Models.FK_OrderDish_Order" FromRole="Order" ToRole="OrderDish" />
+        </EntityType>
+        <EntityType Name="OrderDish">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Int64" Nullable="false" />
+          <Property Name="Discount" Type="Int64" />
+          <Property Name="DishID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dish" Relationship="Models.FK_OrderDish_Dish" FromRole="OrderDish" ToRole="Dish" />
+          <NavigationProperty Name="Order" Relationship="Models.FK_OrderDish_Order" FromRole="OrderDish" ToRole="Order" />
         </EntityType>
         <EntityType Name="Promotion">
           <Key>
@@ -703,6 +684,34 @@
           <NavigationProperty Name="GroupTable" Relationship="Models.FK_Table_GroupTable" FromRole="Table" ToRole="GroupTable" />
           <NavigationProperty Name="Orders" Relationship="Models.FK_Order_Table" FromRole="Table" ToRole="Order" />
         </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_AspNetUsers">
           <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
           <End Type="Models.Employee" Role="Employee" Multiplicity="*" />
@@ -711,6 +720,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Employee">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_AspNetUsers">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="Models.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -739,6 +760,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dish_Promotion">
+          <End Type="Models.Promotion" Role="Promotion" Multiplicity="0..1" />
+          <End Type="Models.Dish" Role="Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="PromotionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Dish_SubCategory">
           <End Type="Models.SubCategory" Role="SubCategory" Multiplicity="1" />
           <End Type="Models.Dish" Role="Dish" Multiplicity="*" />
@@ -751,15 +784,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Order_Employee">
-          <End Type="Models.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="Models.Order" Role="Order" Multiplicity="*" />
+        <Association Name="FK_OrderDish_Dish">
+          <End Type="Models.Dish" Role="Dish" Multiplicity="1" />
+          <End Type="Models.OrderDish" Role="OrderDish" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employee">
+            <Principal Role="Dish">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="EmployeeID" />
+            <Dependent Role="OrderDish">
+              <PropertyRef Name="DishID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -787,33 +820,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="OrderDish">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="UnitPrice" Type="Int64" Nullable="false" />
-          <Property Name="Discount" Type="Int64" />
-          <Property Name="DishID" Type="Int32" Nullable="false" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Dish" Relationship="Models.FK_OrderDish_Dish" FromRole="OrderDish" ToRole="Dish" />
-          <NavigationProperty Name="Order" Relationship="Models.FK_OrderDish_Order" FromRole="OrderDish" ToRole="Order" />
-        </EntityType>
-        <Association Name="FK_OrderDish_Dish">
-          <End Type="Models.Dish" Role="Dish" Multiplicity="1" />
-          <End Type="Models.OrderDish" Role="OrderDish" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Dish">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="OrderDish">
-              <PropertyRef Name="DishID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrderDish_Order">
-          <End Type="Models.Order" Role="Order" Multiplicity="1" />
+          <End Type="Models.Order" Role="Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="Models.OrderDish" Role="OrderDish" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
@@ -824,17 +834,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Dish_Promotion">
-          <End Type="Models.Promotion" Role="Promotion" Multiplicity="0..1" />
-          <End Type="Models.Dish" Role="Dish" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Promotion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Dish">
-              <PropertyRef Name="PromotionID" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="AspNetUserRoles">
+          <End Type="Models.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -887,14 +889,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Models.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRole">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="Models.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -922,8 +916,8 @@
           <EntitySetMapping Name="Dishes">
             <EntityTypeMapping TypeName="Models.Dish">
               <MappingFragment StoreEntitySet="Dish">
-                <ScalarProperty Name="PromotionID" ColumnName="PromotionID" />
                 <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+                <ScalarProperty Name="PromotionID" ColumnName="PromotionID" />
                 <ScalarProperty Name="OrderTimes" ColumnName="OrderTimes" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
@@ -964,9 +958,9 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="Models.Order">
               <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="TableID" ColumnName="TableID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
@@ -974,6 +968,18 @@
                 <ScalarProperty Name="PromotionDiscount" ColumnName="PromotionDiscount" />
                 <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
                 <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDishes">
+            <EntityTypeMapping TypeName="Models.OrderDish">
+              <MappingFragment StoreEntitySet="OrderDish">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="DishID" ColumnName="DishID" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1011,18 +1017,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderDishes">
-            <EntityTypeMapping TypeName="Models.OrderDish">
-              <MappingFragment StoreEntitySet="OrderDish">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="DishID" ColumnName="DishID" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Models.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

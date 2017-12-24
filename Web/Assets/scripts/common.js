@@ -1,5 +1,4 @@
 SubCategories = []
-Dishes = []
 CategoriesID = []
 SubCategoriesID = []
 searchedDishes = []
@@ -7,29 +6,23 @@ newOrderItems = []
 Customers = []
 CustomerID = 0
 
-Order = {
-  Id: 0,
-  SubTotal: null,
-  PromotionDiscount: null,
-  ClassDiscount: null,
-  Total: null,
-  Status: null,
-  CustomerID: null,
-  EmployeeID: 0,
-  TableID: 0,
-  Note: null
-}
+Dishes = RemoveDuplicate(Dishes)
 
-OrderItem = []
+// if (Order.Id !== 0) {
+//   renderSubSum()
+//   renderChietKhau()
+//   renderSum()
+// }
 
 $(document).ready(function() {
+  $('.btn-category').first().click()
+
+  getCustomers()
+
   $(".search-dishes").keyup(function(){
     searchDishes($(this).val())
   });
 
-  $('.btn-category').first().click()
-
-  getCustomers()
   // wait load ajax first and then click
   setTimeout(function(){
     $('.btn-sub-category').first().click()
@@ -42,35 +35,64 @@ $(document).ready(function() {
   });
 
   $('.thanh-toan').click(function() {
-    console.log('THANH TOAN')
+    ThanhToan()
   });
+  renderBodyRight()
+});
 
+function ThanhToan() {
+  $.ajax({
+    type: 'POST',
+    url: `/Admin/Orders/changeState/${Order.Id}`,
+    dataType:"JSON",
+    success : function (result){
+      console.log(result)
+      if (result.status) {
+        swalSuccess(result.message)
+      } else {
+        swalError(result.message)
+      }
+    }
+  });
+}
+
+function renderBodyRight() {
   renderOrderItems()
   renderSubSum()
   renderChietKhau()
   renderSum()
-});
+}
 
 function Save() {
   getDataForm()
   if (Order.Total > 0) {
+    delete Order.CreateAt
+    data = {
+      strOrder : JSON.stringify(Order),
+      strnewOrderItems : JSON.stringify(newOrderItems)
+    }
+
+    if (Order.Id !== 0) {
+      data.strDeleteItems = JSON.stringify(DeleteItems)
+      delete data.strnewOrderItems
+      data.strMixOrderItem = JSON.stringify(MixOrderItem(oldOrderItems, newOrderItems))
+    }
     $.ajax({
       type: 'POST',
-      url: '/Admin/Orders/Create',
+      url: '/Admin/Orders/CreateOrUpdate',
       dataType:"JSON",
-      data : {
-        strOrder : JSON.stringify(Order)
-      },
+      data : data,
       success : function (result){
         if (result.status) {
-          alert('Save success')
+          swalSuccess(result.message)
+          // window.location.replace("/Admin/Orders");
         } else {
-          alert(result.message)
+          swalError(result.message)
         }
       }
     });
   } else {
-    alert('Chưa có món ăn')
+    swalError('Chưa có món ăn')
   }
 }
 
@@ -134,6 +156,7 @@ function GetDishes(id) {
       url: `/SubCategories/GetDishes/${id}`,
       success: function (data) {
         Dishes = [ ...Dishes, ...data ]
+        tinhDiscountPromotionDish()
         SubCategoriesID.push(id)
         renderDishes(id)
       }
@@ -175,16 +198,18 @@ function renderDish(dish) {
               <div
                 class="card h-100 dish"
                 id="${dish.ID}">
-                  <img
+                <div class="cart-img-container" style="background-image:url(/Content/uploads/${dish.Image})">
+                   <!--<img
                     class="card-img-top"
                     src="/Content/uploads/${dish.Image}"
-                    alt="">
+                    alt="">  -->
+                </div>
                 <div class="card-body">
                   <h4 class="card-title">
                     ${dish.Name}
                   </h4>
                   <h5>${dish.Price} vnd</h5>
-                  <h5>${dish.Price - 50000} vnd</h5>
+                  <h5>${dish.Price - dish.Discount} vnd</h5>
                 </div>
               </div>
             </div>`
@@ -201,6 +226,7 @@ function searchDishes(searchText) {
         searchedDishes = data;
         Dishes = [...Dishes, ...data]
         Dishes = RemoveDuplicate(Dishes)
+        tinhDiscountPromotionDish()
         renderDishes(1, true);
       }
     });
@@ -221,7 +247,7 @@ function AddOrderItem(dishDiv) {
 
 function getDataForm() {
   Order.SubTotal = getSubSum()
-  Order.PromotionDiscount = 0
+  Order.PromotionDiscount = getPromotionDiscount()
   Order.ClassDiscount = getChietKhau();
   Order.Total = getSum();
   Order.Status = 0;
@@ -230,12 +256,18 @@ function getDataForm() {
   Order.Note = $('#Note').val()
 }
 
+function getPromotionDiscount(){
+  PromotionDiscount = 0
+  oldOrderItems.map(e => PromotionDiscount += e.Discount * e.Quantity)
+  newOrderItems.map(e => PromotionDiscount += e.Discount * e.Quantity)
+  return PromotionDiscount;
+}
 function AddNewItem(dish) {
   newItem = {
     DishID: dish.ID,
     Quantity: 1,
     UnitPrice: dish.Price,
-    Discount: 50000,
+    Discount: dish.Discount,
   }
   newOrderItems.push(newItem)
 }
@@ -268,7 +300,8 @@ function renderOrderItems() {
                 </div>
               </div>`
   // merge voi old order items
-  newOrderItems.map( item => content += renderItem(item))
+  mixOrderItem = MixOrderItem(oldOrderItems, newOrderItems)
+  mixOrderItem.map( item => content += renderItem(item))
 
   $('.orderItems').html(content)
   renderSubSum()
@@ -277,6 +310,8 @@ function renderOrderItems() {
 
   $('#CustomerID').change(function() {
     CustomerID = $(this).val()
+    renderBodyRight()
+
     renderChietKhau();
     renderSum()
   });
@@ -324,6 +359,14 @@ function dereaseOrderItem(DishID){
 }
 
 function RemoveOrderItem(DishID) {
+  // xoa item cu
+  if (Order.Id !== 0) {
+    item = oldOrderItems.find( e => e.DishID == DishID)
+    oldOrderItems = remove(oldOrderItems, item)
+    DeleteItems.push(item.Id)
+    $.unique(DeleteItems);
+  }
+  // xoa item moi
   item = newOrderItems.find( e => e.DishID == DishID)
   newOrderItems = remove(newOrderItems, item)
   renderOrderItems()
@@ -337,6 +380,7 @@ function RemoveDuplicate(arr) {
 
 function getSubSum() {
   subSub = 0
+  oldOrderItems.map(e => subSub += (e.UnitPrice - e.Discount) * e.Quantity)
   newOrderItems.map(e => subSub += (e.UnitPrice - e.Discount) * e.Quantity)
   return subSub;
 }
@@ -348,22 +392,26 @@ function renderSubSum() {
 }
 
 function getChietKhau() {
-  customer = Customers.find(e => e.ID == CustomerID)
-  chietKhau = 0
-  switch(customer.Class) {
-    case 0:
-      chietKhau = 5
-      break;
-    case 1:
-      chietKhau = 10
-      break;
-    case 2:
-      chietKhau = 15
-      break;
-    default:
-      chietKhau = 0
+  if (CustomerID == '') {
+    return 0
+  } else {
+    chietKhau = 0
+    customer = Customers.find(e => e.ID == CustomerID)
+    switch(customer.Class) {
+      case 0:
+        chietKhau = 5
+        break;
+      case 1:
+        chietKhau = 10
+        break;
+      case 2:
+        chietKhau = 15
+        break;
+      default:
+        chietKhau = 0
+    }
+    return chietKhau
   }
-  return chietKhau;
 }
 
 function renderChietKhau() {
@@ -383,4 +431,34 @@ function renderSum(){
   sum = getSum()
   content = `<h3>Thanh toán : ${sum.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} vnđ</h3>`
   $('.sum').html(content);
+}
+
+function tinhDiscountPromotionDish() {
+   Dishes.map(function(dish) {
+    dish.Discount = 0
+    if (dish.Promotion) {
+      dish.Discount = dish.Price * dish.Promotion.DiscountPercent / 100
+    } else {
+      dish
+    }
+    return dish
+  });
+}
+
+function MixOrderItem( oldArr, newArr){
+  let cloneOldArr = $.extend(true,[], oldArr);
+  let cloneNewArr = $.extend(true,[], newArr);
+  let dupArr = [ ...cloneOldArr, ...cloneNewArr ]
+  let mix = []
+
+  dupArr.map( e => {
+    let item = mix.find( t => t.DishID == e.DishID)
+    if (item !== undefined) {
+      mix
+      item.Quantity += e.Quantity
+    } else {
+      mix.push(e)
+    }
+  })
+  return mix
 }

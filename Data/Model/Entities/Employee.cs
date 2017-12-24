@@ -14,12 +14,6 @@ namespace Data.Model.Entities
     
     public partial class Employee
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employee()
-        {
-            this.Orders = new HashSet<Order>();
-        }
-    
         public int ID { get; set; }
         public string Name { get; set; }
         public string Department { get; set; }
@@ -34,7 +28,5 @@ namespace Data.Model.Entities
         public string UserId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }
