@@ -11,6 +11,7 @@ using System.Web.Script.Serialization;
 using AutoMapper;
 using Data.Model.ViewModels;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNet.Identity;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -31,7 +32,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Orders
         public ActionResult Index()
         {
-            var orders = db.Orders.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.Table);
+            var orders = db.Orders.Include(o => o.Customer).Include(o => o.AspNetUser).Include(o => o.Table);
             return View(orders.ToList());
         }
 
@@ -73,8 +74,8 @@ namespace Web.Areas.Admin.Controllers
             if (order.Id == 0)
             {
                 // tao moi
-                // nhap ai vao di fail me roi
-                order.EmployeeID = 1;
+                var currentUser = System.Web.HttpContext.Current.User.Identity;
+                order.UserId = currentUser.GetUserId();
                 order.CreateAt = DateTime.Now;
                 db.Orders.Add(order);
                 try
@@ -103,7 +104,8 @@ namespace Web.Areas.Admin.Controllers
             else
             {
                 // cap nhat
-                order.EmployeeID = 1;
+                var currentUser = System.Web.HttpContext.Current.User.Identity;
+                order.UserId = currentUser.GetUserId();
                 order.CreateAt = DateTime.Now;
                 try
                 {
@@ -166,7 +168,6 @@ namespace Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "ID", "Name", order.CustomerID);
-            ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name", order.EmployeeID);
             ViewBag.TableID = new SelectList(db.Tables, "Id", "Code", order.TableID);
             ViewBag.Categories = db.Categories.ToList();
             ViewBag.Order = Mapper.Map<OrderViewModel>(order);
@@ -195,7 +196,6 @@ namespace Web.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "ID", "Name", order.CustomerID);
-            ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name", order.EmployeeID);
             ViewBag.TableID = new SelectList(db.Tables, "Id", "Code", order.TableID);
             return View(order);
         }

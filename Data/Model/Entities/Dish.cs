@@ -27,12 +27,12 @@ namespace Data.Model.Entities
         public string Image { get; set; }
         public long Price { get; set; }
         public int OrderTimes { get; set; }
-        public int SubCategoryID { get; set; }
         public Nullable<int> PromotionID { get; set; }
+        public int SubCategoryID { get; set; }
     
+        public virtual Promotion Promotion { get; set; }
         public virtual SubCategory SubCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDish> OrderDishes { get; set; }
-        public virtual Promotion Promotion { get; set; }
     }
 }

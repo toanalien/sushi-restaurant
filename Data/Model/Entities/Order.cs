@@ -28,12 +28,12 @@ namespace Data.Model.Entities
         public Nullable<long> Total { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<int> CustomerID { get; set; }
-        public int EmployeeID { get; set; }
-        public int TableID { get; set; }
+        public string UserId { get; set; }
         public string Note { get; set; }
+        public int TableID { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         public virtual Customer Customer { get; set; }
-        public virtual Employee Employee { get; set; }
         public virtual Table Table { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDish> OrderDishes { get; set; }

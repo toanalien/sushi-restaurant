@@ -1,0 +1,19 @@
+﻿.cart-img-container {
+    width: 100%;
+    padding-top: 100%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    box-shadow: 1px 1px 2px #ccc;
+}
+
+.btn-sub-category {
+    width: 100%;
+    padding: 3px;
+    margin: 5px 0;
+}
+
+.btn-category {
+    padding: 5px 20px;
+    margin: 5px;
+}

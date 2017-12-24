@@ -198,10 +198,12 @@ function renderDish(dish) {
               <div
                 class="card h-100 dish"
                 id="${dish.ID}">
-                  <img
+                <div class="cart-img-container" style="background-image:url(/Content/uploads/${dish.Image})">
+                   <!--<img
                     class="card-img-top"
                     src="/Content/uploads/${dish.Image}"
-                    alt="">
+                    alt="">  -->
+                </div>
                 <div class="card-body">
                   <h4 class="card-title">
                     ${dish.Name}
