@@ -35,3 +35,11 @@ i.glyphicon.glyphicon-search.form-control-feedback {
     margin-bottom: 20px;
     margin-top: 20px;
 }
+
+tr:hover {
+  background-color: whitesmoke !important;
+}
+
+button#new {
+    margin-left: 50px;
+}
