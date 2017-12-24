@@ -12,22 +12,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DiscountPercent)
+            Tên khuyến mãi
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Giảm giá
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Ngày tạo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreateAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpireAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Dish.Name)
+            Ngày hết hạn
         </th>
         <th></th>
     </tr>
@@ -35,22 +29,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.DiscountPercent)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.DiscountPercent) %
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreateAt)
+            @string.Format("{0:dd-MM-yyyy}", item.CreateAt)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ExpireAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dish.Name)
+            @string.Format("{0:dd-MM-yyyy}", item.ExpireAt)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

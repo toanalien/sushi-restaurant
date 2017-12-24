@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "AddDish";
+}
+<h2>AddDish</h2>
+
+<div class="container">
+    @foreach (var category in ViewBag.Categories)
+    {
+        <div class="category">
+            <label><input type="checkbox" name="category" value="@category.Name "/>
+            @category.Name
+            </label>
+        </div>
+        <div class="sub-container col-md-offset-1">
+            @foreach (var subCategory in category.SubCategories)
+            {
+                <div class="sub-category">
+                    <label>
+                        <input type="checkbox" name="subcategory" value="@subCategory.Name " />
+                        @subCategory.Name
+                    </label>
+                </div>
+                <div class="sub-container col-md-offset-1">
+                    @foreach (var dishes in subCategory.Dishes)
+                    {
+                        <div class="sub-category">
+                            <label>
+                                <input type="checkbox" name="dishes" value="@dishes.Name " />
+                                @dishes.Name
+                            </label>
+                        </div>
+
+                    }
+                </div>
+
+            }
+        </div>
+    }
+</div>
+
+
+

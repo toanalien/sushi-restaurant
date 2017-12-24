@@ -116,6 +116,13 @@ namespace Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET
+        public JsonResult GetSubCategories(int ID)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(db.SubCategories.Where(x => x.CategoryID == ID ), JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

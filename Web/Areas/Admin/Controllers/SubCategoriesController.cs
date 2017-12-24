@@ -45,7 +45,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: SubCategories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -79,7 +79,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: SubCategories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,6 +119,23 @@ namespace Web.Areas.Admin.Controllers
             db.SubCategories.Remove(subCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET
+        public JsonResult GetDishes(int ID)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var dishes = from dish in db.Dishes.Where(x => x.SubCategoryID == ID)
+                         select new
+                         {
+                            ID = dish.ID,
+                            Name = dish.Name,
+                            Image = dish.Image,
+                            SubCategoryID = dish.SubCategoryID,
+                            Price = dish.Price,
+                            Promotion = dish.Promotion
+                         };
+            return Json( dishes , JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

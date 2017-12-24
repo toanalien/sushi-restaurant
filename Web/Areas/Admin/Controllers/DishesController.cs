@@ -11,12 +11,23 @@ using Web.Models;
 using Data.Service;
 using System.IO;
 using Web.Utils;
+using AutoMapper;
+using Data.Model.ViewModels;
 
 namespace Web.Areas.Admin.Controllers
 {
     [Authorize]
     public class DishesController : Controller
     {
+        public DishesController()
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Dish, DishViewModel>();
+                cfg.CreateMap<Promotion, PromotionViewModel>();
+            });
+        }
+
         private Entities db = new Entities();
 
         IDishService _dishService;
@@ -61,7 +72,7 @@ namespace Web.Areas.Admin.Controllers
                         on d.ID equals od.OrderID
                         select new { Dish1 = d, Orders = od};
             List<DishInOrder> dishes = null;
-            
+
             return View(dishes);
         }
 
@@ -73,7 +84,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: Dishes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -122,7 +133,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: Dishes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -148,7 +159,7 @@ namespace Web.Areas.Admin.Controllers
                     {
                         throw;
                     }
-                    
+
 
                 }
                 db.SaveChanges();
@@ -182,6 +193,40 @@ namespace Web.Areas.Admin.Controllers
             db.Dishes.Remove(dish);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET
+        public JsonResult SearchDishes(string Name)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var Dishes = db.Dishes.Where(d => d.Name.Contains(Name));
+            return Json( Dishes, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getDish(int ID)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Dish, DishViewModel>();
+                cfg.CreateMap<Promotion, PromotionViewModel>();
+            });
+            var dish = db.Dishes.Single(x => x.ID == ID);
+            var dishvm = Mapper.Map<DishViewModel>(dish);
+
+            var promotion = db.Promotions.Find(dish.PromotionID);
+            var promotionvm = Mapper.Map<PromotionViewModel>(promotion);
+
+            var data = Json(new
+            {
+                ID = dishvm.ID,
+                Name = dishvm.Name,
+                Image = dishvm.Image,
+                SubCategoryID = dishvm.SubCategoryID,
+                Price = dishvm.Price,
+                Promotion = promotionvm
+            }, JsonRequestBehavior.AllowGet);
+            return data;
         }
 
         protected override void Dispose(bool disposing)

@@ -18,7 +18,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View(db.Customers.Where(c => c.IsDelete == false).ToList());
         }
 
         // GET: Customers/Details/5
@@ -47,10 +47,12 @@ namespace Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Sex,Birthday,Phone,Address,Class,CreateAt,IsDelete")] Customer customer)
+        public ActionResult Create([Bind(Include = "ID,Name,Sex,Birthday,Phone,Address,Class,CreateAt")] Customer customer)
         {
             if (ModelState.IsValid)
             {
+                customer.IsDelete = false;
+                customer.CreateAt = DateTime.Now;
                 db.Customers.Add(customer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -79,10 +81,11 @@ namespace Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Sex,Birthday,Phone,Address,Class,CreateAt,IsDelete")] Customer customer)
+        public ActionResult Edit([Bind(Include = "ID,Name,Sex,Birthday,Phone,Address,Class,CreateAt")] Customer customer)
         {
             if (ModelState.IsValid)
             {
+                customer.IsDelete = false;
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -111,9 +114,16 @@ namespace Web.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
+            db.Entry(customer).State = EntityState.Modified;
+            customer.IsDelete = true;
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public JsonResult GetCustomers()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(db.Customers, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
