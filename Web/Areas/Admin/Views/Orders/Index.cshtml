@@ -3,77 +3,90 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Ngày giờ
-        </th>
-        <th>
-            Giá trước khuyến mãi
-        </th>
-        <th>
-            Tổng giá
-        </th>
-        <th>
-            Trạng thái
-        </th>
-        <th>
-            Khách hàng
-        </th>
-        <th>
-            Nhân viên
-        </th>
-        <th>
-            Mã bàn
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubTotal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Total)
-        </td>
-        <td>
-            @if (item.Status == 0)
-            {
-                <p>Chưa thanh toán</p>
+<div class="box-content">
+    <table id="example" class="table table-striped table-bordered display orderTable dataTable" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Ngày giờ
+                </th>
+                <th>
+                    Giá trước khuyến mãi
+                </th>
+                <th>
+                    Tổng giá
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th>
+                    Khách hàng
+                </th>
+                <th>
+                    Nhân viên
+                </th>
+                <th>
+                    Mã bàn
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr id="@item.Id">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateAt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubTotal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        @if (item.Status == 0)
+                        {
+                            <p class="text-danger">Chưa thanh toán</p>
+                        }
+                        else
+                        {
+                            <p class="text-success">Đã thanh toán</p>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Table.Code)
+                    </td>
+                    <td>
+                        @if (item.Status == 0)
+                        {
+                            <a href="@Url.Action("Edit", "Orders", new { id=item.Id })">
+                                <i class="ico zmdi zmdi-edit zmdi-hc-fw"></i>
+                            </a>
+                        }
+                        <a href="@Url.Action("Details", "Orders", new { id=item.Id })">
+                            <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
+                        </a>
+                        <a href="@Url.Action("Delete", "Orders", new { id=item.Id })" data-url="/Admin/Orders/Delete/@item.Id" id="@item.Id" class="delete-object">
+                            <i class="ico zmdi zmdi-delete zmdi-hc-fw"></i>
+                        </a>
+                    </td>
+                </tr>
             }
-            else
-            {
-                <p>Đã thanh toán</p>
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Table.Code)
-        </td>
-        <td>
-            @if (item.Status == 0)
-            {
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id })
-            }
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+        </tbody>
+    </table>
+</div>
+<script src="/Assets/datatable/order.js"></script>
