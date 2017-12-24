@@ -243,3 +243,5 @@ ModelManifest.xml
 
 src/Data/App.config
 *Gen.cs
+/Data/App.config
+/Web/Web.config
