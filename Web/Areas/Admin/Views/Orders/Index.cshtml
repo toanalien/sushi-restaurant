@@ -46,10 +46,10 @@
                         @Html.DisplayFor(modelItem => item.CreateAt)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SubTotal)
+                        @string.Format("{0:n0} đ", item.SubTotal)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Total)
+                        @string.Format("{0:n0} đ", item.Total)
                     </td>
                     <td>
                         @if (item.Status == 0)
