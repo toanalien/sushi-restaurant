@@ -201,7 +201,7 @@ namespace Web.Areas.Admin.Controllers
         }
         // POST: Admin/Orders/Delete/5
         [HttpPost, ActionName("Delete")]
-        public JsonResult DeleteConfirmed(int id)
+        public JsonResult Delete(int id)
         {
             Boolean status = false;
             string message = String.Empty;
