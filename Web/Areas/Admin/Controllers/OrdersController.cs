@@ -12,9 +12,11 @@ using AutoMapper;
 using Data.Model.ViewModels;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNet.Identity;
+using Web.Utils;
 
 namespace Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = Role.Admin)]
     public class OrdersController : Controller
     {
 

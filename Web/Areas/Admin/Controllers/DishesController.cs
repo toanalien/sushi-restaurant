@@ -16,7 +16,7 @@ using Data.Model.ViewModels;
 
 namespace Web.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Role.Admin)]
     public class DishesController : Controller
     {
         public DishesController()

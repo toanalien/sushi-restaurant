@@ -7,10 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Data.Model.Entities;
+using Web.Utils;
 
 namespace Web.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Role.Admin)]
     public class PromotionsController : Controller
     {
         private Entities db = new Entities();
