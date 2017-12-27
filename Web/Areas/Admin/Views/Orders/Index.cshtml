@@ -71,16 +71,19 @@
                         @Html.DisplayFor(modelItem => item.Table.Code)
                     </td>
                     <td>
+                        <a data-url="/Admin/Orders/Details/@item.Id" id="@item.Id" class="show-modal">
+                            <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
+                        </a>
                         @if (item.Status == 0)
                         {
                             <a href="@Url.Action("Edit", "Orders", new { id=item.Id })">
                                 <i class="ico zmdi zmdi-edit zmdi-hc-fw"></i>
                             </a>
                         }
-                        <a href="@Url.Action("Details", "Orders", new { id=item.Id })">
+                        @*<a href="@Url.Action("Details", "Orders", new { id=item.Id })">
                             <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
-                        </a>
-                        <a href="@Url.Action("Delete", "Orders", new { id=item.Id })" data-url="/Admin/Orders/Delete/@item.Id" id="@item.Id" class="delete-object">
+                        </a> *@
+                        <a data-url="/Admin/Orders/Delete/@item.Id" id="@item.Id" class="delete-object">
                             <i class="ico zmdi zmdi-delete zmdi-hc-fw"></i>
                         </a>
                     </td>
@@ -88,5 +91,12 @@
             }
         </tbody>
     </table>
+
+    <button type="button" class="btn btn-primary margin-bottom-10 waves-effect waves-light" data-toggle="modal" data-target="#boostrapModal-1">Standard modal</button>
+
+</div>
+<div class="modal fade" id="boostrapModal-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+    </div>
 </div>
 <script src="/Assets/datatable/order.js"></script>
