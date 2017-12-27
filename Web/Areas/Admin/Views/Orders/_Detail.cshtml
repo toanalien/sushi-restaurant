@@ -1,0 +1,138 @@
+﻿@model Data.Model.Entities.Order
+<div class="invoice-box" id="section-to-print">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="https://www.sparksuite.com/images/logo.png" style="width:100%; max-width:200px;">
+                        </td>
+
+                        <td>
+                            Hóa đơn số #: @Model.Id<br>
+                            Tạo lúc: @Model.CreateAt.ToString("MMMM dd, yyyy")<br>
+                            @Model.CreateAt.ToString("H:mm:ss")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            Sushi Store<br>
+                            12345 Cộng Hòa<br>
+                            1900 100 có<br>
+                            Nhân viên: @Model.AspNetUser.Email
+                        </td>
+
+                        <td>
+                            @if (@Model.Customer != null)
+                            {
+                                @Model.Customer.Name<br>
+                                @Model.Customer.Phone<br>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <table class="table table-bordered table-hover table-striped">
+          <thead>
+            <td>
+                Tên món ăn
+            </td>
+            <td>
+                Giá
+            </td>
+            <td>
+                Số lượng
+            </td>
+            <td>
+                Thành tiền
+            </td>
+          </thead>
+          <tbody>
+              @foreach (var item in Model.OrderDishes)
+              {
+                  <tr class="item">
+                      <td>
+                          @item.Dish.Name
+                      </td>
+                      <td>
+                          @item.UnitPrice
+                      </td>
+                      <td>
+                          @item.Quantity
+                      </td>
+                      <td>
+                          @(item.UnitPrice * @item.Quantity)
+                      </td>
+                  </tr>
+
+              }
+          </tbody>
+        </table>
+        <br>
+        <br>
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+            <td>
+                Mục
+            </td>
+            <td>
+                Phí
+            </td>
+            </thead>
+          <tbody>
+            <tr>
+                <td>Giá trước khuyến mãi</td>
+                <td>@Model.SubTotal</td>
+            </tr>
+            <tr>
+              <td>Giảm giá khuyến mãi</td>
+              <td>@Model.PromotionDiscount</td>
+            </tr>
+            <tr>
+                <td>Giảm giá khách hàng</td>
+                @if (Model.Customer != null)
+                {
+                    switch (Model.Customer.Class)
+                    {
+                        case 0:
+                            <td>5%</td>
+                            break;
+                        case 1:
+                            <td>10%</td>
+                            break;
+                        case 2:
+                            <td>15%</td>
+                            break;
+                        default:
+                            <td>0%</td>
+                            break;
+                    }
+                }
+                else
+                {
+                    <td>0%</td>
+                }
+            </tr>
+            <tr>
+                <td>Thanh toán</td>
+                <td>@Model.Total</td>
+            </tr>
+          </tbody>
+        </table>
+    </table>
+</div>
+
+<div class="invoice-box modal-footer">
+    <button type="button" class="btn btn-default btn-sm waves-effect waves-light" data-dismiss="modal">Đóng</button>
+    <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" onclick="window.print();">In hóa đơn</button>
+</div>

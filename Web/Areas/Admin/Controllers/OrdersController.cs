@@ -48,7 +48,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return PartialView("_Detail", order);
         }
 
         // GET: Admin/Orders/Create
