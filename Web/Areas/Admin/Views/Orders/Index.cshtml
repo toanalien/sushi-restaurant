@@ -71,7 +71,7 @@
                         @Html.DisplayFor(modelItem => item.Table.Code)
                     </td>
                     <td>
-                        <a data-url="/Admin/Orders/Details/@item.Id" id="@item.Id" class="show-modal">
+                        <a data-url="@Url.Action("Details", "Orders", new { id=item.Id })" id="@item.Id" class="show-modal">
                             <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
                         </a>
                         @if (item.Status == 0)
@@ -80,10 +80,11 @@
                                 <i class="ico zmdi zmdi-edit zmdi-hc-fw"></i>
                             </a>
                         }
-                        @*<a href="@Url.Action("Details", "Orders", new { id=item.Id })">
+                        @* cho nhung trang index ko phai la modal
+                        <a href="@Url.Action("Details", "Orders", new { id=item.Id })">
                             <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
                         </a> *@
-                        <a data-url="/Admin/Orders/Delete/@item.Id" id="@item.Id" class="delete-object">
+                        <a data-url="@Url.Action("Delete", "Orders", new { id=item.Id })" id="@item.Id" class="delete-object">
                             <i class="ico zmdi zmdi-delete zmdi-hc-fw"></i>
                         </a>
                     </td>

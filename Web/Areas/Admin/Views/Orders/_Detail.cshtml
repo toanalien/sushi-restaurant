@@ -11,7 +11,7 @@
 
                         <td>
                             Hóa đơn số #: @Model.Id<br>
-                            Tạo lúc: @Model.CreateAt.ToString("MMMM dd, yyyy")<br>
+                            Tạo lúc: @Model.CreateAt.ToString("dd-MM-yy")<br>
                             @Model.CreateAt.ToString("H:mm:ss")
                         </td>
                     </tr>
@@ -66,13 +66,13 @@
                           @item.Dish.Name
                       </td>
                       <td>
-                          @item.UnitPrice
+                          @string.Format("{0:n0} đ", @item.UnitPrice)
                       </td>
                       <td>
-                          @item.Quantity
+                          @string.Format("{0:n0}", @item.Quantity)
                       </td>
                       <td>
-                          @(item.UnitPrice * @item.Quantity)
+                          @string.Format("{0:n0} đ", @item.UnitPrice * @item.Quantity)
                       </td>
                   </tr>
 
