@@ -5,6 +5,15 @@ $(document).ready(function() {
     id = $(this).attr('id')
     swalDelete(url, id)
   });
+
+  $('.show-modal').on('click', function(event) {
+    event.preventDefault();
+    url = $(this).data('url')
+    id = $(this).attr('id')
+    $('.modal-dialog').load( url, function() {
+      $('#boostrapModal-1').modal('show')
+    });
+  });
 });
 
 function Delete(url, id) {
@@ -28,4 +37,3 @@ function removeRow(id) {
   row = $(`tr#${id}`)
   table.row(row).remove().draw()
 }
-

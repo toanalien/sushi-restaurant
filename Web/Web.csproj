@@ -549,7 +549,6 @@
     <Content Include="Areas\Admin\Views\Dishes\ListDishes.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Orders\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Promotions\Create.cshtml" />
@@ -570,6 +569,7 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Reservations\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Promotions\AddDish.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\_Detail.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
