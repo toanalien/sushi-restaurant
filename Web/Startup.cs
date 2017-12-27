@@ -40,8 +40,10 @@ namespace Web
             //add admin with role admin
             var db = new Entities();
             var user = db.AspNetUsers.Where(p => p.Email == "admin@sushires.com").FirstOrDefault();
-            var result1 = UserManager.AddToRole(user.Id, Role.Admin);
-
+            if (user.AspNetRoles.Where(r => r.Name == Role.Admin).FirstOrDefault() == null)
+            {
+                var result1 = UserManager.AddToRole(user.Id, Role.Admin);
+            }
             // creating Creating Manager role  
             if (!roleManager.RoleExists(Role.Staff))
             {

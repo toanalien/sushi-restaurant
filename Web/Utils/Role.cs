@@ -9,5 +9,6 @@ namespace Web.Utils
     {
         public const string Admin = "Admin";
         public const string Staff = "Staff";
+        public const string Both = "Admin,Staff";
     }
 }

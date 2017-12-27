@@ -11,12 +11,13 @@ using Web.Utils;
 
 namespace Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = Role.Admin)]
+    [Authorize(Roles = Role.Both)]
     public class CategoriesController : Controller
     {
         private Entities db = new Entities();
 
         // GET: Categories
+        [Authorize(Roles = Role.Admin)]
         public ActionResult Index()
         {
             return View(db.Categories.ToList());
@@ -38,6 +39,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = Role.Admin)]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +48,7 @@ namespace Web.Areas.Admin.Controllers
         // POST: Categories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = Role.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,Description")] Category category)
@@ -61,6 +64,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = Role.Admin)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +82,7 @@ namespace Web.Areas.Admin.Controllers
         // POST: Categories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = Role.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,Description")] Category category)
@@ -92,6 +97,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = Role.Admin)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +113,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: Categories/Delete/5
+        [Authorize(Roles = Role.Admin)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
