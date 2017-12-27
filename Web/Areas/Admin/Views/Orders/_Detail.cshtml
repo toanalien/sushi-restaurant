@@ -27,7 +27,8 @@
                             Sushi Store<br>
                             12345 Cộng Hòa<br>
                             1900 100 có<br>
-                            Nhân viên: @Model.AspNetUser.Email
+                            Nhân viên: @Model.AspNetUser.Email<br>
+                            Bàn số: @Model.Table.Code
                         </td>
 
                         <td>
@@ -92,40 +93,39 @@
           <tbody>
             <tr>
                 <td>Giá trước khuyến mãi</td>
-                <td>@Model.SubTotal</td>
+                <td>@string.Format("{0:n0} đ", @Model.SubTotal)</td>
             </tr>
             <tr>
               <td>Giảm giá khuyến mãi</td>
-              <td>@Model.PromotionDiscount</td>
+                <td>@string.Format("{0:n0} đ", @Model.PromotionDiscount)</td>
             </tr>
             <tr>
                 <td>Giảm giá khách hàng</td>
+                @{int cusClass = 0;}
                 @if (Model.Customer != null)
                 {
                     switch (Model.Customer.Class)
                     {
                         case 0:
-                            <td>5%</td>
+                            cusClass = 5;
                             break;
                         case 1:
-                            <td>10%</td>
+                            cusClass = 10;
                             break;
                         case 2:
-                            <td>15%</td>
+                            cusClass = 15;
                             break;
                         default:
-                            <td>0%</td>
+                            cusClass = 0;
                             break;
                     }
                 }
-                else
-                {
-                    <td>0%</td>
-                }
+                 @{ long classSale = (long)((Model.SubTotal - Model.PromotionDiscount) * cusClass / 100);}
+                <td>@string.Format("{0:n0} đ", classSale)</td>
             </tr>
             <tr>
                 <td>Thanh toán</td>
-                <td>@Model.Total</td>
+                <td>@string.Format("{0:n0} đ", @Model.Total)</td>
             </tr>
           </tbody>
         </table>
