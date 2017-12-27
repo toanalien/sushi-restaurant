@@ -182,23 +182,6 @@ namespace Web.Areas.Admin.Controllers
             return View(order);
         }
 
-        // POST: Admin/Orders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreateAt,IsDelete,SubTotal,PromotionDiscount,ClassDiscount,Total,Status,CustomerID,EmployeeID,TableID")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CustomerID = new SelectList(db.Customers, "ID", "Name", order.CustomerID);
-            ViewBag.TableID = new SelectList(db.Tables, "Id", "Code", order.TableID);
-            return View(order);
-        }
         // POST: Admin/Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         public JsonResult Delete(int id)
@@ -224,25 +207,6 @@ namespace Web.Areas.Admin.Controllers
                 status = status,
                 message = message
             });
-        }
-
-        public JsonResult GetOrder(int ID)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-
-
-            var order = db.Orders.Single(x => x.Id == ID);
-            var ordervm = Mapper.Map<OrderViewModel>(order);
-
-            var orderdish = db.OrderDishes.Where(x => x.OrderID == ID);
-            var orderDishVm = Mapper.Map<List<OrderDishViewModel>>(orderdish).ToList();
-
-            var data = Json(new
-            {
-                order = ordervm,
-                orderdish = orderDishVm
-            }, JsonRequestBehavior.AllowGet);
-            return data;
         }
 
         public JsonResult changeState(int ID)
