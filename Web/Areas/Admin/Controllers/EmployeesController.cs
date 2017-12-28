@@ -11,9 +11,11 @@ using Web.Models;
 using Web.Utils;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.Web.Security;
 
 namespace Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = Role.Admin)]
     public class EmployeesController : Controller
     {
         private Entities db = new Entities();
@@ -159,8 +161,25 @@ namespace Web.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Employee employee = db.Employees.Find(id);
-            employee.IsDelete = true;
-            db.Entry(employee).State = EntityState.Modified;
+
+            var user = employee.AspNetUser;
+            if (user != null)
+            {
+                var orders = user.Orders.ToList();
+                if (orders != null)
+                {
+                    foreach (var order in orders)
+                    {
+                        order.AspNetUser = null;
+                        db.Entry(order).State = EntityState.Modified;
+                    }
+                }
+                db.Employees.Remove(employee);
+                db.SaveChanges();
+                UserManager.Delete(UserManager.FindByEmail(user.Email));
+            }
+
+            //Membership.DeleteUser(user.UserName, true);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
