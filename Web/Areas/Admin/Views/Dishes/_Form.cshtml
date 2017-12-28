@@ -1,0 +1,31 @@
+﻿@model Data.Model.Entities.Dish
+
+<div class="form-group">
+    <label>Tên món ăn</label>
+    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+</div>
+
+<div class="form-group">
+    <label>Ghi chú</label>
+    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+</div>
+<div class="form-group">
+    <label>Hình ảnh</label>
+    <input id="Image" title="Upload a product image" type="file" name="file" />
+    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+</div>
+<div class="form-group">
+    <label>Giá</label>
+    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+</div>
+<div class="form-group">
+    <label>Thuộc nhóm</label>
+    @Html.DropDownList("SubCategoryID", null, htmlAttributes: new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
+</div>
+<button type="submit" class="btn btn-primary btn-sm waves-effect waves-light pull-right">Lưu</button>
+<br>
+<p></p>

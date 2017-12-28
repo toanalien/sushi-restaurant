@@ -61,7 +61,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(dish);
+            return PartialView("_Detail", dish);
         }
 
         // GET: Dishes/Details/5
@@ -169,30 +169,32 @@ namespace Web.Areas.Admin.Controllers
             return View(dish);
         }
 
-        // GET: Dishes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Dish dish = db.Dishes.Find(id);
-            if (dish == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dish);
-        }
-
         // POST: Dishes/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public JsonResult Delete(int id)
         {
-            Dish dish = db.Dishes.Find(id);
-            db.Dishes.Remove(dish);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            Boolean status = false;
+            string message = String.Empty;
+
+            try
+            {
+                Dish dish = db.Dishes.Find(id);
+                db.Dishes.Remove(dish);
+                db.SaveChanges();
+                status = true;
+                message = "Xóa dish thành công";
+            }
+            catch (Exception ex)
+            {
+                status = false;
+                message = ex.Message;
+            }
+
+            return Json(new
+            {
+                status = status,
+                message = message
+            });
         }
 
         // GET
