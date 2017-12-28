@@ -533,7 +533,6 @@
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\Create.cshtml" />
@@ -571,6 +570,8 @@
     <Content Include="Areas\Admin\Views\Orders\_Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Dishes\_Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Dishes\_Form.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\_Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\_Form.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

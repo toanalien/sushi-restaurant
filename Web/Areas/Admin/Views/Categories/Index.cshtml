@@ -4,36 +4,46 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+    <div class="box-content">
+        <table id="example" class="table table-striped table-bordered display categoryTable dataTable" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Nhóm món ăn
+                    </th>
+                    <th>
+                        Miêu tả
+                    </th>
+                    
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Categories", new { id=item.ID })">
+                            <i class="ico zmdi zmdi-edit zmdi-hc-fw"></i>
+                        </a>
+                        <a data-url="@Url.Action("Details", "Categories", new { id=item.ID })" id="@item.ID" class="show-modal">
+                            <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
+                        </a>
+                        <a data-url="@Url.Action("Delete", "Categories", new { id=item.ID })" id="@item.ID" class="delete-object">
+                            <i class="ico zmdi zmdi-delete zmdi-hc-fw"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+        </table>
+        </div>
+<script src="/Assets/datatable/category.js"></script>

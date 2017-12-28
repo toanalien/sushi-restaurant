@@ -171,6 +171,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: Dishes/Delete/5
         [HttpPost, ActionName("Delete")]
+
         public JsonResult Delete(int id)
         {
             Boolean status = false;
