@@ -8,30 +8,52 @@
 </head>
 <body>
     <div class="container">
-        <div>
-            <canvas id="myChart"></canvas>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body stt-panel-dish">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i> <span id="countDish"></span>
+                    </div>
+                    <div class="panel-footer stt-panel-dish">Món Ăn</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body stt-panel-promotion">
+                        <i class="fa fa-bullhorn" aria-hidden="true"></i> <span id="countPromotion"></span>
+                    </div>
+                    <div class="panel-footer stt-panel-promotion">Khuyến Mãi</div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body stt-panel-order">
+                        <i class="fa fa-file-o" aria-hidden="true"></i> <span id="countOrder"></span>
+                    </div>
+                    <div class="panel-footer stt-panel-order">Order Hôm Nay</div>
+
+                </div>
+            </div>
         </div>
+        <div class="row">
+        <div class="col-md-4">
+                <label for="BanAnChart">
+                    Bàn Ăn <br/>
+                    <canvas id="BanAnChart" class="pie-chart"></canvas>
+                </label>
+        </div>
+
+            <div class="col-md-4">
+                <label for="KhachHangChart">
+                    Khách Hàng <br/>
+                    <canvas id="KhachHangChart" class="pie-chart"></canvas>
+                </label>
+            </div>
+            </div>
     </div>
-    <script>
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ["M", "T", "W", "T", "F", "S", "S"],
-        datasets: [{
-          backgroundColor: [
-            "#2ecc71",
-            "#3498db",
-            "#95a5a6",
-            "#9b59b6",
-            "#f1c40f",
-            "#e74c3c",
-            "#34495e"
-          ],
-          data: [12, 19, 3, 17, 28, 24, 7]
-        }]
-      }
-    });
-    </script>
+
+    <link href="~/Assets/styles/dashboard.css" rel="stylesheet" />
+    <script src="~/Assets/scripts/dashboard.js"></script>
 </body>
 </html>
