@@ -3,59 +3,63 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="box-content">
+    <table id="example" class="table table-striped table-bordered display dishTable dataTable" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Tên món
+                </th>
+                <th>
+                    Hình món ăn
+                </th>
+                <th>
+                    Giá
+                </th>
+                <th>
+                    Số lượt order
+                </th>
+                <th>
+                    Nhóm món ăn
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr id="@item.ID">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <img style="height:100px" src="@item.Image "/>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderTimes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubCategory.Name)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Dishes", new { id=item.ID })">
+                            <i class="ico zmdi zmdi-edit zmdi-hc-fw"></i>
+                        </a>
+                        <a data-url="@Url.Action("Details", "Dishes", new { id=item.ID })" id="@item.ID" class="show-modal">
+                            <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
+                        </a>
+                        <a data-url="@Url.Action("Delete", "Dishes", new { id=item.ID })" id="@item.ID" class="delete-object">
+                            <i class="ico zmdi zmdi-delete zmdi-hc-fw"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Tên món
-        </th>
-        <th>
-            Hình món ăn
-        </th>
-        <th>
-            Giá
-        </th>
-        <th>
-            Số lượt order
-        </th>
-        <th>
-            Nhóm món ăn
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            <img style="height:100px" src="@item.Image "/>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderTimes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubCategory.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Chi tiết", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</div>
+<script src="/Assets/datatable/dish.js"></script>
