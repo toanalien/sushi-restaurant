@@ -556,7 +556,6 @@
     <Content Include="Areas\Admin\Views\Promotions\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SubCategories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\SubCategories\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\SubCategories\Details.cshtml" />
     <Content Include="Areas\Admin\Views\SubCategories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SubCategories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tables\Create.cshtml" />
@@ -572,6 +571,8 @@
     <Content Include="Areas\Admin\Views\Dishes\_Form.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\_Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\_Form.cshtml" />
+    <Content Include="Areas\Admin\Views\SubCategories\_Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\SubCategories\_Form.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
