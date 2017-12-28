@@ -44,12 +44,16 @@ button#new {
     margin-left: 50px;
 }
 
-.modal-backdrop {
-    z-index: -1;
+.bg-custome {
+  background-color: #014FFD !important;
 }
 
-.modal {
-    top: 60px !important;
+.container.content {
+    width: 100%;
+}
+
+.modal-dialog i {
+    color: whitesmoke;
 }
 
 .invoice-box {
