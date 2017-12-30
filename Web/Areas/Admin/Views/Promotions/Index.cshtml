@@ -4,49 +4,57 @@
     ViewBag.Title = "Index";
     ViewBag.Current = "Promotions";
 }
+<div class="box-content">
+    <table id="example" class="table table-striped table-bordered display promotionTable dataTable" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Tên khuyến mãi
+                </th>
+                <th>
+                    Giảm giá
+                </th>
+                <th>
+                    Ngày tạo
+                </th>
+                <th>
+                    Ngày hết hạn
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr id="@item.Id">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountPercent) %
+                    </td>
+                    <td>
+                        @string.Format("{0:dd-MM-yyyy}", item.CreateAt)
+                    </td>
+                    <td>
+                        @string.Format("{0:dd-MM-yyyy}", item.ExpireAt)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Promotions", new { id=item.Id })">
+                            <i class="ico zmdi zmdi-edit zmdi-hc-fw"></i>
+                        </a>
+                        <a href="@Url.Action("Details", "Promotions", new { id=item.Id })" data-url="@Url.Action("Details", "Promotions", new { id=item.Id })" id="@item.Id">
+                            <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
+                        </a>
+                        <a data-url="@Url.Action("Delete", "Promotions", new { id=item.Id })" id="@item.Id" class="delete-object">
+                            <i class="ico zmdi zmdi-delete zmdi-hc-fw"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Tên khuyến mãi
-        </th>
-        <th>
-            Giảm giá
-        </th>
-        <th>
-            Ngày tạo
-        </th>
-        <th>
-            Ngày hết hạn
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiscountPercent) %
-        </td>
-        <td>
-            @string.Format("{0:dd-MM-yyyy}", item.CreateAt)
-        </td>
-        <td>
-            @string.Format("{0:dd-MM-yyyy}", item.ExpireAt)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+</div>
+<script src="/Assets/datatable/promotion.js"></script>

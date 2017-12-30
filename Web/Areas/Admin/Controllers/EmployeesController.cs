@@ -61,7 +61,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return PartialView("_Detail", employee);
         }
 
         // GET: Admin/Employees/Create
@@ -72,7 +72,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: Admin/Employees/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -125,7 +125,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: Admin/Employees/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -140,48 +140,48 @@ namespace Web.Areas.Admin.Controllers
             return View(employee);
         }
 
-        // GET: Admin/Employees/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
-            return View(employee);
-        }
-
         // POST: Admin/Employees/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            Employee employee = db.Employees.Find(id);
-
-            var user = employee.AspNetUser;
-            if (user != null)
+            Boolean status = false;
+            string message = String.Empty;
+            try
             {
-                var orders = user.Orders.ToList();
-                if (orders != null)
+                Employee employee = db.Employees.Find(id);
+
+                var user = employee.AspNetUser;
+                if (user != null)
                 {
-                    foreach (var order in orders)
+                    var orders = user.Orders.ToList();
+                    if (orders != null)
                     {
-                        order.AspNetUser = null;
-                        db.Entry(order).State = EntityState.Modified;
+                        foreach (var order in orders)
+                        {
+                            order.AspNetUser = null;
+                            db.Entry(order).State = EntityState.Modified;
+                        }
                     }
+                    db.Employees.Remove(employee);
+                    db.SaveChanges();
+                    UserManager.Delete(UserManager.FindByEmail(user.Email));
+                    db.SaveChanges();
                 }
-                db.Employees.Remove(employee);
-                db.SaveChanges();
-                UserManager.Delete(UserManager.FindByEmail(user.Email));
+
+                status = true;
+                message = "Xóa employee thành công";
+            }
+            catch (Exception ex)
+            {
+                status = false;
+                message = ex.Message;
             }
 
-            //Membership.DeleteUser(user.UserName, true);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(new
+            {
+                status = status,
+                message = message
+            });
         }
 
         protected override void Dispose(bool disposing)
