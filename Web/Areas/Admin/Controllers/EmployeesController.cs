@@ -67,6 +67,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Employees/Create
         public ActionResult Create()
         {
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Text", "Value");
             ViewBag.RoleName = new SelectList(db.AspNetRoles, "Name", "Name");
             return View();
         }
@@ -105,6 +106,7 @@ namespace Web.Areas.Admin.Controllers
                     ViewBag.Errors = result.Errors;
                 }
             }
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text", employee.Sex);
             ViewBag.RoleName = new SelectList(db.AspNetRoles, "Name", "Name");
             return View(employee);
         }
@@ -121,6 +123,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text", employee.Sex);
             ViewBag.RoleName = new SelectList(db.AspNetRoles, "Name", "Name", employee.AspNetUser.AspNetRoles.FirstOrDefault().Name);
             return View(employee);
         }
@@ -147,6 +150,7 @@ namespace Web.Areas.Admin.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text", employee.Sex);
             ViewBag.RoleName = new SelectList(db.AspNetRoles, "Name", "Name", employee.AspNetUser.AspNetRoles.FirstOrDefault().Name);
             return View(employee);
         }

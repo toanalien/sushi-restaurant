@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Data.Model.Entities;
+using Web.Utils;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -39,6 +40,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text");
             return View();
         }
 
@@ -57,6 +59,7 @@ namespace Web.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text", customer.Sex);
 
             return View(customer);
         }
@@ -73,6 +76,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text", customer.Sex);
             return View(customer);
         }
 
@@ -90,6 +94,7 @@ namespace Web.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text", customer.Sex);
             return View(customer);
         }
 
@@ -110,7 +115,6 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Customer customer = db.Customers.Find(id);
