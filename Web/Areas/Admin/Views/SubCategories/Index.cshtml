@@ -14,7 +14,9 @@
                 <th>
                     Miêu tả
                 </th>
-
+                <th>
+                    Nhóm món ăn
+                </th>
                 <th>
                     Action
                 </th>
@@ -29,6 +31,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
                     </td>
                     <td>
                         <a href="@Url.Action("Edit", "SubCategories", new { id=item.ID })">
