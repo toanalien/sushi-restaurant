@@ -1,0 +1,34 @@
+﻿@model Data.Model.Entities.Customer
+
+<div class="box-content card bordered-all success">
+    <div class="box-title bg-custom container content">
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <h4>@Html.DisplayFor(model => model.Name)</h4>
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+        <a href="@Url.Action("Edit", "Customers", new { id=Model.ID })">
+            <i class="ico zmdi zmdi-edit zmdi-hc-fw"></i>
+        </a>
+        <a data-url="@Url.Action("Delete", "Customers", new { id=Model.ID })" id="@Model.ID" class="delete-object">
+            <i class="ico zmdi zmdi-delete zmdi-hc-fw"></i>
+        </a>
+      </div>
+    </div>
+    <div class="card-content">
+        <div class="container content">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h3>Tên : @Model.Name</h3>
+                <h3>Giới tính : @(Model.Sex == 0 ? "Không xác định" : "" )
+                        @(Model.Sex == 1 ? "Nam" : "" )
+                        @(Model.Sex == 2 ? "Nữ" : "" )</h3>
+                <h3>Sinh nhật : @Model.Birthday</h3>
+                <h3>SĐT : @Model.Phone</h3>
+                <h3>Địa chỉ : @Model.Address</h3>
+                <h3>Hạng : @(Model.Class == 0 ? "Bạc" : "" )
+                        @(Model.Class == 1 ? "Vàng" : "" )
+                        @(Model.Class == 2 ? "Kim Cương" : "" )</h3>
+            </div>
+        </div>
+    </div>
+
+</div>

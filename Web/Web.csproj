@@ -573,6 +573,8 @@
     <Content Include="Areas\Admin\Views\Categories\_Form.cshtml" />
     <Content Include="Areas\Admin\Views\SubCategories\_Detail.cshtml" />
     <Content Include="Areas\Admin\Views\SubCategories\_Form.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\_Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\_Form.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
