@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "Index";
 }
-<link href="~/Assets/styles/order.css" type="text/css" rel="stylesheet"/>
-<h2>Các bàn đang phục vụ</h2>
+
+<h2>Index</h2>
 
 <p>
-    <button class="btn btn-primary"><a href="/Admin/Orders/Create" class="text-white">Tạo mới</a></button>
+    <a href="/Admin/Orders/Create">Create New</a>
 </p>
 
 <div class="row">
@@ -15,20 +15,15 @@
 {
     <div class="col-md-3">
         <div class="panel panel-primary">
-            <div class="panel-heading">@item.CreateAt</div>
+            <div class="panel-heading">Panel heading without title</div>
             <div class="panel-body">
-                <div class="col-md-6">
-                    <h4 class="card-title">
-                    <i class="fa fa-cube"></i> @item.Table.Code</h4>
-                </div>
-                <div class="col-md-6"></div>
-                <h6 class="card-subtitle mb-2">@string.Format("{0:n0} đ",item.Total)</h6>
-                <p class="card-text"><i class="fa fa-cutlery"></i> @item.OrderDishes.Count món</p>
+                <h4 class="card-title">@item.Table.Code</h4>
+                <h6 class="card-subtitle mb-2 text-muted">@item.Total</h6>
+                <p class="card-text">@item.OrderDishes.Count dishes</p>
             </div>
             <div class="panel-footer">
-                <a href="#" class="card-link show-modal" data-url="/Admin/Orders/Details/@item.Id" id="@item.Id">
-                    Chi tiết</a> |
-                <a href="/Admin/Orders/Edit/@item.Id" class="card-link" >Chỉnh sửa</a>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
             </div>
         </div>
     </div>
@@ -37,4 +32,4 @@
 }
 </div>
 
-<script src="/Assets/datatable/order.js"></script>
+
