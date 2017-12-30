@@ -142,8 +142,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: Promotions/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = Role.Admin)]
-        public ActionResult Delete(int id)
+        public JsonResult Delete(int id)
         {
             Boolean status = false;
             string message = String.Empty;
@@ -162,15 +161,11 @@ namespace Web.Areas.Admin.Controllers
                 message = ex.Message;
             }
 
-        // POST: Promotions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Promotion promotion = db.Promotions.Find(id);
-            db.Promotions.Remove(promotion);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(new
+            {
+                status = status,
+                message = message
+            });
         }
 
         protected override void Dispose(bool disposing)
