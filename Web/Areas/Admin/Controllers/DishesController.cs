@@ -39,7 +39,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: Dishes
-        [Authorize(Roles = Role.Admin)]
         public ActionResult Index()
         {
             var dishes = db.Dishes.Where(d => d.IsDelete != true).Include(d => d.SubCategory);
@@ -78,7 +77,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: Dishes/Create
-        [Authorize(Roles = Role.Admin)]
         public ActionResult Create()
         {
             ViewBag.SubCategoryID = new SelectList(db.SubCategories, "ID", "Name");
@@ -88,7 +86,6 @@ namespace Web.Areas.Admin.Controllers
         // POST: Dishes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = Role.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,Description,Image,Price,SubCategoryID")] Dish dish,
@@ -119,7 +116,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: Dishes/Edit/5
-        [Authorize(Roles = Role.Admin)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -139,7 +135,6 @@ namespace Web.Areas.Admin.Controllers
         // POST: Dishes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = Role.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,Description,Image,Price,SubCategoryID")] Dish dish,
@@ -174,10 +169,9 @@ namespace Web.Areas.Admin.Controllers
             return View(dish);
         }
 
-
-        [Authorize(Roles = Role.Admin)]
         // POST: Dishes/Delete/5
         [HttpPost, ActionName("Delete")]
+
         public JsonResult Delete(int id)
         {
             Boolean status = false;

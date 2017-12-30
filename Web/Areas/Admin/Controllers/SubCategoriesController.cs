@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Data.Model.Entities;
-using Web.Utils;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -17,7 +16,6 @@ namespace Web.Areas.Admin.Controllers
         private Entities db = new Entities();
 
         // GET: SubCategories
-        [Authorize(Roles = Role.Admin)]
         public ActionResult Index()
         {
             var subCategories = db.SubCategories.Include(s => s.Category);
@@ -40,7 +38,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: SubCategories/Create
-        [Authorize(Roles = Role.Admin)]
         public ActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name");
@@ -50,7 +47,6 @@ namespace Web.Areas.Admin.Controllers
         // POST: SubCategories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = Role.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,Description,CategoryID")] SubCategory subCategory)
@@ -67,7 +63,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: SubCategories/Edit/5
-        [Authorize(Roles = Role.Admin)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,7 +81,6 @@ namespace Web.Areas.Admin.Controllers
         // POST: SubCategories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = Role.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,Description,CategoryID")] SubCategory subCategory)
@@ -102,7 +96,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: SubCategories/Delete/5
-        [Authorize(Roles = Role.Admin)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -118,7 +111,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: SubCategories/Delete/5
-        [Authorize(Roles = Role.Admin)]
         [HttpPost, ActionName("Delete")]
      
         public JsonResult Delete(int id)
