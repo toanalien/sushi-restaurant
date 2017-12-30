@@ -10,7 +10,6 @@ using Web.Utils;
 
 namespace Web.Areas.Admin.Controllers
 {
-    [Authorize]
     public class ReservationsController : Controller
     {
         private Entities db = new Entities();

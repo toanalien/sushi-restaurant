@@ -12,11 +12,9 @@ using AutoMapper;
 using Data.Model.ViewModels;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNet.Identity;
-using Web.Utils;
 
 namespace Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin,Staff")]
     public class OrdersController : Controller
     {
 
@@ -32,7 +30,6 @@ namespace Web.Areas.Admin.Controllers
         private Entities db = new Entities();
 
         // GET: Admin/Orders
-        [Authorize(Roles = Role.Admin)]
         public ActionResult Index()
         {
             var orders = db.Orders.Include(o => o.Customer).Include(o => o.AspNetUser).Include(o => o.Table);
@@ -40,7 +37,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/Orders/Details/5
-        [Authorize(Roles = Role.Admin)]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -189,7 +185,6 @@ namespace Web.Areas.Admin.Controllers
             return View(order);
         }
 
-        // POST: Admin/Orders/Delete/5
         // POST: Admin/Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         public JsonResult Delete(int id)
