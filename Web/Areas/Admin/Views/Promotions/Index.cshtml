@@ -19,6 +19,9 @@
                 <th>
                     Ngày hết hạn
                 </th>
+                <th>
+                    Action
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -35,9 +38,6 @@
                     </td>
                     <td>
                         @string.Format("{0:dd-MM-yyyy}", item.ExpireAt)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
                         <a href="@Url.Action("Edit", "Promotions", new { id=item.Id })">
