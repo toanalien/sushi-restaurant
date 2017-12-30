@@ -20,30 +20,30 @@
                 </th>
             </tr>
         </thead>
-
-        @foreach (var item in Model)
+        <tbody>
+            @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <a href="@Url.Action("Edit", "SubCategories", new { id=item.ID })">
-                        <i class="ico zmdi zmdi-edit zmdi-hc-fw"></i>
-                    </a>
-                    <a data-url="@Url.Action("Details", "SubCategories", new { id=item.ID })" id="@item.ID" class="show-modal">
-                        <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
-                    </a>
-                    <a data-url="@Url.Action("Delete", "SubCategories", new { id=item.ID })" id="@item.ID" class="delete-object">
-                        <i class="ico zmdi zmdi-delete zmdi-hc-fw"></i>
-                    </a>
-                </td>
-            </tr>
-        }
-
+                <tr id="@item.ID">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "SubCategories", new { id=item.ID })">
+                            <i class="ico zmdi zmdi-edit zmdi-hc-fw"></i>
+                        </a>
+                        <a data-url="@Url.Action("Details", "SubCategories", new { id=item.ID })" id="@item.ID" class="show-modal">
+                            <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
+                        </a>
+                        <a data-url="@Url.Action("Delete", "SubCategories", new { id=item.ID })" id="@item.ID" class="delete-object">
+                            <i class="ico zmdi zmdi-delete zmdi-hc-fw"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
 <script src="/Assets/datatable/subcategory.js"></script>

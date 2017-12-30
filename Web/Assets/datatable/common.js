@@ -19,6 +19,7 @@ function Delete(url, id) {
 }
 
 function removeRow(id) {
+    console.log(123)
   table = $('.dataTable').DataTable()
   row = $(`tr#${id}`)
   table.row(row).remove().draw()
