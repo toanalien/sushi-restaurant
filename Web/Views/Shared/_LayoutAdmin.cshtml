@@ -23,9 +23,6 @@
     <!-- Sweet Alert -->
     <link rel="stylesheet" href="/Assets/plugin/sweet-alert/sweetalert.css">
 
-    <!-- Data Tables -->
-    <link rel="stylesheet" href="/Assets/plugin/datatables/media/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" href="/Assets/plugin/datatables/extensions/Responsive/css/responsive.bootstrap.min.css">
 
 
     <!-- Percent Circle -->
@@ -38,22 +35,31 @@
     <link rel="stylesheet" href="/Assets/plugin/fullcalendar/fullcalendar.min.css">
     <link rel="stylesheet" href="/Assets/plugin/fullcalendar/fullcalendar.print.css" media='print'>
 
+    <!-- Google Design Iconic -->
+    <link rel="stylesheet" href="/Assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+
     <!-- Color Picker -->
     <link rel="stylesheet" href="/Assets/color-switcher/color-switcher.min.css">
 
     <!-- Common Style -->
     <link rel="stylesheet" href="/Assets/styles/common.css">
-
     <script src="/Assets/scripts/jquery.min.js"></script>
+    <script src="/Assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+
     <script src="/Assets/scripts/swal.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <!-- Data Tables -->
-    <script src="/Assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="/Assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
-    <script src="/Assets/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/Assets/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js"></script>
-    <script src="/Assets/scripts/datatables.demo.min.js"></script>
+    <link rel="stylesheet" href="/Assets/plugin/datatables/media/css/dataTables.bootstrap.min.css">
+    <script src="/Assets/datatable/common.js"></script>
+
+
+    <link rel="stylesheet" href="/Assets/plugin/modal/remodal/remodal.css">
+    <script src="/Assets/plugin/modal/remodal/remodal.min.js"></script>
+
 </head>
 
 <body>
@@ -173,19 +179,17 @@
 </div>
 <!-- /.fixed-navbar -->
 
+@* modal *@
+<div id="boostrapModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+  </div>
+</div>
 
 <div id="wrapper">
     <div class="main-content">
         @RenderBody()
         <!-- /.row -->
-        <footer class="footer">
-            <ul class="list-inline">
-                <li>2017 © Levia.</li>
-                <li><a href="#">Privacy</a></li>
-                <li><a href="#">Terms</a></li>
-                <li><a href="#">Help</a></li>
-            </ul>
-        </footer>
+
     </div>
     <!-- /.main-content -->
 </div><!--/#wrapper -->
@@ -197,7 +201,6 @@
     <!--
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/Assets/scripts/jquery.min.js"></script>
     <script src="/Assets/scripts/modernizr.min.js"></script>
     <script src="/Assets/plugin/bootstrap/js/bootstrap.min.js"></script>
     <script src="/Assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -222,7 +225,7 @@
     <script src="/Assets/plugin/fullcalendar/fullcalendar.min.js"></script>
     <script src="/Assets/scripts/fullcalendar.init.js"></script>
 
-    <script src="/Assets/scripts/main.min.js"></script>
+    <script src="/Assets/scripts/main.js"></script>
     <script src="/Assets/color-switcher/color-switcher.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>

@@ -52,7 +52,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return PartialView("_Detail", order);
         }
 
         // GET: Admin/Orders/Create
@@ -60,7 +60,7 @@ namespace Web.Areas.Admin.Controllers
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "ID", "Name");
             ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name");
-            ViewBag.TableID = new SelectList(db.Tables, "Id", "Code");
+            ViewBag.TableID = new SelectList(db.Tables.Where(t => t.Status ==  0), "Id", "Code");
             ViewBag.Categories = db.Categories.ToList();
             return View();
         }
@@ -87,6 +87,9 @@ namespace Web.Areas.Admin.Controllers
                     db.SaveChanges();
                     status = true;
                     message = "Hóa đơn đã được lưu thành công";
+                    var table = db.Tables.Find(order.TableID);
+                    table.Status = 2;
+                    db.SaveChanges();
                     List<OrderDish> newOrderItem = serializer.Deserialize<List<OrderDish>>(strnewOrderItems);
 
                     foreach (var OrderDish in newOrderItem)
@@ -186,69 +189,32 @@ namespace Web.Areas.Admin.Controllers
             return View(order);
         }
 
-        // POST: Admin/Orders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreateAt,IsDelete,SubTotal,PromotionDiscount,ClassDiscount,Total,Status,CustomerID,EmployeeID,TableID")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CustomerID = new SelectList(db.Customers, "ID", "Name", order.CustomerID);
-            ViewBag.TableID = new SelectList(db.Tables, "Id", "Code", order.TableID);
-            return View(order);
-        }
-
-        // GET: Admin/Orders/Delete/5
-        [Authorize(Roles = Role.Admin)]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            return View(order);
-        }
-
         // POST: Admin/Orders/Delete/5
-        [Authorize(Roles = Role.Admin)]
+        // POST: Admin/Orders/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public JsonResult Delete(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        public JsonResult GetOrder(int ID)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-
-
-            var order = db.Orders.Single(x => x.Id == ID);
-            var ordervm = Mapper.Map<OrderViewModel>(order);
-
-            var orderdish = db.OrderDishes.Where(x => x.OrderID == ID);
-            var orderDishVm = Mapper.Map<List<OrderDishViewModel>>(orderdish).ToList();
-
-            var data = Json(new
+            Boolean status = false;
+            string message = String.Empty;
+            try
             {
-                order = ordervm,
-                orderdish = orderDishVm
-            }, JsonRequestBehavior.AllowGet);
-            return data;
+                Order order = db.Orders.Find(id);
+                db.Orders.Remove(order);
+                db.SaveChanges();
+                status = true;
+                message = "Xóa hóa đơn thành công";
+            }
+            catch (Exception ex)
+            {
+                status = false;
+                message = ex.Message;
+            }
+
+            return Json(new
+            {
+                status = status,
+                message = message
+            });
         }
 
         public JsonResult changeState(int ID)
@@ -257,8 +223,43 @@ namespace Web.Areas.Admin.Controllers
             order.Status = 1;
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
+
+            var table = db.Tables.Find(order.TableID);
+            table.Status = 0;
             string message = String.Empty;
             message = "Hóa đơn được thanh toán thành công";
+
+            var orderdishes = db.OrderDishes.Where(od => od.OrderID == order.Id);
+            foreach (var od in orderdishes)
+            {
+                var dish = db.Dishes.Find(od.DishID);
+                dish.OrderTimes += od.Quantity;
+                db.Entry(dish).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+
+            if (order.CustomerID != null)
+            {
+                var customer = db.Customers.Find(order.CustomerID);
+                var sumTien = db.Orders.Where(o => o.CustomerID == customer.ID)
+                                .Where(o => o.Status == 1)
+                                .Select(o => o.Total).Sum();
+                if (sumTien > 5000000)
+                {
+                    db.Entry(customer).State = EntityState.Modified;
+                    if (sumTien > 15000000)
+                    {
+                        customer.Class = 2;
+                    }
+                    else
+                    {
+                        customer.Class = 1;
+                    }
+                    db.SaveChanges();
+                }
+            }
+
+
             var data = Json(new
             {
                 status = true,

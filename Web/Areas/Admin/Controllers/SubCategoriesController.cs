@@ -36,7 +36,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(subCategory);
+            return PartialView("_Detail", subCategory);
         }
 
         // GET: SubCategories/Create
@@ -120,13 +120,31 @@ namespace Web.Areas.Admin.Controllers
         // POST: SubCategories/Delete/5
         [Authorize(Roles = Role.Admin)]
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+     
+        public JsonResult Delete(int id)
         {
-            SubCategory subCategory = db.SubCategories.Find(id);
-            db.SubCategories.Remove(subCategory);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            Boolean status = false;
+            string message = String.Empty;
+
+            try
+            {
+                SubCategory subcategory = db.SubCategories.Find(id);
+                db.SubCategories.Remove(subcategory);
+                db.SaveChanges();
+                status = true;
+                message = "Xóa dish thành công";
+            }
+            catch (Exception ex)
+            {
+                status = false;
+                message = ex.Message;
+            }
+
+            return Json(new
+            {
+                status = status,
+                message = message
+            });
         }
 
         // GET

@@ -1,9 +1,9 @@
 (function($) {
-	"use strict"; 
-	
+	"use strict";
+
 	var Core = {};
 	NProgress.start();
-	
+
 	$(document).ready(function(){
 		Core.module.init();
 		Core.plugin.init();
@@ -27,7 +27,7 @@
 	$(".js__full_screen").on('click',function(){
 		$(document).fullScreen(true);
 	});
-	
+
 	Core.module = {
 		init : function(){
 			Core.module.accordion();
@@ -124,27 +124,28 @@
 		logout: function(){
 			$(".js__logout").on("click",function(event){
 				event.preventDefault();
-				swal({   
-					title: "Logout?",   
-					text: "Are you sure you want to logout?",   
-					type: "warning",   
-					showCancelButton: true,   
-					confirmButtonColor: "#DD6B55",   
-					confirmButtonText: "Yes, I'm out!", 
-					cancelButtonText: "No, stay plx!", 
+				swal({
+					title: "Logout?",
+					text: "Are you sure you want to logout?",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "Yes, I'm out!",
+					cancelButtonText: "No, stay plx!",
 					closeOnConfirm: false,
 					closeOnCancel: true,
 					confirmButtonColor: '#f60e0e',
-				}, function(isConfirm){   
-					if (isConfirm) {     
+				}, function(isConfirm){
+					if (isConfirm) {
 						swal({
-							title : "Logout success", 
-							text: "See you later!", 
+							title : "Logout success",
+							text: "See you later!",
 							type: "success",
 							confirmButtonColor: '#304ffe',
-						});   
-					} else {    
-					} 
+						});
+            document.getElementById('logoutForm').submit();
+					} else {
+					}
 				});
 				return false;
 			});
@@ -185,7 +186,7 @@
 						}else{
 							index = $(this).index()
 						}
-						
+
 						selector.find(".js__tab_content").eq(index).addClass("js__active");
 					}
 					return false;
@@ -239,7 +240,7 @@
 			return false;
 		}
 	}
-	
+
 	Core.func = {
 		childReturnWidth : function(selector,current_width){
 			if (selector.children("li").children(".sub-menu").length){
@@ -296,7 +297,7 @@
 								}
 								json[i][j] = json[i][j].trim();
 							}else{
-								if (json[i][j].indexOf(".") > -1){								
+								if (json[i][j].indexOf(".") > -1){
 									json[i][j] = parseFloat(json[i][j]);
 								}else{
 									json[i][j] = parseInt(json[i][j],10);
@@ -307,7 +308,7 @@
 					dataTable = google.visualization.arrayToDataTable(json);
 					if ($(this).hasClass('black-chart')){
 						switch (type){
-							case "circle": 
+							case "circle":
 								options = {
 									chartArea:{left:0,top:0,width:'100%',height:'75%'},
 									colors: ["#304ffe", "#f60e0e","#ffa000"],
@@ -336,7 +337,7 @@
 								}
 								chart_draw = new google.visualization.PieChart(document.getElementById(id));
 								break;
-							case "donut": 
+							case "donut":
 								options = {
 									pieHole: 0.3,
 									chartArea:{left:0,top:0,width:'100%',height:'75%'},
@@ -449,7 +450,7 @@
 						}
 					}else{
 						switch (type){
-							case "circle": 
+							case "circle":
 								options = {
 									chartArea:{left:0,top:0,width:'100%',height:'75%'},
 									legend:{
@@ -461,7 +462,7 @@
 								}
 								chart_draw = new google.visualization.PieChart(document.getElementById(id));
 								break;
-							case "donut": 
+							case "donut":
 								options = {
 									pieHole: 0.3,
 									chartArea:{left:0,top:0,width:'100%',height:'75%'},
@@ -532,7 +533,7 @@
 			});
 		}
 	}
-	
+
 	Core.plugin = {
 		init : function(){
 			Core.plugin.chart();
@@ -693,5 +694,5 @@
 			return false;
 		}
 	}
-	
+
 })(jQuery);
