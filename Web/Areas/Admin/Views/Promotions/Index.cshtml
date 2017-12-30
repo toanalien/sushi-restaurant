@@ -43,7 +43,7 @@
                         <a href="@Url.Action("Edit", "Promotions", new { id=item.Id })">
                             <i class="ico zmdi zmdi-edit zmdi-hc-fw"></i>
                         </a>
-                        <a data-url="@Url.Action("Details", "Promotions", new { id=item.Id })" id="@item.Id" class="show-modal">
+                        <a href="@Url.Action("Details", "Promotions", new { id=item.Id })" data-url="@Url.Action("Details", "Promotions", new { id=item.Id })" id="@item.Id">
                             <i class="ico zmdi zmdi-eye zmdi-hc-fw"></i>
                         </a>
                         <a data-url="@Url.Action("Delete", "Promotions", new { id=item.Id })" id="@item.Id" class="delete-object">

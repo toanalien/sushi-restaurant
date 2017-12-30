@@ -45,7 +45,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: Promotions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -67,7 +67,7 @@ namespace Web.Areas.Admin.Controllers
                             dish.Promotion = promotion;
                             db.Entry(dish).State = EntityState.Modified;
                         }
-                        
+
                     }
                     db.Promotions.Add(promotion);
                     db.SaveChanges();
@@ -82,7 +82,7 @@ namespace Web.Areas.Admin.Controllers
             }
 
             return View(promotion);
-            
+
         }
 
         // GET: Promotions/Edit/5
@@ -102,7 +102,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // POST: Promotions/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -134,30 +134,32 @@ namespace Web.Areas.Admin.Controllers
             return View(promotion);
         }
 
-        // GET: Promotions/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Promotion promotion = db.Promotions.Find(id);
-            if (promotion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(promotion);
-        }
-
         // POST: Promotions/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            Promotion promotion = db.Promotions.Find(id);
-            db.Promotions.Remove(promotion);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            Boolean status = false;
+            string message = String.Empty;
+
+            try
+            {
+                Promotion promotion = db.Promotions.Find(id);
+                db.Promotions.Remove(promotion);
+                db.SaveChanges();
+                status = true;
+                message = "Xóa dish thành công";
+            }
+            catch (Exception ex)
+            {
+                status = false;
+                message = ex.Message;
+            }
+
+            return Json(new
+            {
+                status = status,
+                message = message
+            });
         }
 
         protected override void Dispose(bool disposing)
