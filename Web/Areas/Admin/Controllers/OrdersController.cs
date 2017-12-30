@@ -56,7 +56,7 @@ namespace Web.Areas.Admin.Controllers
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "ID", "Name");
             ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name");
-            ViewBag.TableID = new SelectList(db.Tables, "Id", "Code");
+            ViewBag.TableID = new SelectList(db.Tables.Where(t => t.Status ==  0), "Id", "Code");
             ViewBag.Categories = db.Categories.ToList();
             return View();
         }
@@ -83,6 +83,9 @@ namespace Web.Areas.Admin.Controllers
                     db.SaveChanges();
                     status = true;
                     message = "Hóa đơn đã được lưu thành công";
+                    var table = db.Tables.Find(order.TableID);
+                    table.Status = 2;
+                    db.SaveChanges();
                     List<OrderDish> newOrderItem = serializer.Deserialize<List<OrderDish>>(strnewOrderItems);
 
                     foreach (var OrderDish in newOrderItem)
@@ -215,8 +218,43 @@ namespace Web.Areas.Admin.Controllers
             order.Status = 1;
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
+
+            var table = db.Tables.Find(order.TableID);
+            table.Status = 0;
             string message = String.Empty;
             message = "Hóa đơn được thanh toán thành công";
+
+            var orderdishes = db.OrderDishes.Where(od => od.OrderID == order.Id);
+            foreach (var od in orderdishes)
+            {
+                var dish = db.Dishes.Find(od.DishID);
+                dish.OrderTimes += od.Quantity;
+                db.Entry(dish).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+
+            if (order.CustomerID != null)
+            {
+                var customer = db.Customers.Find(order.CustomerID);
+                var sumTien = db.Orders.Where(o => o.CustomerID == customer.ID)
+                                .Where(o => o.Status == 1)
+                                .Select(o => o.Total).Sum();
+                if (sumTien > 5000000)
+                {
+                    db.Entry(customer).State = EntityState.Modified;
+                    if (sumTien > 15000000)
+                    {
+                        customer.Class = 2;
+                    }
+                    else
+                    {
+                        customer.Class = 1;
+                    }
+                    db.SaveChanges();
+                }
+            }
+
+
             var data = Json(new
             {
                 status = true,
