@@ -11,9 +11,9 @@ function getData() {
         new Chart(document.getElementById("OrderByDayChart"), {
             type: 'line',
             data: {
-                labels: res.arrayByDaysString,
+                labels: res.arrayByDaysString.reverse(),
                 datasets: [{
-                    data: res.arrayByDays,
+                    data: res.arrayByDays.reverse(),
                     label: "",
                     borderColor: "#3e95cd",
                     fill: false
@@ -30,9 +30,9 @@ function getData() {
         new Chart(document.getElementById("OrderByMonthChart"), {
             type: 'line',
             data: {
-                labels: res.arrayByMonthsString,
+                labels: res.arrayByMonthsString.reverse(),
                 datasets: [{
-                    data: res.arrayByMonths,
+                    data: res.arrayByMonths.reverse(),
                     label: "",
                     borderColor: "#FF0000",
                     fill: false
