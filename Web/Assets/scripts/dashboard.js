@@ -11,9 +11,9 @@ function getData() {
         new Chart(document.getElementById("OrderByDayChart"), {
             type: 'line',
             data: {
-                labels: res.arrayByDaysString.reverse(),
+                labels: res.arrayByDaysString,
                 datasets: [{
-                    data: res.arrayByDays.reverse(),
+                    data: res.arrayByDays,
                     label: "",
                     borderColor: "#3e95cd",
                     fill: false
