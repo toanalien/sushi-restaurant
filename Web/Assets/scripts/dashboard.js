@@ -54,14 +54,13 @@ function getData() {
             responsive: true,
             data: {
 
-                labels: ["Bàn Trống", "Bàn Đặt Trước", "Bàn Đang Sử Dụng"],
+                labels: ["Bàn Đặt Trước", "Bàn Đang Sử Dụng"],
                 datasets: [{
                     backgroundColor: [
-                      "#A6FF1F",
                       "#E89A0C",
                       "#FF0000"
                     ],
-                    data: [res.countBanTrong, res.countBanDatTruoc, res.countBanDangSuDung]
+                    data: [res.countBanDatTruoc, res.countBanDangSuDung]
                 }]
             }
         });
