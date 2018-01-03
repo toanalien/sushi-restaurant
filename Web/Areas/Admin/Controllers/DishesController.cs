@@ -147,6 +147,7 @@ namespace Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                dish.IsDelete = false;
                 db.Entry(dish).State = EntityState.Modified;
                 if (file != null)
                 {

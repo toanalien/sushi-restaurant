@@ -8,14 +8,17 @@
     <div class="box-content card white2">
         <h4 class="box-title">Sửa khách hàng</h4>
         <div class="card-content">
-            @using (Html.BeginForm("Create", "Customers", null, FormMethod.Post,
+            @using (Html.BeginForm("Edit", "Customers", null, FormMethod.Post,
                                           new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
 
                 <div>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.Class)
+                    @Html.HiddenFor(model => model.CreateAt)
+                    @Html.HiddenFor(model => model.IsDelete)
                     @{ Html.RenderPartial("_Form", Model); }
 
                 </div>

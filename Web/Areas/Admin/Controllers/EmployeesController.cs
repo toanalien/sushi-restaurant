@@ -67,6 +67,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Employees/Create
         public ActionResult Create()
         {
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Text", "Value");
             ViewBag.RoleName = new SelectList(db.AspNetRoles, "Name", "Name");
             return View();
         }
@@ -105,6 +106,7 @@ namespace Web.Areas.Admin.Controllers
                     ViewBag.Errors = result.Errors;
                 }
             }
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text", employee.Sex);
             ViewBag.RoleName = new SelectList(db.AspNetRoles, "Name", "Name");
             return View(employee);
         }
@@ -121,6 +123,8 @@ namespace Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text", employee.Sex);
+            ViewBag.RoleName = new SelectList(db.AspNetRoles, "Name", "Name", employee.AspNetUser.AspNetRoles.FirstOrDefault().Name);
             return View(employee);
         }
 
@@ -129,14 +133,25 @@ namespace Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Department,Position,Sex,Birthday,Phone,Address")] Employee employee)
+        public ActionResult Edit([Bind(Include = "ID,Name,Department,Position,Sex,Birthday,Phone,Address,UserId,CreatedAt,IsDelete")] Employee employee,
+            string RoleName)
         {
             if (ModelState.IsValid)
             {
+                employee.IsDelete = false;
                 db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
+                //Update role
+                if (!UserManager.IsInRole(employee.UserId, RoleName))
+                {
+                    UserManager.RemoveFromRoles(employee.UserId, Role.Staff);
+                    UserManager.RemoveFromRoles(employee.UserId, Role.Admin);
+                    UserManager.AddToRole(employee.UserId, RoleName);
+                }
                 return RedirectToAction("Index");
             }
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text", employee.Sex);
+            ViewBag.RoleName = new SelectList(db.AspNetRoles, "Name", "Name", employee.AspNetUser.AspNetRoles.FirstOrDefault().Name);
             return View(employee);
         }
 
