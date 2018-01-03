@@ -23,4 +23,13 @@
              width: 500px !important;
              height: auto !important;
          }
-        
+           
+         #OrderByDayChart {
+             width: 1000px !important;
+             height: 600px !important;
+         }
+
+         #OrderByMonthChart {
+             width: 1000px !important;
+             height: 600px !important;
+         }
