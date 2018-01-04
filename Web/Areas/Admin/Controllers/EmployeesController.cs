@@ -67,9 +67,10 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Employees/Create
         public ActionResult Create()
         {
-            ViewBag.Sex = new SelectList(Const.SexSelect, "Text", "Value");
+            Employee emp = new Employee();
+            ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text");
             ViewBag.RoleName = new SelectList(db.AspNetRoles, "Name", "Name");
-            return View();
+            return View(emp);
         }
 
         // POST: Admin/Employees/Create

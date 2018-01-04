@@ -40,8 +40,9 @@ namespace Web.Areas.Admin.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
+            Customer cust = new Customer();
             ViewBag.Sex = new SelectList(Const.SexSelect, "Value", "Text");
-            return View();
+            return View(cust);
         }
 
         // POST: Customers/Create
