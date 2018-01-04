@@ -30,9 +30,9 @@ function getData() {
         new Chart(document.getElementById("OrderByMonthChart"), {
             type: 'line',
             data: {
-                labels: res.arrayByMonthsString.reverse(),
+                labels: res.arrayByMonthsString,
                 datasets: [{
-                    data: res.arrayByMonths.reverse(),
+                    data: res.arrayByMonths,
                     label: "",
                     borderColor: "#FF0000",
                     fill: false
