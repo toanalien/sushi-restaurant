@@ -20,16 +20,17 @@
         }
 
          canvas {
-             width: 500px !important;
+             width: 400px !important;
              height: auto !important;
+             padding-right: 20px;
          }
            
          #OrderByDayChart {
-             width: 500px !important;
+             width: 400px !important;
              height: auto !important;
          }
 
          #OrderByMonthChart {
-             width: 500px !important;
+             width: 400px !important;
              height: auto !important;
          }
