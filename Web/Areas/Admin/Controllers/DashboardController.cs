@@ -45,11 +45,18 @@ namespace Web.Areas.Admin.Controllers
             
             DateTime today = DateTime.Today;
 
-            for (int i = 0; i > 30; i++)
+
+            DateTime today = DateTime.Today;
+            List<string> arrayByDaysString = new List<string>();
+        
+
+            for (int i = 0; i < 30; i++)
             {
                 DateTime startDay = today.AddDays(-i);
-                DateTime endDay = DateTime.Today.AddDays(-i + 1).AddTicks(-1);
+                DateTime endDay = today.AddDays(-i + 1).AddTicks(-1);
+                
                 arrayByDaysString.Add(startDay.ToString("dd-MM"));
+
                 var query = (double)db.Orders
                             .Where(order => order.Status == 1)
                             .Where(order => order.CreateAt >= startDay && order.CreateAt <= endDay)
@@ -78,6 +85,7 @@ namespace Web.Areas.Admin.Controllers
                             .Sum();
                 arrayByMonths.Add(query);
             }
+
             var data = Json(new
             {
                 countDish = countDish,
