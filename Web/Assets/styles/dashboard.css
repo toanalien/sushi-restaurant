@@ -26,10 +26,10 @@
            
          #OrderByDayChart {
              width: 500px !important;
-             height: 600px !important;
+             height: auto !important;
          }
 
          #OrderByMonthChart {
              width: 500px !important;
-             height: 600px !important;
+             height: auto !important;
          }
