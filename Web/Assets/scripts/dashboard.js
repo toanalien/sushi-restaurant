@@ -23,7 +23,14 @@ function getData() {
                 title: {
                     display: true,
                     text: 'Tổng doanh thu theo từng ngày'
-                }
+                },
+                scales: {
+                    yAxes: [{ 
+                            scaleLabel: function (valuePayload) {
+                                return Number(valuePayload.value).toFixed(2).replace('.',',');
+                            }
+                    }],
+                },
             }
         });
 
@@ -42,7 +49,14 @@ function getData() {
                 title: {
                     display: true,
                     text: 'Tổng doanh thu theo từng tháng'
-                }
+                },
+                scales: {
+                    yAxes: [{ 
+                            scaleLabel: function (valuePayload) {
+                                return Number(valuePayload.value).toFixed(2).replace('.',',');
+                            }
+                    }],
+                },
             }
         });
 
