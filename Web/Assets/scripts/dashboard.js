@@ -11,9 +11,9 @@ function getData() {
         new Chart(document.getElementById("OrderByDayChart"), {
             type: 'line',
             data: {
-                labels: res.arrayByDaysString,
+                labels: res.arrayByDaysString.reverse(),
                 datasets: [{
-                    data: res.arrayByDays,
+                    data: res.arrayByDays.reverse(),
                     label: "",
                     borderColor: "#3e95cd",
                     fill: false
@@ -22,8 +22,15 @@ function getData() {
             options: {
                 title: {
                     display: true,
-                    text: 'Số lượng đơn từng ngày'
-                }
+                    text: 'Tổng doanh thu theo từng ngày'
+                },
+                scales: {
+                    yAxes: [{ 
+                            scaleLabel: function (valuePayload) {
+                                return Number(valuePayload.value).toFixed(2).replace('.',',');
+                            }
+                    }],
+                },
             }
         });
 
@@ -41,8 +48,15 @@ function getData() {
             options: {
                 title: {
                     display: true,
-                    text: 'Số lượng đơn từng tháng'
-                }
+                    text: 'Tổng doanh thu theo từng tháng'
+                },
+                scales: {
+                    yAxes: [{ 
+                            scaleLabel: function (valuePayload) {
+                                return Number(valuePayload.value).toFixed(2).replace('.',',');
+                            }
+                    }],
+                },
             }
         });
 
@@ -53,13 +67,13 @@ function getData() {
             responsive: true,
             data: {
 
-                labels: ["Bàn Đặt Trước", "Bàn Đang Sử Dụng"],
+                labels: ["Bàn Trống", "Bàn Đang Sử Dụng"],
                 datasets: [{
                     backgroundColor: [
                       "#E89A0C",
                       "#FF0000"
                     ],
-                    data: [res.countBanDatTruoc, res.countBanDangSuDung]
+                    data: [res.countBanTrong, res.countBanDangSuDung]
                 }]
             }
         });

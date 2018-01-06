@@ -1,11 +1,8 @@
-﻿@{
-    ViewBag.Title = "Dashboard";
-    ViewBag.Current = "Dashboard";
-}
-    <script src="~/Scripts/Chart.js"></script>
+﻿
+<script src="~/Scripts/Chart.js"></script>
+<link href="~/Assets/styles/dashboard.css" rel="stylesheet" />
+
 <div class="">
-
-
     <div class="row">
         <div class="col-md-4">
             <div class="panel panel-default">
@@ -36,33 +33,30 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <label for="BanAnChart">
-                Bàn Ăn <br />
-                <canvas id="BanAnChart" class="pie-chart"></canvas>
-            </label>
+            <div class="text-center">
+                <label for="BanAnChart">Bàn ăn</label>
+            </div>
+            <br />
+            <canvas id="BanAnChart" class="pie-chart"></canvas>
         </div>
 
         <div class="col-md-6">
-            <label for="KhachHangChart">
-                Khách Hàng <br />
-                <canvas id="KhachHangChart" class="pie-chart"></canvas>
-            </label>
+            <div class="text-center bold">
+                <label for="KhachHangChart">Khách Hàng</label>
+            </div>
+            <canvas id="KhachHangChart" class="pie-chart"></canvas>
         </div>
-            <div class="col-md-4">
-                <label for="KhachHangChart">
-                    Khách Hàng <br/>
-                    <canvas id="KhachHangChart" class="pie-chart"></canvas>
-                </label>
-            </div>
-            </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <canvas id="OrderByDayChart"></canvas>
-                <canvas id="OrderByMonthChart"></canvas>
-            </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="OrderByDayChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="OrderByMonthChart"></canvas>
         </div>
     </div>
 </div>
-<link href="~/Assets/styles/dashboard.css" rel="stylesheet" />
+
 <script src="~/Assets/scripts/dashboard.js"></script>

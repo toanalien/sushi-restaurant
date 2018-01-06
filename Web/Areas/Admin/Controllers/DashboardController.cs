@@ -33,8 +33,8 @@ namespace Web.Areas.Admin.Controllers
                                 .Count();
 
             // var countBanTrong = db.Tables.Where(t => t.Status == 0).Count();
-            var countBanDatTruoc = db.Tables.Where(t => t.Status == 1).Count();
-            var countBanDangSuDung = db.Tables.Where(t => t.Status == 2).Count();
+            var countBanTrong = db.Tables.Where(t => t.Status == 0).Count();
+            var countBanDangSuDung = db.Tables.Where(t => t.Status == 1).Count();
 
             var countKHBac = db.Customers.Where(t => t.Class == 0).Count();
             var countKHVang = db.Customers.Where(t => t.Class == 1).Count();
@@ -42,11 +42,16 @@ namespace Web.Areas.Admin.Controllers
 
             List<double> arrayByDays = new List<double>();
             List<string> arrayByDaysString = new List<string>();
-            for (int i = 30; i > 0; i--)
+            
+            DateTime today = DateTime.Today;
+
+            for (int i = 0; i < 30; i++)
             {
-                DateTime startDay = DateTime.Today.AddDays(-i);
-                DateTime endDay = DateTime.Today.AddDays(-i + 1).AddTicks(-1);
+                DateTime startDay = today.AddDays(-i);
+                DateTime endDay = today.AddDays(-i + 1).AddTicks(-1);
+                
                 arrayByDaysString.Add(startDay.ToString("dd-MM"));
+
                 var query = (double)db.Orders
                             .Where(order => order.Status == 1)
                             .Where(order => order.CreateAt >= startDay && order.CreateAt <= endDay)
@@ -56,18 +61,17 @@ namespace Web.Areas.Admin.Controllers
                 arrayByDays.Add(query);
             }
 
+            today = DateTime.Today;
+
             List<double> arrayByMonths = new List<double>();
             List<string> arrayByMonthsString = new List<string>();
 
-            DateTime thisMonth = DateTime.Today;
+            DateTime FirstDayOfThisMonth = new DateTime( today.Year, today.Month, 1);
 
-            for (int i = 12; i > 0; i--)
+            for (int i = 0 ; i < 12 ; i++)
             {
-                DateTime dFirstDayOfThisMonth = thisMonth.AddDays(-(DateTime.Today.Day - 1));
-                DateTime endDay = dFirstDayOfThisMonth.AddDays(-1);
-                DateTime startDay = dFirstDayOfThisMonth.AddMonths(-1);
-
-                thisMonth = thisMonth.AddMonths(-1);
+                DateTime startDay = FirstDayOfThisMonth.AddMonths(-i);
+                DateTime endDay = startDay.AddMonths(1).AddTicks(-1);
 
                 arrayByMonthsString.Add(startDay.ToString("MM-yyyy"));
                 var query = (double)db.Orders
@@ -77,16 +81,15 @@ namespace Web.Areas.Admin.Controllers
                             .DefaultIfEmpty(0)
                             .Sum();
                 arrayByMonths.Add(query);
-
-                
             }
+
             var data = Json(new
             {
                 countDish = countDish,
                 countPromotion = countPromotion,
                 countOrder = countOrder,
                 // countBanTrong = countBanTrong,
-                countBanDatTruoc = countBanDatTruoc,
+                countBanTrong = countBanTrong,
                 countBanDangSuDung = countBanDangSuDung,
                 countKHBac = countKHBac,
                 countKHVang = countKHVang,
