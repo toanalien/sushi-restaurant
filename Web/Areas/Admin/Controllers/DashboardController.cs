@@ -45,8 +45,6 @@ namespace Web.Areas.Admin.Controllers
             
             DateTime today = DateTime.Today;
 
-
-            DateTime today = DateTime.Today;
             List<string> arrayByDaysString = new List<string>();
         
 
@@ -65,6 +63,8 @@ namespace Web.Areas.Admin.Controllers
                             .Sum();
                 arrayByDays.Add(query);
             }
+
+            today = DateTime.Today;
 
             List<double> arrayByMonths = new List<double>();
             List<string> arrayByMonthsString = new List<string>();
