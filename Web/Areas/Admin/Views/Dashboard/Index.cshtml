@@ -1,53 +1,49 @@
-﻿@{
-    ViewBag.Title = "Dashboard";
-    ViewBag.Current = "Dashboard";
-}
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
     <script src="~/Scripts/Chart.js"></script>
-<div class="">
-
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-body stt-panel-dish">
-                    <i class="fa fa-cutlery" aria-hidden="true"></i> <span id="countDish"></span>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body stt-panel-dish">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i> <span id="countDish"></span>
+                    </div>
+                    <div class="panel-footer stt-panel-dish">Món Ăn</div>
                 </div>
-                <div class="panel-footer stt-panel-dish">Món Ăn</div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body stt-panel-promotion">
+                        <i class="fa fa-bullhorn" aria-hidden="true"></i> <span id="countPromotion"></span>
+                    </div>
+                    <div class="panel-footer stt-panel-promotion">Khuyến Mãi</div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body stt-panel-order">
+                        <i class="fa fa-file-o" aria-hidden="true"></i> <span id="countOrder"></span>
+                    </div>
+                    <div class="panel-footer stt-panel-order">Order Hôm Nay</div>
+
+                </div>
             </div>
         </div>
+        <div class="row">
         <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-body stt-panel-promotion">
-                    <i class="fa fa-bullhorn" aria-hidden="true"></i> <span id="countPromotion"></span>
-                </div>
-                <div class="panel-footer stt-panel-promotion">Khuyến Mãi</div>
-            </div>
+                <label for="BanAnChart">
+                    Bàn Ăn <br/>
+                    <canvas id="BanAnChart" class="pie-chart"></canvas>
+                </label>
         </div>
 
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-body stt-panel-order">
-                    <i class="fa fa-file-o" aria-hidden="true"></i> <span id="countOrder"></span>
-                </div>
-                <div class="panel-footer stt-panel-order">Order Hôm Nay</div>
-
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <label for="BanAnChart">
-                Bàn Ăn <br />
-                <canvas id="BanAnChart" class="pie-chart"></canvas>
-            </label>
-        </div>
-
-        <div class="col-md-6">
-            <label for="KhachHangChart">
-                Khách Hàng <br />
-                <canvas id="KhachHangChart" class="pie-chart"></canvas>
-            </label>
-        </div>
             <div class="col-md-4">
                 <label for="KhachHangChart">
                     Khách Hàng <br/>
@@ -63,6 +59,8 @@
             </div>
         </div>
     </div>
-</div>
-<link href="~/Assets/styles/dashboard.css" rel="stylesheet" />
-<script src="~/Assets/scripts/dashboard.js"></script>
+
+    <link href="~/Assets/styles/dashboard.css" rel="stylesheet" />
+    <script src="~/Assets/scripts/dashboard.js"></script>
+</body>
+</html>

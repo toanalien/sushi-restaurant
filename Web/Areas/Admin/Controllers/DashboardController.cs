@@ -42,9 +42,12 @@ namespace Web.Areas.Admin.Controllers
 
             List<double> arrayByDays = new List<double>();
             List<string> arrayByDaysString = new List<string>();
-            for (int i = 30; i > 0; i--)
+            
+            DateTime today = DateTime.Today;
+
+            for (int i = 0; i > 30; i++)
             {
-                DateTime startDay = DateTime.Today.AddDays(-i);
+                DateTime startDay = today.AddDays(-i);
                 DateTime endDay = DateTime.Today.AddDays(-i + 1).AddTicks(-1);
                 arrayByDaysString.Add(startDay.ToString("dd-MM"));
                 var query = (double)db.Orders
@@ -59,15 +62,12 @@ namespace Web.Areas.Admin.Controllers
             List<double> arrayByMonths = new List<double>();
             List<string> arrayByMonthsString = new List<string>();
 
-            DateTime thisMonth = DateTime.Today;
+            DateTime FirstDayOfThisMonth = new DateTime( today.Year, today.Month, 1);
 
-            for (int i = 12; i > 0; i--)
+            for (int i = 0 ; i < 12 ; i++)
             {
-                DateTime dFirstDayOfThisMonth = thisMonth.AddDays(-(DateTime.Today.Day - 1));
-                DateTime endDay = dFirstDayOfThisMonth.AddDays(-1);
-                DateTime startDay = dFirstDayOfThisMonth.AddMonths(-1);
-
-                thisMonth = thisMonth.AddMonths(-1);
+                DateTime startDay = FirstDayOfThisMonth.AddMonths(-i);
+                DateTime endDay = startDay.AddMonths(1).AddTicks(-1);
 
                 arrayByMonthsString.Add(startDay.ToString("MM-yyyy"));
                 var query = (double)db.Orders
@@ -77,8 +77,6 @@ namespace Web.Areas.Admin.Controllers
                             .DefaultIfEmpty(0)
                             .Sum();
                 arrayByMonths.Add(query);
-
-                
             }
             var data = Json(new
             {

@@ -22,7 +22,7 @@ function getData() {
             options: {
                 title: {
                     display: true,
-                    text: 'Số lượng đơn từng ngày'
+                    text: 'Tổng doanh thu theo từng ngày'
                 }
             }
         });
@@ -30,9 +30,9 @@ function getData() {
         new Chart(document.getElementById("OrderByMonthChart"), {
             type: 'line',
             data: {
-                labels: res.arrayByMonthsString.reverse(),
+                labels: res.arrayByMonthsString,
                 datasets: [{
-                    data: res.arrayByMonths.reverse(),
+                    data: res.arrayByMonths,
                     label: "",
                     borderColor: "#FF0000",
                     fill: false
@@ -41,7 +41,7 @@ function getData() {
             options: {
                 title: {
                     display: true,
-                    text: 'Số lượng đơn từng tháng'
+                    text: 'Tổng doanh thu theo từng tháng'
                 }
             }
         });
@@ -49,6 +49,7 @@ function getData() {
         var ctxBanAn = document.getElementById("BanAnChart").getContext('2d');
 
         var BanAnChart = new Chart(ctxBanAn, {
+            width: 500,
             type: 'pie',
             responsive: true,
             data: {
