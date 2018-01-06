@@ -33,7 +33,7 @@ namespace Web.Areas.Admin.Controllers
                                 .Count();
 
             // var countBanTrong = db.Tables.Where(t => t.Status == 0).Count();
-            var countBanDatTruoc = db.Tables.Where(t => t.Status == 1).Count();
+            var countBanTrong = db.Tables.Where(t => t.Status == 1).Count();
             var countBanDangSuDung = db.Tables.Where(t => t.Status == 2).Count();
 
             var countKHBac = db.Customers.Where(t => t.Class == 0).Count();
@@ -84,7 +84,7 @@ namespace Web.Areas.Admin.Controllers
                 countPromotion = countPromotion,
                 countOrder = countOrder,
                 // countBanTrong = countBanTrong,
-                countBanDatTruoc = countBanDatTruoc,
+                countBanTrong = countBanTrong,
                 countBanDangSuDung = countBanDangSuDung,
                 countKHBac = countKHBac,
                 countKHVang = countKHVang,
