@@ -1,36 +1,20 @@
-﻿  .stt-panel-dish {
-            font-size:30px;
-            text-align:center;
-            background-color:rgb(76, 188, 39) !important;
-            color: white;
-        }
+﻿.stt-panel-dish {
+    font-size:30px;
+    text-align:center;
+    background-color:rgb(76, 188, 39) !important;
+    color: white;
+}
 
-         .stt-panel-promotion {
-            font-size:30px;
-            text-align:center;
-            background-color:rgb(16, 136, 234) !important;
-            color: white;
-        }
+    .stt-panel-promotion {
+    font-size:30px;
+    text-align:center;
+    background-color:rgb(16, 136, 234) !important;
+    color: white;
+}
 
-         .stt-panel-order {
-            font-size:30px;
-            text-align:center;
-            background-color:rgb(255, 157, 0) !important;
-            color: white;
-        }
-
-         canvas {
-             width: 400px !important;
-             height: auto !important;
-             padding-right: 20px;
-         }
-           
-         #OrderByDayChart {
-             width: 400px !important;
-             height: auto !important;
-         }
-
-         #OrderByMonthChart {
-             width: 400px !important;
-             height: auto !important;
-         }
+    .stt-panel-order {
+    font-size:30px;
+    text-align:center;
+    background-color:rgb(255, 157, 0) !important;
+    color: white;
+}

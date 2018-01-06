@@ -63,7 +63,6 @@ function getData() {
         var ctxBanAn = document.getElementById("BanAnChart").getContext('2d');
 
         var BanAnChart = new Chart(ctxBanAn, {
-            width: 500,
             type: 'pie',
             responsive: true,
             data: {

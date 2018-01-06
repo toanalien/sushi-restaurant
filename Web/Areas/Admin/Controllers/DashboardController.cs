@@ -45,9 +45,6 @@ namespace Web.Areas.Admin.Controllers
             
             DateTime today = DateTime.Today;
 
-            List<string> arrayByDaysString = new List<string>();
-        
-
             for (int i = 0; i < 30; i++)
             {
                 DateTime startDay = today.AddDays(-i);
