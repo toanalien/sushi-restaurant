@@ -163,3 +163,7 @@ button#new {
     top: 0;
   }
 }
+
+.table-list-details.col-sm-2 {
+    padding-top: 20px;
+}
