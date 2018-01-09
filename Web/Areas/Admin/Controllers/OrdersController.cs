@@ -40,7 +40,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/Orders/Details/5
-        [Authorize(Roles = Role.Admin)]
+        [Authorize(Roles = "Admin,Staff")]
         public ActionResult Details(int? id)
         {
             if (id == null)
