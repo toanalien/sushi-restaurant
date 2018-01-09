@@ -114,11 +114,11 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetRoles]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[AspNetRoles](
-  [Id] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [Name] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
- CONSTRAINT [PK_dbo.AspNetRoles] PRIMARY KEY CLUSTERED
+	[Id] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Name] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+ CONSTRAINT [PK_dbo.AspNetRoles] PRIMARY KEY CLUSTERED 
 (
-  [Id] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -131,13 +131,13 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUserClaims]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[AspNetUserClaims](
-  [Id] [int] IDENTITY(1,1) NOT NULL,
-  [UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [ClaimType] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [ClaimValue] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
- CONSTRAINT [PK_dbo.AspNetUserClaims] PRIMARY KEY CLUSTERED
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[ClaimType] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[ClaimValue] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ CONSTRAINT [PK_dbo.AspNetUserClaims] PRIMARY KEY CLUSTERED 
 (
-  [Id] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
@@ -150,14 +150,14 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUserLogins]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[AspNetUserLogins](
-  [LoginProvider] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [ProviderKey] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
- CONSTRAINT [PK_dbo.AspNetUserLogins] PRIMARY KEY CLUSTERED
+	[LoginProvider] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[ProviderKey] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+ CONSTRAINT [PK_dbo.AspNetUserLogins] PRIMARY KEY CLUSTERED 
 (
-  [LoginProvider] ASC,
-  [ProviderKey] ASC,
-  [UserId] ASC
+	[LoginProvider] ASC,
+	[ProviderKey] ASC,
+	[UserId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -170,12 +170,12 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUserRoles]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[AspNetUserRoles](
-  [UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [RoleId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
- CONSTRAINT [PK_dbo.AspNetUserRoles] PRIMARY KEY CLUSTERED
+	[UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[RoleId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+ CONSTRAINT [PK_dbo.AspNetUserRoles] PRIMARY KEY CLUSTERED 
 (
-  [UserId] ASC,
-  [RoleId] ASC
+	[UserId] ASC,
+	[RoleId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -188,21 +188,21 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AspNetUsers]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[AspNetUsers](
-  [Id] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [Email] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [EmailConfirmed] [bit] NOT NULL,
-  [PasswordHash] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [SecurityStamp] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [PhoneNumber] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [PhoneNumberConfirmed] [bit] NOT NULL,
-  [TwoFactorEnabled] [bit] NOT NULL,
-  [LockoutEndDateUtc] [datetime] NULL,
-  [LockoutEnabled] [bit] NOT NULL,
-  [AccessFailedCount] [int] NOT NULL,
-  [UserName] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
- CONSTRAINT [PK_dbo.AspNetUsers] PRIMARY KEY CLUSTERED
+	[Id] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Email] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[EmailConfirmed] [bit] NOT NULL,
+	[PasswordHash] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[SecurityStamp] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[PhoneNumber] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[PhoneNumberConfirmed] [bit] NOT NULL,
+	[TwoFactorEnabled] [bit] NOT NULL,
+	[LockoutEndDateUtc] [datetime] NULL,
+	[LockoutEnabled] [bit] NOT NULL,
+	[AccessFailedCount] [int] NOT NULL,
+	[UserName] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+ CONSTRAINT [PK_dbo.AspNetUsers] PRIMARY KEY CLUSTERED 
 (
-  [Id] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
@@ -215,12 +215,12 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Category]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Category](
-  [ID] [int] IDENTITY(1,1) NOT NULL,
-  [Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
- CONSTRAINT [PK_Category] PRIMARY KEY CLUSTERED
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ CONSTRAINT [PK_Category] PRIMARY KEY CLUSTERED 
 (
-  [ID] ASC
+	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -233,18 +233,18 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Customer]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Customer](
-  [ID] [int] IDENTITY(1,1) NOT NULL,
-  [Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [Sex] [int] NULL,
-  [Birthday] [date] NULL,
-  [Phone] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [Address] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [Class] [int] NOT NULL,
-  [CreateAt] [datetime] NULL,
-  [IsDelete] [bit] NULL,
- CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Sex] [int] NULL,
+	[Birthday] [date] NULL,
+	[Phone] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Address] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Class] [int] NOT NULL,
+	[CreateAt] [datetime] NULL,
+	[IsDelete] [bit] NULL,
+ CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED 
 (
-  [ID] ASC
+	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -257,18 +257,18 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dish]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Dish](
-  [ID] [int] IDENTITY(1,1) NOT NULL,
-  [Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [IsDelete] [bit] NOT NULL CONSTRAINT [DF_Dish_IsDelete]  DEFAULT ((0)),
-  [Image] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [Price] [bigint] NOT NULL,
-  [OrderTimes] [int] NOT NULL CONSTRAINT [DF_Dish_OrderTimes]  DEFAULT ((0)),
-  [PromotionID] [int] NULL,
-  [SubCategoryID] [int] NOT NULL,
- CONSTRAINT [PK_Dish] PRIMARY KEY CLUSTERED
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[IsDelete] [bit] NOT NULL CONSTRAINT [DF_Dish_IsDelete]  DEFAULT ((0)),
+	[Image] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Price] [bigint] NOT NULL,
+	[OrderTimes] [int] NOT NULL CONSTRAINT [DF_Dish_OrderTimes]  DEFAULT ((0)),
+	[PromotionID] [int] NULL,
+	[SubCategoryID] [int] NOT NULL,
+ CONSTRAINT [PK_Dish] PRIMARY KEY CLUSTERED 
 (
-  [ID] ASC
+	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -281,21 +281,21 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Employee]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Employee](
-  [ID] [int] IDENTITY(1,1) NOT NULL,
-  [Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [Department] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [Position] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [Sex] [int] NOT NULL,
-  [Birthday] [date] NULL,
-  [Phone] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [Address] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [CreatedAt] [date] NULL,
-  [IsDelete] [bit] NULL,
-  [Avatar] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
- CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Department] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Position] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Sex] [int] NOT NULL,
+	[Birthday] [date] NULL,
+	[Phone] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Address] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[CreatedAt] [date] NULL,
+	[IsDelete] [bit] NULL,
+	[Avatar] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED 
 (
-  [ID] ASC
+	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -308,12 +308,12 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GroupTable]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[GroupTable](
-  [Id] [int] IDENTITY(1,1) NOT NULL,
-  [Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
- CONSTRAINT [PK_GroupTable] PRIMARY KEY CLUSTERED
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ CONSTRAINT [PK_GroupTable] PRIMARY KEY CLUSTERED 
 (
-  [Id] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -326,20 +326,20 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Order]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Order](
-  [Id] [int] IDENTITY(1,1) NOT NULL,
-  [CreateAt] [datetime] NOT NULL,
-  [SubTotal] [bigint] NOT NULL,
-  [PromotionDiscount] [bigint] NULL,
-  [ClassDiscount] [bigint] NULL,
-  [Total] [bigint] NULL,
-  [Status] [int] NULL,
-  [CustomerID] [int] NULL,
-  [UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [Note] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [TableID] [int] NOT NULL,
- CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CreateAt] [datetime] NOT NULL,
+	[SubTotal] [bigint] NOT NULL,
+	[PromotionDiscount] [bigint] NULL,
+	[ClassDiscount] [bigint] NULL,
+	[Total] [bigint] NULL,
+	[Status] [int] NULL,
+	[CustomerID] [int] NULL,
+	[UserId] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Note] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[TableID] [int] NOT NULL,
+ CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
 (
-  [Id] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -352,15 +352,15 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[OrderDish]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[OrderDish](
-  [Id] [int] IDENTITY(1,1) NOT NULL,
-  [Quantity] [int] NOT NULL,
-  [UnitPrice] [bigint] NOT NULL,
-  [Discount] [bigint] NULL,
-  [DishID] [int] NOT NULL,
-  [OrderID] [int] NOT NULL,
- CONSTRAINT [PK_OrderDish] PRIMARY KEY CLUSTERED
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[UnitPrice] [bigint] NOT NULL,
+	[Discount] [bigint] NULL,
+	[DishID] [int] NOT NULL,
+	[OrderID] [int] NOT NULL,
+ CONSTRAINT [PK_OrderDish] PRIMARY KEY CLUSTERED 
 (
-  [Id] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -373,15 +373,15 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Promotion]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Promotion](
-  [Id] [int] IDENTITY(1,1) NOT NULL,
-  [DiscountPercent] [float] NOT NULL,
-  [Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [CreateAt] [date] NOT NULL,
-  [ExpireAt] [date] NOT NULL,
- CONSTRAINT [PK_Discount] PRIMARY KEY CLUSTERED
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[DiscountPercent] [float] NOT NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[CreateAt] [date] NOT NULL,
+	[ExpireAt] [date] NOT NULL,
+ CONSTRAINT [PK_Discount] PRIMARY KEY CLUSTERED 
 (
-  [Id] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -394,13 +394,13 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SubCategory]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[SubCategory](
-  [ID] [int] IDENTITY(1,1) NOT NULL,
-  [Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [CategoryID] [int] NOT NULL,
- CONSTRAINT [PK_SubCategory] PRIMARY KEY CLUSTERED
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[CategoryID] [int] NOT NULL,
+ CONSTRAINT [PK_SubCategory] PRIMARY KEY CLUSTERED 
 (
-  [ID] ASC
+	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -413,14 +413,14 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Table]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Table](
-  [Id] [int] IDENTITY(1,1) NOT NULL,
-  [Code] [nvarchar](50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-  [Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-  [Status] [int] NOT NULL,
-  [GroupTableID] [int] NULL,
- CONSTRAINT [PK_Table] PRIMARY KEY CLUSTERED
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Code] [nvarchar](50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Description] [nvarchar](255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Status] [int] NOT NULL,
+	[GroupTableID] [int] NULL,
+ CONSTRAINT [PK_Table] PRIMARY KEY CLUSTERED 
 (
-  [Id] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -445,7 +445,7 @@ INSERT [dbo].[AspNetUsers] ([Id], [Email], [EmailConfirmed], [PasswordHash], [Se
 GO
 INSERT [dbo].[AspNetUsers] ([Id], [Email], [EmailConfirmed], [PasswordHash], [SecurityStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEndDateUtc], [LockoutEnabled], [AccessFailedCount], [UserName]) VALUES (N'c68dcc10-0e6e-405b-81c4-e19d74d87f25', N'annienguyen.it@gmail.com', 0, N'AOyPQXdeBWjbl2SvqpbVvSlA27KRuVbDRVo0v7voklUDudyP1Q0hFXJr/+OawxbA8w==', N'c8a1ebfd-cbdf-44a1-87f4-4684f0ba3191', NULL, 0, 0, NULL, 1, 0, N'annienguyen.it@gmail.com')
 GO
-SET IDENTITY_INSERT [dbo].[Category] ON
+SET IDENTITY_INSERT [dbo].[Category] ON 
 
 GO
 INSERT [dbo].[Category] ([ID], [Name], [Description]) VALUES (1, N'Món khai vị', N'Món khai vị')
@@ -458,7 +458,7 @@ INSERT [dbo].[Category] ([ID], [Name], [Description]) VALUES (4, N'Thức uống
 GO
 SET IDENTITY_INSERT [dbo].[Category] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Customer] ON
+SET IDENTITY_INSERT [dbo].[Customer] ON 
 
 GO
 INSERT [dbo].[Customer] ([ID], [Name], [Sex], [Birthday], [Phone], [Address], [Class], [CreateAt], [IsDelete]) VALUES (1, N'Nguyen Linh', 2, CAST(N'2017-12-01' AS Date), N'1654917067', N'58/40B, Street 5, Linh Trung Ward, Thu Duc District, Ho Chi Minh City', 2, NULL, 0)
@@ -479,7 +479,7 @@ INSERT [dbo].[Customer] ([ID], [Name], [Sex], [Birthday], [Phone], [Address], [C
 GO
 SET IDENTITY_INSERT [dbo].[Customer] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Dish] ON
+SET IDENTITY_INSERT [dbo].[Dish] ON 
 
 GO
 INSERT [dbo].[Dish] ([ID], [Name], [Description], [IsDelete], [Image], [Price], [OrderTimes], [PromotionID], [SubCategoryID]) VALUES (1, N'Salad cá ngừ', N'Salad cá ngừ', 0, N'd9875648-9a18-4e79-8234-102a50c442de.jpg', 50000, 7, 1002, 1)
@@ -568,7 +568,7 @@ INSERT [dbo].[Dish] ([ID], [Name], [Description], [IsDelete], [Image], [Price], 
 GO
 SET IDENTITY_INSERT [dbo].[Dish] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Employee] ON
+SET IDENTITY_INSERT [dbo].[Employee] ON 
 
 GO
 INSERT [dbo].[Employee] ([ID], [Name], [Department], [Position], [Sex], [Birthday], [Phone], [Address], [CreatedAt], [IsDelete], [Avatar], [UserId]) VALUES (1, N'Linh', N'Nhà bếp 1', N'Thu ngân', 1, CAST(N'1996-06-11' AS Date), N'01654917067', N'abc', CAST(N'2017-05-26' AS Date), 0, NULL, N'78d5a7af-a05f-4b5a-a542-b062e789c4a7')
@@ -581,7 +581,7 @@ INSERT [dbo].[Employee] ([ID], [Name], [Department], [Position], [Sex], [Birthda
 GO
 SET IDENTITY_INSERT [dbo].[Employee] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Order] ON
+SET IDENTITY_INSERT [dbo].[Order] ON 
 
 GO
 INSERT [dbo].[Order] ([Id], [CreateAt], [SubTotal], [PromotionDiscount], [ClassDiscount], [Total], [Status], [CustomerID], [UserId], [Note], [TableID]) VALUES (1, CAST(N'2017-12-30 17:51:23.057' AS DateTime), 540000, 0, 15, 459000, 1, 1, N'78d5a7af-a05f-4b5a-a542-b062e789c4a7', N'', 4)
@@ -608,7 +608,7 @@ INSERT [dbo].[Order] ([Id], [CreateAt], [SubTotal], [PromotionDiscount], [ClassD
 GO
 SET IDENTITY_INSERT [dbo].[Order] OFF
 GO
-SET IDENTITY_INSERT [dbo].[OrderDish] ON
+SET IDENTITY_INSERT [dbo].[OrderDish] ON 
 
 GO
 INSERT [dbo].[OrderDish] ([Id], [Quantity], [UnitPrice], [Discount], [DishID], [OrderID]) VALUES (1, 1, 50000, 0, 1, 1)
@@ -715,7 +715,7 @@ INSERT [dbo].[OrderDish] ([Id], [Quantity], [UnitPrice], [Discount], [DishID], [
 GO
 SET IDENTITY_INSERT [dbo].[OrderDish] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Promotion] ON
+SET IDENTITY_INSERT [dbo].[Promotion] ON 
 
 GO
 INSERT [dbo].[Promotion] ([Id], [DiscountPercent], [Name], [Description], [CreateAt], [ExpireAt]) VALUES (1, 12, N'12', N'12', CAST(N'2017-12-30' AS Date), CAST(N'2018-01-11' AS Date))
@@ -726,7 +726,7 @@ INSERT [dbo].[Promotion] ([Id], [DiscountPercent], [Name], [Description], [Creat
 GO
 SET IDENTITY_INSERT [dbo].[Promotion] OFF
 GO
-SET IDENTITY_INSERT [dbo].[SubCategory] ON
+SET IDENTITY_INSERT [dbo].[SubCategory] ON 
 
 GO
 INSERT [dbo].[SubCategory] ([ID], [Name], [Description], [CategoryID]) VALUES (1, N'Salad', N'Salad', 1)
@@ -755,7 +755,7 @@ INSERT [dbo].[SubCategory] ([ID], [Name], [Description], [CategoryID]) VALUES (1
 GO
 SET IDENTITY_INSERT [dbo].[SubCategory] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Table] ON
+SET IDENTITY_INSERT [dbo].[Table] ON 
 
 GO
 INSERT [dbo].[Table] ([Id], [Code], [Description], [Status], [GroupTableID]) VALUES (1, N'1', N'Bàn 1', 2, NULL)
@@ -787,9 +787,9 @@ SET ANSI_PADDING ON
 GO
 /****** Object:  Index [UK_Employee]    Script Date: 1/8/2018 10:13:35 PM ******/
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Employee]') AND name = N'UK_Employee')
-ALTER TABLE [dbo].[Employee] ADD  CONSTRAINT [UK_Employee] UNIQUE NONCLUSTERED
+ALTER TABLE [dbo].[Employee] ADD  CONSTRAINT [UK_Employee] UNIQUE NONCLUSTERED 
 (
-  [UserId] ASC
+	[UserId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_dbo.AspNetUserClaims_dbo.AspNetUsers_UserId]') AND parent_object_id = OBJECT_ID(N'[dbo].[AspNetUserClaims]'))
