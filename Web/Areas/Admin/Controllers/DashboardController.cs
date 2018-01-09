@@ -34,7 +34,7 @@ namespace Web.Areas.Admin.Controllers
 
             // var countBanTrong = db.Tables.Where(t => t.Status == 0).Count();
             var countBanTrong = db.Tables.Where(t => t.Status == 0).Count();
-            var countBanDangSuDung = db.Tables.Where(t => t.Status == 1).Count();
+            var countBanDangSuDung = db.Tables.Where(t => t.Status == 2).Count();
 
             var countKHBac = db.Customers.Where(t => t.Class == 0).Count();
             var countKHVang = db.Customers.Where(t => t.Class == 1).Count();
